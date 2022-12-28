@@ -1,0 +1,40 @@
+{
+    "messages": [
+      {
+        "chatId": 1,
+        "messageId": 0,
+        "sender": "newUser1234",
+        "recipient": "Daley",
+        "message": "Hey there, message 1",
+		    "date": "2022-12-01",
+        "seen": false
+      },
+      {
+        "chatId": 1,
+        "messageId": 1,
+        "sender": "Daley",
+        "recipient": "newUser1234",
+        "message": "Hey there, message 2",
+		    "date": "2022-12-01",
+        "seen": false
+      },
+      {
+        "chatId": 2,
+        "messageId": 2,
+        "sender": "yojivia",
+        "recipient": "Daley",
+        "message": "Yo mannnnnnnn",
+		    "date": "2022-12-01",
+        "seen": false
+      },
+      {
+        "chatId": 2,
+        "messageId": 3,
+        "sender": "Daley",
+        "recipient": "yojivia",
+        "message": "sup dawwwggggggg",
+		    "date": "2022-12-01",
+        "seen": false
+      }
+	]
+}

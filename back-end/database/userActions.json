@@ -1,0 +1,26 @@
+{
+    "userActions": [
+      {
+        "actionId": 0,
+        "type": "friendRequest",
+        "sender": "newUser1234",
+        "recipient": "Daley",
+        "message": " wants to be your friend!",
+        "seen": false,
+        "approved": false,
+        "date": "2021-10-20",
+        "relativePost": null        
+      },
+      {
+        "actionId": 1,
+        "type": "postLike",
+        "sender": "newUser1234",
+        "recipient": "Daley",
+        "message": " liked your post!",
+        "seen": false,
+        "approved": false,
+        "date": "2021-11-20",
+        "relativePost": 31        
+      }
+    ]
+  }

@@ -1,0 +1,72 @@
+{
+    "circles": [
+		{
+		"circleName": "Animation",
+		"users": 0
+		},      
+		{
+		"circleName": "Business",
+		"users": 0
+		},
+	  {
+        "circleName": "Music",
+        "users": 0
+      },
+	  {
+        "circleName": "Photography",
+        "users": 0
+      },
+	  {
+        "circleName": "Design",
+        "users": 0
+      },
+	  {
+        "circleName": "Science",
+        "users": 0
+      },
+	  {
+        "circleName": "Technology",
+        "users": 0
+      },
+	  {
+        "circleName": "Events",
+        "users": 0
+      },
+	  {
+        "circleName": "Writing",
+        "users": 0
+      },
+	  {
+        "circleName": "Drawing",
+        "users": 0
+      },
+	  {
+        "circleName": "E-sports",
+        "users": 0
+      },
+	  {
+        "circleName": "Fashion",
+        "users": 0
+      },
+	  {
+        "circleName": "Film & Television",
+        "users": 0
+      },
+	  {
+        "circleName": "Art",
+        "users": 0
+      },
+	  {
+        "circleName": "Gaming",
+        "users": 0
+      },
+	  {
+        "circleName": "Coding",
+        "users": 0
+      },
+	  {
+        "circleName": "News",
+        "users": 0
+      }
+	]
+}

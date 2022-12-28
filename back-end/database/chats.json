@@ -1,0 +1,20 @@
+{
+    "chats": [
+      {
+        "chatId": 1,
+        "user1": "newUser1234",
+        "user2": "Daley",
+        "seenByUser1": false,
+        "seenByUser2": false,
+        "lastActive": "time"
+      },
+	  {
+        "chatId": 2,
+        "user1": "Daley",
+        "user2": "yojivia",
+        "seenByUser1": false,
+        "seenByUser2": false,
+        "lastActive": "time"
+      }
+	]
+}
