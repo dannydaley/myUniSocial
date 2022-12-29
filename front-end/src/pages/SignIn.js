@@ -20,7 +20,7 @@ export default class SignIn extends React.Component {
             )   
         } else if (route === 'signup'){
             return (
-                <div
+                 <div
                     style={{
                         backgroundColor: "#292929",
                         display: "flex",

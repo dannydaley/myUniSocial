@@ -41,13 +41,30 @@ export default class LeftBar extends React.Component  {
       return (
         <div>
           <React.Fragment>
-          <CssBaseline />
-          <Container position="fixed" maxWidth="sm" sx={{ position: 'fixed', bgcolor: '#343434', border: '', height: '80vh', width: 300, ml: 2, mr:2,  mt: 16, justifyContent: 'flex-start', alignItems: 'center'}} >
+            <CssBaseline />
+
+          <Container position="fixed" maxWidth="sm" sx={{position: 'fixed', bgcolor: '#343434', border: '',display: "flex", height: '80vh', width: 300, mt: 16, flexDirection: "column",justifyContent: 'flex-start', alignItems: 'center'}} >
             <Box sx={{ padding: 2, bgcolor: 'none'}}>
             <Link to="/myProfile">
-                <img alt=""
-                src={process.env.REACT_APP_SERVER + '/public/' + userProfilePicture} width="200px" height="150px" sx={{ ":hover": { cursor: 'pointer' }}} style={{ boxShadow: "1px 3px 5px 0px black", mb: 3, "hover": { cursor: 'pointer' } }}  
-                            /></Link>
+                                <div    style={{
+                        backgroundImage:
+                            "url(" +
+                            process.env.REACT_APP_SERVER +
+                            "/public/" +
+                            userProfilePicture +
+                            ")",
+                        backgroundSize: "cover",
+                        minWidth: "120px",
+                        height: "120px",
+                        marginBottom: "50px",
+                        border: "1px solid gray",
+                    borderRadius: "50%",
+                    width: '200px',
+                    height: '200px',
+                    ":hover": { cursor: 'pointer' }
+                    }}
+                
+                            ></div></Link>
                 <Stack spacing={2} sx={{  width: 200, margin: '50px auto 0' }}>              
                     <Button variant="contained" onClick={()=>changeCircle('general')} sx={{width: 200, margin: '0 auto'}} >GENERAL</Button>
                 </Stack>
@@ -61,17 +78,41 @@ export default class LeftBar extends React.Component  {
           <div>
             <React.Fragment>
             <CssBaseline />
-            <Container position="fixed" maxWidth="sm" sx={{ position: 'fixed', bgcolor: '#343434', border: '', height: '80vh', width: 300, ml: 2, mr:2,  mt: 16, justifyContent: 'flex-start', alignItems: 'center'}} >
-              <Box sx={{ padding: 2, bgcolor: 'none'}}>
+          <Container position="fixed" maxWidth="sm" sx={{  position: 'fixed', bgcolor: '#343434', border: '',display: "flex", height: '80vh', width: 300, mt: 16, flexDirection: "column",justifyContent: 'flex-start', alignItems: 'center'}} >
+            <Box sx={{ padding: 2, bgcolor: 'none'}}>
               <Link to="/myProfile">
-                  <img alt=""
-                  src={process.env.REACT_APP_SERVER + '/public/' + userProfilePicture} width="200px" height="150px" sx={{ ":hover": { cursor: 'pointer' }}} style={{ boxShadow: "1px 3px 5px 0px black", mb: 3, "hover": { cursor: 'pointer' } }}  
-                  /></Link>
+                <div
+                  style={{
+                    backgroundImage:
+                      "url(" +
+                      process.env.REACT_APP_SERVER +
+                      "/public/" +
+                      userProfilePicture +
+                      ")",
+                    backgroundSize: "cover",
+                    minWidth: "120px",
+                    height: "120px",
+                    marginBottom: "50px",
+                    border: "1px solid gray",
+                    borderRadius: "50%",
+                    width: '200px',
+                    height: '200px',
+                    ":hover": { cursor: 'pointer' }
+                      }}>
+                    </div>
+                  </Link>
                   <Stack spacing={2} sx={{  width: 240, margin: '50px auto 0', height: '500px', overflowY: 'auto'}}>              
-                      <Button variant="contained" onClick={()=>changeCircle('general')} style={{width: '200px', margin: '5px auto'}} >GENERAL</Button>
+                                              <Button
+                            variant="contained"
+                            sx={{backgroundColor: "#f5c732",mb: "50px","&:hover": { backgroundColor: "gray" }}}
+                size="medium" onClick={()=>changeCircle('general')}>GENERAL</Button>
                       {this.state.circles.map(circle => (
                         circle.length > 2 ?
-                          <Button key={circle} variant="contained" onClick={()=>changeCircle(`${circle}`)} style={{width: '200px', margin: '5px auto'}} >{circle}</Button>
+                          <Button
+                            variant="contained"
+                            sx={{backgroundColor: "#f5c732",mb: "50px","&:hover": { backgroundColor: "gray" }}}
+                size="medium"
+                 onClick={() => changeCircle(`${circle}`)}>{circle}</Button>
                         : ''
                       ))}
                   </Stack>

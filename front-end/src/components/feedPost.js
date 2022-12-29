@@ -37,22 +37,25 @@ export default function FeedPost(props) {
                     <Typography sx={{ mb: 1.5 , overflowX: 'hidden', color:"white", fontSize: 16 , textAlign: 'left'}}>
                         {content}
                     </Typography>
+                    <div style={{paddingBottom: '30px',display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly'}}>
                     {images ? images.map(image => (                                                             
                                   /* RENDER THE COMPONENT WITH PROPS PASSED IN FROM THE SPECIFIC ITEM WERE CURRENTLY ON FOR EACH ITEM PASSED OVER BY THE .MAP */
                                     <img alt=""
                                     key={authorLastName + postId + image} src={process.env.REACT_APP_SERVER + '/public/' + image}
                                     width={"200px"}
                                      />                                     
-                                )) : ''}
+                    )) : ''}
+                    </div>
+                    <PostActions
+                        postId={postId}
+                        likes={likes}
+                        dislikes={dislikes}
+                        loggedInUsername={loggedInUsername}
+                        authorUsername={authorUsername}
+                    />
                                 </div>
             </CardContent>
-            <PostActions
-                postId={postId}
-                likes={likes}
-                dislikes={dislikes}
-                loggedInUsername={loggedInUsername}
-                authorUsername={authorUsername}
-            />
+
             <Divider variant="middle" />
         </div>
     )

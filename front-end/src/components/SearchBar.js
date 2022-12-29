@@ -22,19 +22,21 @@ export default class SearchBar extends React.Component {
   }
 
   Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.55),
-    },  
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto'},
-    })
-  );
-  
+        color: 'black',
+        position: "relative",
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        "&:hover": {
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        [theme.breakpoints.up("sm")]: {
+            margin: "0 auto",
+            minWidth: "500px",
+            maxWidth: "100%",
+        },
+    }));
   SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',

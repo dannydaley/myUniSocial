@@ -54,7 +54,13 @@ onSubmitSignIn = () => {
     render () { 
         const { onRouteChange } = this.props;
         return (
-                <div style={{width: '30%', padding: '10ch',backgroundColor: "#f5c732"}}>
+                        <div
+            style={{
+                width: "30%",
+                padding: "10ch",
+                backgroundColor: "#f5c732",
+            }}
+        >
                     <Box component="form" sx={{'& .MuiTextField-root': { m: 1, width: '30ch' } }} noValidate autoComplete="off">
                         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} onSubmit={()=> this.onSubmitSignIn()}>
                             <TextField

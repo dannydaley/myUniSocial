@@ -163,11 +163,14 @@ export default class NewPost extends React.Component {
                     endIcon={<SendIcon />}
                     loadingPosition="end" 
                     variant="contained"
-                    sx={{mb: 3}}
+              sx={{
+                backgroundColor: "#f5c732",
+                mb: 3
+              }}
                 >
                     Post
                 </LoadingButton>
-                <div style={{margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                {/* <div style={{margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <Typography
                   sx={{fontWeight: 'bold', color: 'white'}}
                   title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)">
@@ -177,8 +180,9 @@ export default class NewPost extends React.Component {
                   component={this.Root}
                   {...this.label}
                   onChange={this.onStrictChange}
-                  title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)" /></div>                     
-                <Divider variant="middle" sx={{mt: 5}} />
+                  title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)" /></div>                      */}
+                
+            <Divider variant="middle" sx={{ mt: 5 }} />
             </div>
         );
     }

@@ -63,7 +63,10 @@ export default class PostActions extends React.Component {
   
                     </div>
                 <div style={{width: '20vw'}}>
-                    <Button variant="contained" style={{width: '80%'}}title="Commenting is not yet functional" >
+                                            <Button
+                            variant="contained"
+                            sx={{backgroundColor: "#f5c732",mb: "50px","&:hover": { backgroundColor: "gray" }}}
+                size="medium"title="Commenting is not yet functional" >
                         View / Add Comment
                     </Button>                
                 </div>

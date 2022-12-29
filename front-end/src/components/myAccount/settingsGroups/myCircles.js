@@ -80,7 +80,7 @@ export default class MyCircles extends React.Component {
                             paddingBottom: 2,
                             bgcolor: 'none'
                             }}>
-                                {settings}
+                                My Modules
                     </Typography>
                 </div>
             )
@@ -98,7 +98,7 @@ export default class MyCircles extends React.Component {
                             paddingBottom: 2,
                             bgcolor: 'none'
                             }}>
-                                {settings}
+                                My Modules
                     </Typography>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{mt: 4}}>
                         {circles.map(circle => 

@@ -98,7 +98,7 @@ export default class MyAccountSettings extends React.Component {
                 <Box sx={{ padding: 2, bgcolor: 'none', display: 'flex', justifyContent: 'center', mt: 2}}>
                     <CircularProgress />                    
                 </Box>
-                <h1 style={{ color: 'white' }}>loading {this.state.settings}</h1>
+                <h1 style={{ color: 'white' }}>loading {/* {this.state.settings}*/}</h1>
                 <Divider variant="middle" sx={{mt: 1.5, mb: 1.5}} />
               </Container>
             </React.Fragment>

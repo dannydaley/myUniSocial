@@ -21,11 +21,23 @@ export default class MyAccountLeftBar extends React.Component  {
                 <img alt="" src={process.env.REACT_APP_SERVER + '/public/' + userProfilePicture} width="200px" height="150px" style={{ boxShadow: "1px 3px 5px 0px black", mb: 3 }} />
               </Link>              
                 <Typography variant="h5" component="div" color="white" sx={{textAlign: 'center', mt: 2}}>{userFirstName}'s settings</Typography>
-                <Stack spacing={2} sx={{  width: 200, margin: '50px auto 0' }}>
-                  <Button variant="contained" sx={{textTransform: 'none'}} onClick={()=>changeSettings('My information')}>General</Button>
-                  <Button variant="contained" sx={{textTransform: 'none'}} onClick={()=>changeSettings('My Circles')}>My Circles</Button>
-                  <Button variant="contained" sx={{textTransform: 'none'}} onClick={()=>changeSettings('My friends')}>My friends</Button>
-                  <Button variant="contained" sx={{textTransform: 'none'}} onClick={()=>changeSettings('My login info')}>My login info</Button>
+              <Stack spacing={2} sx={{ width: 200, margin: '50px auto 0' }}>
+                <Button
+                  variant="contained"
+                  sx={{backgroundColor: "#f5c732","&:hover": { backgroundColor: "gray" }, textTransform: 'none'}}
+                  size="medium" onClick={()=>changeSettings('My information')}>General</Button>
+                                <Button
+                  variant="contained"
+                  sx={{backgroundColor: "#f5c732", "&:hover": { backgroundColor: "gray" }, textTransform: 'none'}}
+                  size="medium" onClick={()=>changeSettings('My Circles')}>My Modules</Button>
+                                  <Button
+                  variant="contained"
+                  sx={{backgroundColor: "#f5c732","&:hover": { backgroundColor: "gray" }, textTransform: 'none'}}
+                  size="medium"  onClick={()=>changeSettings('My friends')}>My friends</Button>
+                                  <Button
+                  variant="contained"
+                  sx={{backgroundColor: "#f5c732","&:hover": { backgroundColor: "gray" }, textTransform: 'none'}}
+                  size="medium" onClick={()=>changeSettings('My login info')}>My login info</Button>
                 </Stack>
             </Box>
             {/* <Typography variant="h6" component="div" color="white" sx={{textAlign: 'center', mt: 2}}>Users info</Typography> */}

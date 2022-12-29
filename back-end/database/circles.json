@@ -1,23 +1,23 @@
 {
     "circles": [
 		{
-		"circleName": "Animation",
+		"circleName": "COMP110",
 		"users": 0
 		},      
 		{
-		"circleName": "Business",
+		"circleName": "COMP120",
 		"users": 0
 		},
 	  {
-        "circleName": "Music",
+        "circleName": "COMP130",
         "users": 0
       },
 	  {
-        "circleName": "Photography",
+        "circleName": "COMP140",
         "users": 0
       },
 	  {
-        "circleName": "Design",
+        "circleName": "COMP150",
         "users": 0
       },
 	  {
