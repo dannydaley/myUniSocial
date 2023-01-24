@@ -1,64 +1,64 @@
 {
     "circles": [
-		{
-		"circleName": "COMP110",
-		"users": 0
-		},      
-		{
-		"circleName": "COMP120",
-		"users": 0
-		},
-	  {
-        "circleName": "COMP130",
-        "users": 0
-      },
-	  {
-        "circleName": "COMP140",
-        "users": 0
-      },
-	  {
-        "circleName": "COMP150",
-        "users": 0
-      },
-	  {
-        "circleName": "WEB110",
-        "users": 0
-      },
-	  {
-        "circleName": "WEB120",
-        "users": 0
-      },
-	  {
-        "circleName": "WEB130",
-        "users": 0
-      },
-	  {
-        "circleName": "WEB140",
-        "users": 0
-      },
-	  {
-        "circleName": "WEB150",
-        "users": 0
-      },
-	  {
-        "circleName": "GAM110",
-        "users": 0
-      },
-	  {
-        "circleName": "GAM120",
-        "users": 0
-      },
-	  {
-        "circleName": "GAM130",
-        "users": 0
-      },
-	  {
-        "circleName": "GAM140",
-        "users": 0
-      },
-	  {
-        "circleName": "GAM150",
-        "users": 0
-    }
-	]
+        {
+            "circleName": "COMP110",
+            "users": 0
+        },
+        {
+            "circleName": "COMP120",
+            "users": 0
+        },
+        {
+            "circleName": "COMP130",
+            "users": 0
+        },
+        {
+            "circleName": "COMP140",
+            "users": 0
+        },
+        {
+            "circleName": "COMP150",
+            "users": 0
+        },
+        {
+            "circleName": "WEB110",
+            "users": 0
+        },
+        {
+            "circleName": "WEB120",
+            "users": 0
+        },
+        {
+            "circleName": "WEB130",
+            "users": 0
+        },
+        {
+            "circleName": "WEB140",
+            "users": 0
+        },
+        {
+            "circleName": "WEB150",
+            "users": 0
+        },
+        {
+            "circleName": "GAM110",
+            "users": 0
+        },
+        {
+            "circleName": "GAM120",
+            "users": 0
+        },
+        {
+            "circleName": "GAM130",
+            "users": 0
+        },
+        {
+            "circleName": "GAM140",
+            "users": 0
+        },
+        {
+            "circleName": "GAM150",
+            "users": 0
+        }
+    ]
 }
