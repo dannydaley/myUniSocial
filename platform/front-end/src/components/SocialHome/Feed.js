@@ -1,14 +1,12 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import FeedPost from "./feedPost";
-import NewPost from "./newPost";
+import FeedPost from "./FeedPost";
+import NewPost from "./NewPost";
 import CircularProgress from "@mui/material/CircularProgress";
 import Divider from "@mui/material/Divider";
-import Overlay from "./overlay";
 
 export default class Feed extends React.Component {
     constructor(props) {
@@ -21,50 +19,6 @@ export default class Feed extends React.Component {
         };
     }
 
-    // delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-    // delayFunction = async () => {
-    //     await this.delay(1000);
-    // };
-
-    // posts = [];
-    // //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
-    // getFeed = async (newCircle) => {
-    //     alert(newCircle);
-    //     if (!newCircle || newCircle === undefined) {
-    //         newCircle = "general";
-    //     }
-    //     this.setState({ dataIsLoaded: false, circle: newCircle });
-    //     //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-    //     fetch(process.env.REACT_APP_SERVER + "/getFeedFriendsOnly", {
-    //         method: "post",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({
-    //             user: this.props.loggedInUsername,
-    //             profilePicture: this.props.userProfilePicture,
-    //             circle: newCircle,
-    //         }),
-    //     })
-    //         //TURN THE RESPONSE INTO A JSON OBJECT
-    //         .then((response) => response.json())
-    //         .then(await this.delayFunction())
-    //         // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-    //         .then((data) => {
-    //             this.posts = data.posts;
-    //             this.setState({
-    //                 // circle: newCircle,
-    //                 // posts: data.posts,
-    //                 dataIsLoaded: true,
-    //             });
-
-    //             // this.props.getNotifications();
-    //         });
-    // };
-
-    // componentDidMount() {
-    //     // this.getFeed(this.props.circle);
-    // }
-
     render() {
         const {
             onRouteChange,
@@ -75,7 +29,7 @@ export default class Feed extends React.Component {
         } = this.props;
         //SETTING UP ACCESS TO THE STATE VARIABLES
         const { circle, posts, dataIsLoaded } = this.props;
-        console.log(posts);
+
         // IF THE DATA ISNT LOADED YET, LOAD AN ALTERNATIVE WHILE WE WAIT
         if (!dataIsLoaded) {
             return (
@@ -112,7 +66,7 @@ export default class Feed extends React.Component {
                         <CircularProgress />
                     </Box>
                     <h1 style={{ color: "white" }}>
-                        loading {this.state.circle}
+                        Loading {this.props.circle}
                     </h1>
                     <Divider variant="middle" sx={{ mt: 1.5, mb: 1.5 }} />
                     <Typography color="white" sx={{ fontSize: 16, mb: 1.5 }}>
@@ -135,19 +89,16 @@ export default class Feed extends React.Component {
                         ml: 2,
                         mr: 2,
                         mt: 5,
-                        minHeight: "100vh",
                     }}
                 >
-                    <h1 style={{ color: "white" }}>{this.state.circle}</h1>
+                    <h1 style={{ color: "white" }}>{circle}</h1>
                     <NewPost
                         circle={circle}
-                        changeCircle={this.changeCircle}
+                        changeCircle={this.props.changeCircle}
                         userFirstName={userFirstName}
                         userLastName={userLastName}
                         loggedInUsername={loggedInUsername}
                     />
-
-                    <p>{this.feedPosts}</p>
                     <Box sx={{ padding: 2, bgcolor: "none" }}>
                         <Stack
                             spacing={2}

@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import myUni404 from "../assets/myUni404small.png";
+import myUni404 from "../../assets/myUni404small.png";
 import { Link } from "react-router-dom";
 
 export default class HomeLeft extends React.Component {
@@ -113,19 +113,6 @@ export default class HomeLeft extends React.Component {
                                 ""
                             )
                         )}
-                        <a href="http://147.182.247.158:9010/" target="_blank">
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: "#f5c732",
-                                    mb: "50px",
-                                    "&:hover": { backgroundColor: "gray" },
-                                }}
-                                size="medium"
-                            >
-                                <img src={myUni404} width={"105px"} />
-                            </Button>
-                        </a>
                     </Stack>
                 ) : (
                     <div>
@@ -195,12 +182,11 @@ export default class HomeLeft extends React.Component {
                     </div>
                 )}
                 <a
-                    href="https://falmouth.myday.cloud/dashboard/home"
-                    target={"_blank"}
+                    href="http://147.182.247.158:9010/"
+                    target="_blank"
                     rel="noreferrer"
                     style={{
                         justifySelf: "flex-end",
-                        alignSelf: "flex-end",
                         marginTop: "auto",
                         textDecoration: "none",
                     }}
@@ -209,7 +195,27 @@ export default class HomeLeft extends React.Component {
                         variant="contained"
                         sx={{
                             backgroundColor: "#f5c732",
-                            mb: "50px",
+                            mb: "15px",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="medium"
+                    >
+                        <img src={myUni404} width={"105px"} alt="myUni404" />
+                    </Button>
+                </a>
+                <a
+                    href="https://falmouth.myday.cloud/dashboard/home"
+                    target={"_blank"}
+                    rel="noreferrer"
+                    style={{
+                        textDecoration: "none",
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#f5c732",
+                            ml: "10px",
                             "&:hover": { backgroundColor: "gray" },
                         }}
                         size="medium"

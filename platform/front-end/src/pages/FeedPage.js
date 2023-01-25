@@ -1,4 +1,4 @@
-import Feed from "../components/Feed";
+import Feed from "../components/SocialHome/Feed";
 import * as React from "react";
 
 export default class FeedPage extends React.Component {

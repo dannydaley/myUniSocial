@@ -2,7 +2,6 @@ import "./App.css";
 import React, { Component } from "react";
 import SignIn from "./pages/SignIn";
 import NavBar from "./components/navBar";
-import FeedPage from "./pages/FeedPage";
 import ProfilePage from "./pages/ProfilePage";
 import MyAccountPage from "./pages/myAccountPage";
 import theme from "./theme";
@@ -219,31 +218,6 @@ export default class App extends Component {
                                                 this.state.userProfilePicture
                                             }
                                         />
-
-                                        // <FeedPage
-                                        //     getNotifications={
-                                        //         this.getNotifications
-                                        //     }
-                                        //     setNotifications={
-                                        //         this.setNotifications
-                                        //     }
-                                        //     changeMailNotifications={
-                                        //         this.changeMailNotifications
-                                        //     }
-                                        //     onRouteChange={this.onRouteChange}
-                                        //     userFirstName={
-                                        //         this.state.userFirstName
-                                        //     }
-                                        //     userLastName={
-                                        //         this.state.userLastName
-                                        //     }
-                                        //     loggedInUsername={
-                                        //         this.state.loggedInUsername
-                                        //     }
-                                        //     userProfilePicture={
-                                        //         this.state.userProfilePicture
-                                        //     }
-                                        // />
                                     }
                                 />
                                 <Route

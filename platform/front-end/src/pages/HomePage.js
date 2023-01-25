@@ -1,8 +1,8 @@
 import React from "react";
 import Grid from "@mui/material/Grid"; // Grid version 1
-import HomeLeft from "../components/HomeLeft";
-import Feed from "../components/Feed";
-import RightBar from "../components/rightBar";
+import HomeLeft from "../components/SocialHome/HomeLeft";
+import Feed from "../components/SocialHome/Feed";
+import HomeRight from "../components/SocialHome/HomeRight";
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -79,7 +79,7 @@ export default class HomePage extends React.Component {
                     minHeight: "90vh",
                 }}
             >
-                <Grid width={"225px"}>
+                <Grid item width={"225px"}>
                     <HomeLeft
                         changeCircle={this.changeCircle}
                         onRouteChange={onRouteChange}
@@ -88,10 +88,11 @@ export default class HomePage extends React.Component {
                     />
                 </Grid>
 
-                <Grid xs={6} sx={{ margin: "0 auto" }}>
+                <Grid item xs={6} sx={{ margin: "0 auto", width: "100px" }}>
                     <Feed
                         posts={this.state.posts}
                         circle={this.state.circle}
+                        changeCircle={this.changeCircle}
                         getNotifications={getNotifications}
                         changeMailNotifications={this.changeMailNotifications}
                         onRouteChange={onRouteChange}
@@ -102,8 +103,8 @@ export default class HomePage extends React.Component {
                         dataIsLoaded={this.state.dataIsLoaded}
                     />
                 </Grid>
-                <Grid width={"225px"}>
-                    <RightBar loggedInUsername={loggedInUsername} />
+                <Grid item width={"225px"}>
+                    <HomeRight loggedInUsername={loggedInUsername} />
                 </Grid>
             </Grid>
         );

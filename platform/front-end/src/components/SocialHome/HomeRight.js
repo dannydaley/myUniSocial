@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
-export default class RightBar extends React.Component {
+export default class HomeRight extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,10 +36,14 @@ export default class RightBar extends React.Component {
     render() {
         let { loggedInUsername } = this.props;
         return (
-            <div style={{ position: "fixed", width: "100vw" }}>
+            <div
+                style={{
+                    position: "fixed",
+                }}
+            >
                 <React.Fragment>
                     <CssBaseline />
-                    <Container
+                    {/* <Container
                         maxWidth="sm"
                         sx={{
                             float: "right",
@@ -50,6 +54,23 @@ export default class RightBar extends React.Component {
                             mt: 16,
                             justifyContent: "flex-start",
                             alignItems: "center",
+                        }}
+                    > */}
+                    <Container
+                        xs={0}
+                        sx={{
+                            // width: "224px",
+                            padding: "20px",
+                            paddingTop: "110px",
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            flexDirection: "column",
+                            backgroundColor: "#292929",
+                            width: "220px",
+                            height: "100vh",
+                            position: "fixed",
+                            top: 0,
                         }}
                     >
                         <Box sx={{ paddingTop: 1, bgcolor: "none" }}>
@@ -71,7 +92,6 @@ export default class RightBar extends React.Component {
                                     margin: "50px auto 0",
                                 }}
                             >
-                                {/* A FOR EACH LOOP LISTING A BUTTON FOR EACH CIRCLE FOLLOWED IN USER DATA */}
                                 {this.state.friends.map((friend) =>
                                     friend.username !== loggedInUsername ? (
                                         <Link

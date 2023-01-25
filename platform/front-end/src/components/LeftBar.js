@@ -41,7 +41,6 @@ export default class LeftBar extends React.Component {
                 <div>
                     <React.Fragment>
                         <CssBaseline />
-
                         <Container
                             position="fixed"
                             maxWidth="sm"
@@ -70,7 +69,7 @@ export default class LeftBar extends React.Component {
                                                 ")",
                                             backgroundSize: "cover",
                                             minWidth: "120px",
-                                            height: "120px",
+                                            minHeight: "120px",
                                             marginBottom: "50px",
                                             border: "1px solid gray",
                                             borderRadius: "50%",
@@ -130,7 +129,7 @@ export default class LeftBar extends React.Component {
                                                 ")",
                                             backgroundSize: "cover",
                                             minWidth: "120px",
-                                            height: "120px",
+                                            minHeight: "120px",
                                             marginBottom: "50px",
                                             border: "1px solid gray",
                                             borderRadius: "50%",
@@ -188,6 +187,7 @@ export default class LeftBar extends React.Component {
                                     <a
                                         href="http://147.182.247.158:9010/"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         <Button
                                             variant="contained"
@@ -200,7 +200,10 @@ export default class LeftBar extends React.Component {
                                             }}
                                             size="medium"
                                         >
-                                            <img src={myUni404} />
+                                            <img
+                                                src={myUni404}
+                                                alt="myUni404"
+                                            />
                                         </Button>
                                     </a>
                                 </Stack>
