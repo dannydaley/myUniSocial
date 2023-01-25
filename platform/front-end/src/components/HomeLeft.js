@@ -40,15 +40,17 @@ export default class HomeLeft extends React.Component {
             <Container
                 xs={0}
                 sx={{
+                    // width: "224px",
                     padding: "20px",
+                    paddingTop: "110px",
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "center",
                     flexDirection: "column",
                     backgroundColor: "#292929",
-                    width: 1,
-                    height: "94vh",
-                    position: "sticky",
+                    width: "220px",
+                    height: "100vh",
+                    position: "fixed",
                     top: 0,
                 }}
             >
@@ -71,41 +73,47 @@ export default class HomeLeft extends React.Component {
                         }}
                     ></div>
                 </Link>
-                <Button
-                    variant="contained"
-                    sx={{
-                        backgroundColor: "#f5c732",
-                        mb: "50px",
-                        "&:hover": { backgroundColor: "gray" },
-                    }}
-                    size="medium"
-                    onClick={() => this.props.changeRoute("ask")}
-                >
-                    Ask a question
-                </Button>
-                <Stack
-                    spacing={2}
-                    sx={{
-                        width: 240,
-                        margin: "50px auto 0",
-                        height: "500px",
-                        overflowY: "auto",
-                    }}
-                >
-                    <Button
-                        variant="contained"
-                        sx={{
-                            backgroundColor: "#f5c732",
-                            mb: "50px",
-                            "&:hover": { backgroundColor: "gray" },
-                        }}
-                        size="medium"
-                        onClick={() => changeCircle("general")}
+                {dataIsLoaded ? (
+                    <Stack
+                        spacing={2}
+                        direction="column"
+                        sx={{ width: "80%", margin: "0 auto" }}
                     >
-                        GENERAL
-                    </Button>
-                    {this.state.circles.map((circle) =>
-                        circle.length > 2 ? (
+                        <Button
+                            variant="contained"
+                            sx={{
+                                width: "100%",
+                                height: "30px",
+                                backgroundColor: "#f5c732",
+                                "&:hover": { backgroundColor: "gray" },
+                            }}
+                            size="medium"
+                            onClick={() => changeCircle("general")}
+                        >
+                            GENERAL
+                        </Button>
+                        {this.state.circles.map((circle) =>
+                            circle.length >= 2 ? (
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        width: "100%",
+                                        height: "30px",
+                                        backgroundColor: "#f5c732",
+                                        "&:hover": { backgroundColor: "gray" },
+                                    }}
+                                    size="medium"
+                                    onClick={() =>
+                                        this.props.changeCircle(`${circle}`)
+                                    }
+                                >
+                                    {circle}
+                                </Button>
+                            ) : (
+                                ""
+                            )
+                        )}
+                        <a href="http://147.182.247.158:9010/" target="_blank">
                             <Button
                                 variant="contained"
                                 sx={{
@@ -114,88 +122,78 @@ export default class HomeLeft extends React.Component {
                                     "&:hover": { backgroundColor: "gray" },
                                 }}
                                 size="medium"
-                                onClick={() => changeCircle(`${circle}`)}
                             >
-                                {circle}
+                                <img src={myUni404} width={"105px"} />
                             </Button>
-                        ) : (
-                            ""
-                        )
-                    )}
-                    <a href="http://147.182.247.158:9010/" target="_blank">
-                        <Button
-                            variant="contained"
-                            sx={{
-                                backgroundColor: "#f5c732",
-                                mb: "50px",
-                                "&:hover": { backgroundColor: "gray" },
-                            }}
-                            size="medium"
-                        >
-                            <img src={myUni404} />
-                        </Button>
-                    </a>
-                </Stack>
-                <Stack
-                    spacing={2}
-                    direction="column"
-                    sx={{ width: "80%", margin: "0 auto" }}
-                >
-                    <Button
-                        variant="contained"
-                        sx={{
-                            width: "100%",
-                            backgroundColor: "#f5c732",
-                            "&:hover": { backgroundColor: "gray" },
-                        }}
-                        size="medium"
-                        onClick={() => this.props.changeFeed(1, "Web")}
-                    >
-                        Web
-                    </Button>
-                    {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
-                    <Button
-                        variant="contained"
-                        sx={{
-                            width: "100%",
-                            backgroundColor: "#f5c732",
-                            "&:hover": { backgroundColor: "gray" },
-                        }}
-                        size="medium"
-                        onClick={() => this.props.changeFeed(2, "GamDev")}
-                    >
-                        Game Dev
-                    </Button>
-                    {/* </Link>  */}
-                    {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
-                    <Button
-                        variant="contained"
-                        sx={{
-                            width: "100%",
-                            backgroundColor: "#f5c732",
-                            "&:hover": { backgroundColor: "gray" },
-                        }}
-                        size="medium"
-                        onClick={() => this.props.changeFeed(3, "SysOs")}
-                    >
-                        Systems/OS
-                    </Button>
-                    {/* </Link> */}
-                    {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
-                    <Button
-                        variant="contained"
-                        sx={{
-                            width: "100%",
-                            backgroundColor: "#f5c732",
-                            "&:hover": { backgroundColor: "gray" },
-                        }}
-                        size="medium"
-                        onClick={() => this.props.changeFeed(4, "Robotics")}
-                    >
-                        Robotics
-                    </Button>
-                    {/* </Link> */}
-                </Stack>
+                        </a>
+                    </Stack>
+                ) : (
+                    <div>
+                        <React.Fragment>
+                            <CssBaseline />
+                            <Container
+                                position="fixed"
+                                maxWidth="sm"
+                                sx={{
+                                    position: "fixed",
+                                    bgcolor: "#343434",
+                                    border: "",
+                                    display: "flex",
+                                    height: "80vh",
+                                    width: 300,
+                                    mt: 16,
+                                    flexDirection: "column",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Box sx={{ padding: 2, bgcolor: "none" }}>
+                                    <Link to="/myProfile">
+                                        <div
+                                            style={{
+                                                backgroundImage:
+                                                    "url(" +
+                                                    process.env
+                                                        .REACT_APP_SERVER +
+                                                    "/public/" +
+                                                    userProfilePicture +
+                                                    ")",
+                                                backgroundSize: "cover",
+                                                minWidth: "120px",
+                                                height: "120px",
+                                                marginBottom: "50px",
+                                                border: "1px solid gray",
+                                                borderRadius: "50%",
+                                                width: "200px",
+                                                ":hover": { cursor: "pointer" },
+                                            }}
+                                        ></div>
+                                    </Link>
+                                    <Stack
+                                        spacing={2}
+                                        sx={{
+                                            width: 200,
+                                            margin: "50px auto 0",
+                                        }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={() =>
+                                                changeCircle("general")
+                                            }
+                                            sx={{
+                                                width: 200,
+                                                margin: "0 auto",
+                                            }}
+                                        >
+                                            GENERAL
+                                        </Button>
+                                    </Stack>
+                                </Box>
+                            </Container>
+                        </React.Fragment>
+                    </div>
+                )}
                 <a
                     href="https://falmouth.myday.cloud/dashboard/home"
                     target={"_blank"}
@@ -210,12 +208,9 @@ export default class HomeLeft extends React.Component {
                     <Button
                         variant="contained"
                         sx={{
-                            width: "100%",
                             backgroundColor: "#f5c732",
+                            mb: "50px",
                             "&:hover": { backgroundColor: "gray" },
-                            justifySelf: "flex-end",
-                            alignSelf: "flex-end",
-                            marginTop: "auto",
                         }}
                         size="medium"
                     >

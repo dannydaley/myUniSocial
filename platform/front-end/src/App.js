@@ -221,14 +221,28 @@ export default class App extends Component {
                                         />
 
                                         // <FeedPage
-                                        // getNotifications={this.getNotifications}
-                                        //   setNotifications={this.setNotifications}
-                                        //   changeMailNotifications={this.changeMailNotifications}
-                                        //   onRouteChange={this.onRouteChange}
-                                        //   userFirstName={this.state.userFirstName}
-                                        //   userLastName={this.state.userLastName}
-                                        //   loggedInUsername={this.state.loggedInUsername}
-                                        //   userProfilePicture={this.state.userProfilePicture}
+                                        //     getNotifications={
+                                        //         this.getNotifications
+                                        //     }
+                                        //     setNotifications={
+                                        //         this.setNotifications
+                                        //     }
+                                        //     changeMailNotifications={
+                                        //         this.changeMailNotifications
+                                        //     }
+                                        //     onRouteChange={this.onRouteChange}
+                                        //     userFirstName={
+                                        //         this.state.userFirstName
+                                        //     }
+                                        //     userLastName={
+                                        //         this.state.userLastName
+                                        //     }
+                                        //     loggedInUsername={
+                                        //         this.state.loggedInUsername
+                                        //     }
+                                        //     userProfilePicture={
+                                        //         this.state.userProfilePicture
+                                        //     }
                                         // />
                                     }
                                 />
