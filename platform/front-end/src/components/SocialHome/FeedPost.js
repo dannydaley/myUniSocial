@@ -30,8 +30,8 @@ export default function FeedPost(props) {
                             "/public/" +
                             profilePicture
                         }
-                        width="100px"
-                        height="100px"
+                        width="50px"
+                        height="50px"
                         style={{ boxShadow: "1px 3px 5px 0px black", mb: 3 }}
                     />
                 </Link>
@@ -44,7 +44,7 @@ export default function FeedPost(props) {
                         style={{ textDecoration: "none" }}
                     >
                         <Typography
-                            variant="h5"
+                            variant="h6"
                             component="div"
                             color="white"
                             sx={{
@@ -62,7 +62,7 @@ export default function FeedPost(props) {
                             mb: 1.5,
                             overflowX: "hidden",
                             color: "white",
-                            fontSize: 16,
+                            fontSize: 12,
                             textAlign: "left",
                         }}
                     >

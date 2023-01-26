@@ -36,108 +36,82 @@ export default class HomeRight extends React.Component {
     render() {
         let { loggedInUsername } = this.props;
         return (
-            <div
-                style={{
+            <Container
+                xs={0}
+                sx={{
+                    padding: "20px",
+                    paddingTop: "110px",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    backgroundColor: "#292929",
+                    width: "220px",
+                    height: "100vh",
                     position: "fixed",
+                    top: 0,
                 }}
             >
-                <React.Fragment>
-                    <CssBaseline />
-                    {/* <Container
-                        maxWidth="sm"
+                <Box sx={{ paddingTop: 1, bgcolor: "none" }}>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        color="white"
                         sx={{
-                            float: "right",
-                            bgcolor: "#343434",
-                            height: "80vh",
-                            width: 300,
-                            mr: 4,
-                            mt: 16,
-                            justifyContent: "flex-start",
-                            alignItems: "center",
-                        }}
-                    > */}
-                    <Container
-                        xs={0}
-                        sx={{
-                            // width: "224px",
-                            padding: "20px",
-                            paddingTop: "110px",
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "center",
-                            flexDirection: "column",
-                            backgroundColor: "#292929",
-                            width: "220px",
-                            height: "100vh",
-                            position: "fixed",
-                            top: 0,
+                            textAlign: "center",
+                            mt: 2,
                         }}
                     >
-                        <Box sx={{ paddingTop: 1, bgcolor: "none" }}>
-                            <Typography
-                                variant="h6"
-                                component="div"
-                                color="white"
-                                sx={{
-                                    textAlign: "center",
-                                    mt: 2,
-                                }}
-                            >
-                                Friends
-                            </Typography>
-                            <Stack
-                                spacing={1}
-                                sx={{
-                                    width: 250,
-                                    margin: "50px auto 0",
-                                }}
-                            >
-                                {this.state.friends.map((friend) =>
-                                    friend.username !== loggedInUsername ? (
-                                        <Link
-                                            to={`/${friend.username}`}
-                                            style={{ textDecoration: "none" }}
-                                            key={friend.username}
-                                        >
-                                            <Button
-                                                variant="contained"
-                                                sx={{
-                                                    display: "flex",
-                                                    justifyContent:
-                                                        "space-between",
-                                                    width: "100%",
-                                                }}
-                                                color="success"
-                                            >
-                                                <img
-                                                    alt=""
-                                                    key={friend.profilePicture}
-                                                    src={
-                                                        process.env
-                                                            .REACT_APP_SERVER +
-                                                        "/public/" +
-                                                        friend.profilePicture
-                                                    }
-                                                    width="50px"
-                                                    height="50px"
-                                                    style={{
-                                                        mb: 3,
-                                                        borderRadius: "50%",
-                                                    }}
-                                                />
-                                                {friend.firstName}{" "}
-                                                {friend.lastName}
-                                            </Button>
-                                        </Link>
-                                    ) : (
-                                        ""
-                                    )
-                                )}
-                            </Stack>
-                        </Box>
-                    </Container>
-                </React.Fragment>
-            </div>
+                        Friends
+                    </Typography>
+                    <Stack
+                        spacing={1}
+                        sx={{
+                            width: 250,
+                            margin: "50px auto 0",
+                        }}
+                    >
+                        {this.state.friends.map((friend) =>
+                            friend.username !== loggedInUsername ? (
+                                <Link
+                                    to={`/${friend.username}`}
+                                    style={{ textDecoration: "none" }}
+                                    key={friend.username}
+                                >
+                                    <Button
+                                        variant="contained"
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            width: "100%",
+                                        }}
+                                        color="success"
+                                    >
+                                        <img
+                                            alt=""
+                                            key={friend.profilePicture}
+                                            src={
+                                                process.env.REACT_APP_SERVER +
+                                                "/public/" +
+                                                friend.profilePicture
+                                            }
+                                            width="50px"
+                                            height="50px"
+                                            style={{
+                                                mb: 3,
+                                                borderRadius: "50%",
+                                            }}
+                                        />
+                                        {friend.firstName} {friend.lastName}
+                                    </Button>
+                                </Link>
+                            ) : (
+                                ""
+                            )
+                        )}
+                    </Stack>
+                </Box>
+            </Container>
         );
     }
 }

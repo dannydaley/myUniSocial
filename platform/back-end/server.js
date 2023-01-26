@@ -834,7 +834,6 @@ app.post("/updateUserLoginInfo", (req, res) => {
                     }
                 );
             }
-
             //respond with success on completion of changes
             res.json("success with changes");
         } else {
@@ -996,7 +995,6 @@ app.post("/changeCoverPicture", upload.single("image"), (req, res) => {
 //#region FEED
 
 app.post("/getFeedFriendsOnly", (req, res) => {
-    console.log("triggered");
     //set up variables from the request body
     let user = req.body.user;
     // ready friends array to populate
@@ -1061,8 +1059,6 @@ app.post("/getFeedFriendsOnly", (req, res) => {
                                 res.status(500).send(err.message);
                                 return;
                             }
-                            console.log(req.body.circle);
-                            console.log(posts);
                             //respond with posts on success
                             res.json({
                                 posts: posts,
@@ -1116,9 +1112,6 @@ app.post("/getFeedFriendsOnly", (req, res) => {
                                 res.status(500).send(err.message);
                                 return;
                             }
-
-                            console.log(req.body.circle);
-
                             //respond with posts on success
                             res.json({
                                 posts: posts,

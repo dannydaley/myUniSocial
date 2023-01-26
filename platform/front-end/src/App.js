@@ -10,6 +10,7 @@ import ProfileGate from "./pages/ProfileGate";
 import MessagesPage from "./pages/messagesPage";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
+import AccountPage from "./pages/AccountPage";
 
 export default class App extends Component {
     constructor() {
@@ -276,7 +277,26 @@ export default class App extends Component {
                                 <Route
                                     path="myAccount"
                                     element={
-                                        <MyAccountPage
+                                        // <MyAccountPage
+                                        //     refreshData={this.refreshData}
+                                        //     updateSession={this.updateSession}
+                                        //     getNotifications={
+                                        //         this.getNotifications
+                                        //     }
+                                        //     userFirstName={
+                                        //         this.state.userFirstName
+                                        //     }
+                                        //     userProfilePicture={
+                                        //         this.state.userProfilePicture
+                                        //     }
+                                        //     loggedInUsername={
+                                        //         this.state.loggedInUsername
+                                        //     }
+                                        //     userCoverPicture={
+                                        //         this.state.userCoverPicture
+                                        //     }
+                                        // />
+                                        <AccountPage
                                             refreshData={this.refreshData}
                                             updateSession={this.updateSession}
                                             getNotifications={
