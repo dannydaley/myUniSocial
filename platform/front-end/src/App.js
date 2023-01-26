@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import SignIn from "./pages/SignIn";
 import NavBar from "./components/navBar";
 import ProfilePage from "./pages/ProfilePage";
-import MyAccountPage from "./pages/myAccountPage";
+// import MyAccountPage from "./pages/myAccountPage";
 import theme from "./theme";
 import { ThemeProvider } from "@material-ui/core/styles";
 import ProfileGate from "./pages/ProfileGate";

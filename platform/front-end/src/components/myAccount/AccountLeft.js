@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 
 export default class AccountLeft extends React.Component {
     render() {
-        const { userFirstName, changeSettings, userProfilePicture } =
-            this.props;
+        const { changeSettings, userProfilePicture } = this.props;
         return (
             <Container
                 xs={0}

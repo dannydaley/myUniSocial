@@ -13,7 +13,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import myCircleText from "../Images/myCircleText.svg";
 import FalF from "./../assets/FalF.png";
 import SearchBar from "./SearchBar";
 import ShowNotifications from "./navBar/showNotifications";
@@ -248,7 +247,6 @@ function NavBar({
                                         src={FalF}
                                         style={{ width: "45px" }}
                                     />
-
                                     <img
                                         alt=""
                                         src={myUniSocial}

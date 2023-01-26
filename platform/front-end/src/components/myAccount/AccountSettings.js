@@ -1,10 +1,10 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
+
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CircularProgress from "@mui/material/CircularProgress";
 import Divider from "@mui/material/Divider";
-import MyAccountOverlay from "./myAccountOverlay";
+
 import MyInformation from "./settingsGroups/myInformation";
 import MyLoginInfo from "./settingsGroups/myLoginInfo";
 import MyCircles from "./settingsGroups/myCircles";
@@ -14,9 +14,9 @@ export default class AccountSettings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            settings: "My information",
+            settings: this.props.settings,
             posts: [],
-            dataIsLoaded: false,
+            dataIsLoaded: true,
         };
     }
 
@@ -27,35 +27,36 @@ export default class AccountSettings extends React.Component {
     };
 
     //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
-    componentDidMount = async (newSettings) => {
-        if (!newSettings) {
-            newSettings = this.state.settings;
-        }
-        this.setState({ dataIsLoaded: false, settings: newSettings });
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/getFeedByUser", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user: this.props.loggedInUsername,
-                settings: newSettings,
-            }),
-        })
-            //TURN THE RESPONSE INTO A JSON OBJECT
-            .then((response) => response.json())
-            .then(await this.delayFunction())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-            .then((data) => {
-                this.setState({
-                    settings: newSettings,
-                    posts: data,
-                    dataIsLoaded: true,
-                });
-            });
-    };
+    // componentDidMount = async (newSettings) => {
+    //     if (!newSettings) {
+    //         newSettings = this.props.settings;
+    //     }
+    //     this.setState({ dataIsLoaded: false, settings: newSettings });
+    //     //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+    //     fetch(process.env.REACT_APP_SERVER + "/getFeedByUser", {
+    //         method: "post",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({
+    //             user: this.props.loggedInUsername,
+    //             settings: newSettings,
+    //         }),
+    //     })
+    //         //TURN THE RESPONSE INTO A JSON OBJECT
+    //         .then((response) => response.json())
+    //         .then(await this.delayFunction())
+    //         // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+    //         .then((data) => {
+    //             this.setState({
+    //                 settings: newSettings,
+    //                 posts: data,
+    //                 dataIsLoaded: true,
+    //             });
+    //         });
+    // };
 
     changeSettings = (newSettings) => {
-        this.componentDidMount(newSettings);
+        // this.componentDidMount(newSettings);
+        this.setState({ settings: newSettings });
     };
 
     settingsGroup = (selection) => {
@@ -64,7 +65,7 @@ export default class AccountSettings extends React.Component {
                 return (
                     <MyInformation
                         updateSession={this.props.updateSession}
-                        settings={this.state.settings}
+                        settings={this.props.settings}
                         remountParent={this.componentDidMount}
                         loggedInUsername={this.props.loggedInUsername}
                         refreshData={this.props.refreshData}
@@ -73,36 +74,36 @@ export default class AccountSettings extends React.Component {
             case "My Circles":
                 return (
                     <MyCircles
-                        settings={this.state.settings}
+                        settings={this.props.settings}
                         loggedInUsername={this.props.loggedInUsername}
                     />
                 );
             case "My friends":
                 return (
                     <MyFriends
-                        settings={this.state.settings}
+                        settings={this.props.settings}
                         loggedInUsername={this.props.loggedInUsername}
                     />
                 );
             case "My login info":
                 return (
                     <MyLoginInfo
-                        settings={this.state.settings}
+                        settings={this.props.settings}
                         mountComponent={this.componentDidMount}
                     />
                 );
             default:
-                return <MyInformation settings={this.state.settings} />;
+                return <MyInformation settings={this.props.settings} />;
         }
     };
 
     render() {
-        const {
-            userFirstName,
-            userLastName,
-            userProfilePicture,
-            loggedInUsername,
-        } = this.props;
+        // const {
+        //     userFirstName,
+        //     userLastName,
+        //     userProfilePicture,
+        //     loggedInUsername,
+        // } = this.props;
         //SETTING UP ACCESS TO THE STATE VARIABLES
         const { dataIsLoaded } = this.state;
         // IF THE DATA ISNT LOADED YET, LOAD AN ALTERNATIVE WHILE WE WAIT
@@ -156,7 +157,7 @@ export default class AccountSettings extends React.Component {
                         mt: 5,
                     }}
                 >
-                    {this.settingsGroup(this.state.settings)}
+                    {this.settingsGroup(this.props.settings)}
                 </Container>
             );
         }
