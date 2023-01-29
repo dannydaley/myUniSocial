@@ -26,36 +26,7 @@ export default class AccountSettings extends React.Component {
         await this.delay(1000);
     };
 
-    //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
-    // componentDidMount = async (newSettings) => {
-    //     if (!newSettings) {
-    //         newSettings = this.props.settings;
-    //     }
-    //     this.setState({ dataIsLoaded: false, settings: newSettings });
-    //     //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-    //     fetch(process.env.REACT_APP_SERVER + "/getFeedByUser", {
-    //         method: "post",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({
-    //             user: this.props.loggedInUsername,
-    //             settings: newSettings,
-    //         }),
-    //     })
-    //         //TURN THE RESPONSE INTO A JSON OBJECT
-    //         .then((response) => response.json())
-    //         .then(await this.delayFunction())
-    //         // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-    //         .then((data) => {
-    //             this.setState({
-    //                 settings: newSettings,
-    //                 posts: data,
-    //                 dataIsLoaded: true,
-    //             });
-    //         });
-    // };
-
-    changeSettings = (newSettings) => {
-        // this.componentDidMount(newSettings);
+    changeSettings = (newSettings) => {        
         this.setState({ settings: newSettings });
     };
 
