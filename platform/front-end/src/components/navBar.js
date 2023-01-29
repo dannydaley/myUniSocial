@@ -158,7 +158,6 @@ function NavBar({
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
-            {/* <NotificationsButton alertNotifications={alertNotifications} notifications={notifications} /> */}
             Notifications
             <MenuItem>
                 <IconButton
@@ -170,9 +169,7 @@ function NavBar({
                 >
                     <AccountCircle />
                 </IconButton>
-                <p
-                // onClick={()=>onRouteChange('profile')}
-                >
+                <p>
                     <Link to="/myProfile">My Profile</Link>
                 </p>
             </MenuItem>
@@ -197,8 +194,6 @@ function NavBar({
                 <Box
                     sx={{
                         flexGrow: 1,
-                        // justifyItems: "spaceBetween",
-                        // backgroundColor: "#f5c732",
                     }}
                 >
                     <AppBar
