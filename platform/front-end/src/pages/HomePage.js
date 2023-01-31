@@ -88,7 +88,16 @@ export default class HomePage extends React.Component {
                     />
                 </Grid>
 
-                <Grid item xs={6} sx={{ margin: "0 auto", width: "100px" }}>
+                <Grid
+                    item
+                    xs={6}
+                    sx={{
+                        margin: "0 auto",
+                        width: "100px",
+                        paddingBottom: "50px",
+                        minHeight: "100vh",
+                    }}
+                >
                     <Feed
                         posts={this.state.posts}
                         circle={this.state.circle}
@@ -103,7 +112,7 @@ export default class HomePage extends React.Component {
                         dataIsLoaded={this.state.dataIsLoaded}
                     />
                 </Grid>
-                <Grid item width={"225px"}>
+                <Grid item sx={{ width: "225px" }}>
                     <HomeRight loggedInUsername={loggedInUsername} />
                 </Grid>
             </Grid>

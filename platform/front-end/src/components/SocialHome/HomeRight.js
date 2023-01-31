@@ -1,7 +1,6 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -50,6 +49,7 @@ export default class HomeRight extends React.Component {
                     height: "100vh",
                     position: "fixed",
                     top: 0,
+                    paddingRight: "5000px",
                 }}
             >
                 <Box sx={{ paddingTop: 1, bgcolor: "none" }}>
@@ -81,9 +81,12 @@ export default class HomeRight extends React.Component {
                                     <Button
                                         variant="contained"
                                         sx={{
+                                            borderRadius: "30px 5px 5px 30px",
                                             display: "flex",
                                             justifyContent: "space-between",
                                             width: "100%",
+                                            marginRight: "500px",
+                                            paddingRight: "50px",
                                         }}
                                         color="success"
                                     >

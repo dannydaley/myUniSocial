@@ -58,6 +58,7 @@ export default class ShowNotifications extends React.Component {
                 }}
             >
                 {notifications.map((item) => {
+                    console.log(item);
                     if (item.type === "friendRequest") {
                         return (
                             <FriendRequest

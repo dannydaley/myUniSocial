@@ -26,7 +26,7 @@ export default class AccountSettings extends React.Component {
         await this.delay(1000);
     };
 
-    changeSettings = (newSettings) => {        
+    changeSettings = (newSettings) => {
         this.setState({ settings: newSettings });
     };
 

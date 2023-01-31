@@ -85,7 +85,16 @@ export default class AccountPage extends React.Component {
                     />
                 </Grid>
 
-                <Grid item xs={6} sx={{ margin: "0 auto", width: "100px" }}>
+                <Grid
+                    item
+                    xs={6}
+                    sx={{
+                        margin: "0 auto",
+                        width: "100px",
+                        paddingBottom: "50px",
+                        minHeight: "100vh",
+                    }}
+                >
                     <AccountSettings
                         settings={this.state.settings}
                         userFirstName={userFirstName}

@@ -27,8 +27,13 @@ export default class ReactionNotification extends React.Component {
     };
 
     render() {
-        const { firstName, message, senderUsername, clearSingleNotification } =
-            this.props;
+        const {
+            firstName,
+            lastName,
+            message,
+            senderUsername,
+            clearSingleNotification,
+        } = this.props;
         if (!this.state.seen) {
             return (
                 <Button
@@ -52,7 +57,7 @@ export default class ReactionNotification extends React.Component {
                         to={`/${senderUsername}`}
                         onClick={this.setNotificationAsSeen}
                     >
-                        {firstName}
+                        {firstName} {lastName}
                     </Link>
                     <p
                         style={{
