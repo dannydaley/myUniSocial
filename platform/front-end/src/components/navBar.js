@@ -69,6 +69,7 @@ function NavBar({
                 vertical: "top",
                 horizontal: "right",
             }}
+            sx={{ marginTop: "45px", zIndex: "0" }}
             id={menuId}
             keepMounted
             transformOrigin={{
@@ -78,9 +79,7 @@ function NavBar({
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem
-            //  onClick={()=>onRouteChange('profile')}
-            >
+            <MenuItem>
                 <Link
                     to="/"
                     onClick={handleMenuClose}
