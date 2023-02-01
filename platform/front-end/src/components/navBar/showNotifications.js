@@ -6,13 +6,17 @@ import ReactionNotification from "./reactionNotification";
 export default class ShowNotifications extends React.Component {
     clearSingleNotification = (actionId) => {
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/clearSingleNotification", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                actionId: actionId,
-            }),
-        })
+        fetch(
+            process.env.REACT_APP_SERVER +
+                "/notifications/clearSingleNotification",
+            {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    actionId: actionId,
+                }),
+            }
+        )
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             .then((data) => {
@@ -21,13 +25,16 @@ export default class ShowNotifications extends React.Component {
     };
     clearNotifications = () => {
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/clearNotifications", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user: this.props.loggedInUsername,
-            }),
-        })
+        fetch(
+            process.env.REACT_APP_SERVER + "/notifications/clearNotifications",
+            {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    user: this.props.loggedInUsername,
+                }),
+            }
+        )
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             .then((data) =>
@@ -58,7 +65,6 @@ export default class ShowNotifications extends React.Component {
                 }}
             >
                 {notifications.map((item) => {
-                    console.log(item);
                     if (item.type === "friendRequest") {
                         return (
                             <FriendRequest

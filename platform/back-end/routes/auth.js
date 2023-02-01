@@ -1,11 +1,7 @@
 var express = require("express");
-const { request } = require("express");
-
 var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
-
-require("../SQLqueries");
 const { passwordHash, generatePepper } = require("../security");
 const defaultProfilePicture = require("../imageUpload");
 
@@ -151,7 +147,5 @@ router.get("/refreshSessionStatus", (req, res) => {
         res.json("no session");
     }
 });
-
-//#endregion SIGN UP & SIGN IN
 
 module.exports = router;

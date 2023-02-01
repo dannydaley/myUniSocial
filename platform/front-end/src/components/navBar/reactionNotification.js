@@ -12,13 +12,17 @@ export default class ReactionNotification extends React.Component {
 
     setNotificationAsSeen = () => {
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/setNotificationAsSeen", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                actionId: this.props.actionId,
-            }),
-        })
+        fetch(
+            process.env.REACT_APP_SERVER +
+                "/notifications/setNotificationAsSeen",
+            {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    actionId: this.props.actionId,
+                }),
+            }
+        )
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             .then((data) =>

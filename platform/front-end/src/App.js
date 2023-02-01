@@ -38,13 +38,16 @@ export default class App extends Component {
     };
 
     getNotifications = async () => {
-        fetch(process.env.REACT_APP_SERVER + "/getNotifications", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user: this.state.loggedInUsername,
-            }),
-        })
+        fetch(
+            process.env.REACT_APP_SERVER + "/notifications/getNotifications",
+            {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    user: this.state.loggedInUsername,
+                }),
+            }
+        )
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             // .then(await this.delayFunction(1000))
@@ -66,7 +69,7 @@ export default class App extends Component {
     }
 
     confirmFriendRequest = (sender, loggedInUser) => {
-        fetch(process.env.REACT_APP_SERVER + "/confirmFriendRequest", {
+        fetch(process.env.REACT_APP_SERVER + "/friends/confirmFriendRequest", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -77,7 +80,7 @@ export default class App extends Component {
     };
 
     refuseFriendRequest = (sender, loggedInUser) => {
-        fetch(process.env.REACT_APP_SERVER + "/refuseFriendRequest", {
+        fetch(process.env.REACT_APP_SERVER + "/friends/refuseFriendRequest", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -88,7 +91,7 @@ export default class App extends Component {
     };
 
     sendFriendRequest = () => {
-        fetch(process.env.REACT_APP_SERVER + "/friendRequest", {
+        fetch(process.env.REACT_APP_SERVER + "/friends/friendRequest", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -101,7 +104,7 @@ export default class App extends Component {
     onRouteChange = (route) => {
         if (route === "signout") {
             this.setState({ isSignedIn: false });
-            fetch(process.env.REACT_APP_SERVER + "/signout", {
+            fetch(process.env.REACT_APP_SERVER + "/auth/signout", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -132,7 +135,7 @@ export default class App extends Component {
     };
 
     refreshData = () => {
-        fetch(process.env.REACT_APP_SERVER + "/refreshData", {
+        fetch(process.env.REACT_APP_SERVER + "/account/refreshData", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

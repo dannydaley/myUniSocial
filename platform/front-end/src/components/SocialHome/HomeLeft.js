@@ -18,7 +18,7 @@ export default class HomeLeft extends React.Component {
 
     componentDidMount = () => {
         this.setState({ dataIsLoaded: false });
-        fetch(process.env.REACT_APP_SERVER + "/getUsersCircles", {
+        fetch(process.env.REACT_APP_SERVER + "/modules/getUsersCircles", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -56,7 +56,7 @@ export default class HomeLeft extends React.Component {
             >
                 <Link to="/myProfile">
                     <div
-                        onClick={() => this.props.changeRoute("myProfile")}
+                        // onClick={() => this.props.changeRoute("myProfile")}
                         style={{
                             backgroundImage:
                                 "url(" +

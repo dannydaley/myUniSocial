@@ -13,7 +13,7 @@ export default class MyFriends extends React.Component {
     }
 
     deleteFriend = (friend) => {
-        fetch(process.env.REACT_APP_SERVER + "/deleteFriend", {
+        fetch(process.env.REACT_APP_SERVER + "/friends/deleteFriend", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -29,7 +29,7 @@ export default class MyFriends extends React.Component {
 
     componentDidMount = () => {
         this.setState({ dataIsLoaded: false });
-        fetch(process.env.REACT_APP_SERVER + "/getFriends", {
+        fetch(process.env.REACT_APP_SERVER + "/friends/getFriends", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

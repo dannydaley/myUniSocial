@@ -34,7 +34,7 @@ export default class ProfileFeed extends React.Component {
         }
         this.setState({ dataIsLoaded: false, circle: newCircle });
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/getFeedByUser", {
+        fetch(process.env.REACT_APP_SERVER + "/profile/getFeedByUser", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

@@ -17,7 +17,7 @@ export default class HomeRight extends React.Component {
 
     componentDidMount = () => {
         this.setState({ dataIsLoaded: false });
-        fetch(process.env.REACT_APP_SERVER + "/getFriends", {
+        fetch(process.env.REACT_APP_SERVER + "/friends/getFriends", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

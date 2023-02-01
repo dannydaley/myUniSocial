@@ -131,7 +131,7 @@ export default class NewPost extends React.Component {
         formData.append("recipient", recipient);
         formData.append("circle", this.props.circle);
         await axios
-            .post(process.env.REACT_APP_SERVER + "/newPost", formData, {
+            .post(process.env.REACT_APP_SERVER + "/posts/newPost", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 body: JSON.stringify({
                     username: this.props.loggedInUsername,
