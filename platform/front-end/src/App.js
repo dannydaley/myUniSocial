@@ -11,6 +11,7 @@ import MessagesPage from "./pages/messagesPage";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import AccountPage from "./pages/AccountPage";
+import HomePage404 from "./components/myUni404/pages/HomePage404";
 
 export default class App extends Component {
     constructor() {
@@ -21,6 +22,7 @@ export default class App extends Component {
             isSignedIn: false,
             mailNotifications: 0,
             notifications: ["1", "2", "3"],
+            userID: 0,
             alertNotifications: 0,
             userFirstName: "",
             userLastName: "",
@@ -349,6 +351,27 @@ export default class App extends Component {
                                         />
                                     }
                                 />
+                                <Route
+                                    path="myuni404"
+                                    element={
+                                        <HomePage404
+                                            updateProfilePicture={
+                                                this.updateProfilePicture
+                                            }
+                                            userProfilePicture={
+                                                this.state.userProfilePicture
+                                            }
+                                            userData={this.state}
+                                            userID={this.state.userID}
+                                            userFirstName={
+                                                this.state.userFirstName
+                                            }
+                                            userLastName={
+                                                this.state.userLastName
+                                            }
+                                        />
+                                    }
+                                ></Route>
                             </Routes>
                         </div>
                     ) : (

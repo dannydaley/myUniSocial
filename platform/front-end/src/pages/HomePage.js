@@ -28,7 +28,7 @@ export default class HomePage extends React.Component {
         }
         this.setState({ dataIsLoaded: false, circle: newCircle });
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/getFeedFriendsOnly", {
+        fetch(process.env.REACT_APP_SERVER + "/feeds/getFeedFriendsOnly", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -47,7 +47,6 @@ export default class HomePage extends React.Component {
                     posts: data.posts,
                     dataIsLoaded: true,
                 });
-
                 this.props.getNotifications();
             });
     };
