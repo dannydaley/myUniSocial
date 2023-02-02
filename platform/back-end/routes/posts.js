@@ -46,6 +46,8 @@ const GET_POSTS_BY_AUTHOR_BY_CIRCLE =
 const ADD_POST_TO_POSTS = "INSERT INTO `posts` SET ?, date = NOW()";
 const GET_USERS_FOLLOWED_CIRCLES =
     "SELECT `users`.`circles` FROM `users` WHERE `users`.`username` = ?";
+const POST_QUESTION =
+    "INSERT INTO questions (authorID, author, relativePostID, date, title, text, code, language, category, authorProfilePicture, score) VALUES (?, ?, ?, CURDATE(), ?, ?, ?, ?, ?, ?, ?)";
 
 //set up multer middleware for image uploads
 var multer = require("multer");
@@ -184,6 +186,96 @@ router.post("/votePost", (req, res) => {
         // respond with success message on success
         res.json("success applying like to post at database");
     });
+});
+
+router.post("/voteQuestion", (req, res) => {
+    // get the vote status from request
+    let vote = req.body.vote;
+    // get post to apply vote to
+    let postID = req.body.postID;
+    //vote up route
+    if (vote === "up") {
+        db.query(
+            "UPDATE questions SET score = score + 1 WHERE postID = ?",
+            postID,
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            }
+        );
+        // vote down route
+    } else {
+        db.query(
+            "UPDATE questions SET score = score - 1 WHERE postID = ?",
+            postID,
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            }
+        );
+    } //respond with success
+    res.json({
+        status: "success",
+    });
+});
+
+router.post("/postQuestion", (req, res) => {
+    // set up post data from request
+
+    let postData = req.body;
+    // if relative post is zero, its not a reply
+    if (postData.relativePostID === 0) {
+        //increment asked by one on account
+        db.query(
+            "UPDATE users SET asked = asked + 1 WHERE userID = ?",
+            postData.authorID,
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            }
+        );
+    } else {
+        db.query(
+            // otherwise increment answered
+            "UPDATE users SET answered = answered + 1 WHERE username = ?",
+            postData.authorID,
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            }
+        );
+    }
+    db.query(
+        POST_QUESTION,
+        [
+            postData.authorID,
+            postData.author,
+            postData.relativePostID,
+            postData.title,
+            postData.text,
+            postData.code,
+            postData.language,
+            postData.category,
+            postData.authorProfilePicture,
+            0,
+        ],
+        (err, rows) => {
+            if (err) {
+                console.log("failed to add post to database");
+                console.log(err.message);
+                res.status(500).send(err.message);
+                return;
+            }
+            //respond with success
+            res.json({
+                status: "success",
+            });
+        }
+    );
 });
 
 //#en

@@ -271,6 +271,7 @@ export default class FullQuestion extends React.Component {
                         ""
                     )}
                     <CreateReply
+                        loggedInUsername={this.props.loggedInUsername}
                         userProfilePicture={this.props.userProfilePicture}
                         refreshQuestion={this.refreshQuestion}
                         relativePostID={this.props.postID}
@@ -280,6 +281,7 @@ export default class FullQuestion extends React.Component {
                         userID={this.props.userID}
                         userFirstName={this.props.userFirstName}
                         userLastName={this.props.userLastName}
+                        authorID={this.props.authorID}
                     />
                 </div>
             );

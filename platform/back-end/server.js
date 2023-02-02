@@ -5,13 +5,15 @@ const app = express();
 var dotenv = require("dotenv").config();
 const cors = require("cors");
 var bodyParser = require("body-parser");
+var fallback = require("express-history-api-fallback");
 app.use(cors());
 app.use(bodyParser.json());
 var path = require("path");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-app.use(express.static(path.join(__dirname, "build")));
-
+// app.use(express.static(path.join(__dirname, "build")));
+// const root = path.join(__dirname, "../build")
+// app.use(fallbacl("index.html", { root: root }));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "build", "index.html"));
 });
@@ -92,5 +94,6 @@ app.use("/notifications", notificationRoutes);
 app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
 
+app.use(fall);
 app.listen(process.env.PORT);
 console.log("server.js running on port " + process.env.PORT);

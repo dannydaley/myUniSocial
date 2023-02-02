@@ -46,11 +46,11 @@ export default class CreateReply extends React.Component {
         ) {
             this.setState({ shortSubmit: true });
         } else {
-            fetch(process.env.REACT_APP_SERVER + "/postQuestion", {
+            fetch(process.env.REACT_APP_SERVER + "/posts/postQuestion", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    authorID: this.state.authorID,
+                    authorID: this.props.loggedInUsername,
                     author: this.state.author,
                     title: this.state.title,
                     text: this.state.text,

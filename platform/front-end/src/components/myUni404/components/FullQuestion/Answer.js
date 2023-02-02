@@ -20,7 +20,7 @@ export default class Answer extends React.Component {
     votePost = async (vote) => {
         if (this.state.votingOpen) {
             //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-            fetch(process.env.REACT_APP_SERVER + "/vote", {
+            fetch(process.env.REACT_APP_SERVER + "/posts/voteQuestion", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

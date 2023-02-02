@@ -73,12 +73,19 @@ export default class HomePage extends React.Component {
                 container
                 spacing={3}
                 sx={{
+                    overflow: "hidden",
                     backgroundColor: "#333",
-                    marginTop: "60px",
+                    marginTop: "55px",
                     minHeight: "90vh",
                 }}
             >
-                <Grid item width={"225px"}>
+                <Grid
+                    item
+                    sx={{
+                        display: { xs: "none", md: "block" },
+                        width: "225px",
+                    }}
+                >
                     <HomeLeft
                         changeCircle={this.changeCircle}
                         onRouteChange={onRouteChange}
@@ -89,10 +96,12 @@ export default class HomePage extends React.Component {
 
                 <Grid
                     item
-                    xs={6}
+                    xs={12}
+                    md={6}
                     sx={{
+                        paddingRight: { xs: "30px" },
                         margin: "0 auto",
-                        width: "100px",
+                        marginTop: { xs: "-20px" },
                         paddingBottom: "50px",
                         minHeight: "100vh",
                     }}
@@ -111,7 +120,13 @@ export default class HomePage extends React.Component {
                         dataIsLoaded={this.state.dataIsLoaded}
                     />
                 </Grid>
-                <Grid item sx={{ width: "225px" }}>
+                <Grid
+                    item
+                    sx={{
+                        display: { xs: "none", md: "block" },
+                        width: "225px",
+                    }}
+                >
                     <HomeRight loggedInUsername={loggedInUsername} />
                 </Grid>
             </Grid>

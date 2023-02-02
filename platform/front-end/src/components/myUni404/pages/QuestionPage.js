@@ -1,12 +1,7 @@
 import Grid from "@mui/material/Grid"; // Grid version 1
 import HomeLeft from "../components/home/HomeLeft";
 import React from "react";
-import { useLocation } from "react-router-dom";
-
 import FullQuestion from "../components/FullQuestion/FullQuestion";
-// import AskQuestion from "../AskQuestion";
-// import Profile from "../Profile/Profile";
-import NavBar from "../../navBar";
 
 class QuestionPage extends React.Component {
     constructor(props) {
@@ -60,23 +55,23 @@ class QuestionPage extends React.Component {
     render() {
         return (
             <>
-                <NavBar
-                    userData={this.props.userData}
-                    userID={this.props.userID}
-                    viewProfile={this.viewProfile}
-                    readyQuestion={this.readyQuestion}
-                    changeRoute={this.changeRoute}
-                />
                 <Grid
                     container
                     spacing={3}
                     sx={{
+                        overflow: "hidden",
                         backgroundColor: "#333",
-                        marginTop: "60px",
+                        marginTop: "55px",
                         minHeight: "90vh",
                     }}
                 >
-                    <Grid item width={"225px"}>
+                    <Grid
+                        item
+                        sx={{
+                            display: { xs: "none", md: "block" },
+                            width: "225px",
+                        }}
+                    >
                         <HomeLeft
                             userProfilePicture={this.props.userProfilePicture}
                             key={this.state.key}
@@ -86,8 +81,20 @@ class QuestionPage extends React.Component {
                             userData={this.props.userData}
                         />
                     </Grid>
-                    <Grid xs={6} sx={{ margin: "0 auto" }}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{
+                            paddingRight: { xs: "0px" },
+                            margin: "0 auto",
+                            marginTop: { xs: "-20px" },
+                            paddingBottom: "50px",
+                            minHeight: "100vh",
+                        }}
+                    >
                         <FullQuestion
+                            loggedInUsername={this.props.loggedInUsername}
                             userProfilePicture={this.props.userProfilePicture}
                             authorProfilePicture={
                                 this.state.questionInfo.authorProfilePicture
