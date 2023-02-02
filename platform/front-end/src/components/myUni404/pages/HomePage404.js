@@ -72,7 +72,8 @@ class HomePage404 extends React.Component {
                         item
                         sx={{
                             display: { xs: "none", md: "block" },
-                            width: "225px",
+                            width: { md: "1500px", lg: "225px" },
+                            // width: "225px",
                         }}
                     >
                         <HomeLeft
@@ -88,13 +89,15 @@ class HomePage404 extends React.Component {
                     <Grid
                         item
                         xs={12}
-                        md={6}
+                        md={9}
+                        lg={6}
                         sx={{
                             paddingRight: { xs: "0px" },
                             margin: "0 auto",
                             marginTop: { xs: "-20px" },
                             paddingBottom: "50px",
                             minHeight: "100vh",
+                            marginLeft: { md: "18%" },
                         }}
                     >
                         <QuestionFeed
@@ -106,86 +109,6 @@ class HomePage404 extends React.Component {
                             readyQuestion={this.readyQuestion}
                             viewProfile={this.viewProfile}
                         />
-                        {/* <h1>{this.props.loggedInEmail}</h1>
-                        {this.state.route === "feed" ? (
-
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "question" ? (
-                            <FullQuestion
-                                userProfilePicture={
-                                    this.props.userProfilePicture
-                                }
-                                authorProfilePicture={
-                                    this.state.questionInfo.authorProfilePicture
-                                }
-                                viewProfile={this.viewProfile}
-                                key={this.state.key}
-                                userID={this.props.userID}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                                userData={this.props.userData}
-                                title={this.state.questionInfo.title}
-                                author={this.state.questionInfo.author}
-                                text={this.state.questionInfo.text}
-                                code={this.state.questionInfo.code}
-                                postID={this.state.questionInfo.postID}
-                                authorID={this.state.questionInfo.authorID}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "ask" ? (
-                            <AskQuestion
-                                changeFeed={this.changeFeed}
-                                userProfilePicture={
-                                    this.props.userProfilePicture
-                                }
-                                userData={this.props.userData}
-                                userID={this.props.userID}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "myProfile" ? (
-                            <Profile
-                                updateProfilePicture={
-                                    this.props.updateProfilePicture
-                                }
-                                key={this.state.key}
-                                changeKey={this.props.changeKey}
-                                userProfilePicture={
-                                    this.props.userProfilePicture
-                                }
-                                loggedInEmail={this.props.loggedInEmail}
-                                userData={this.props.userData}
-                                userID={this.props.userID}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "profile" ? (
-                            <Profile
-                                updateProfilePicture={
-                                    this.props.updateProfilePicture
-                                }
-                                key={this.state.key}
-                                changeKey={this.props.changeKey}
-                                loggedInEmail={this.props.loggedInEmail}
-                                userData={this.props.userData}
-                                userID={this.state.viewProfile}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                            />
-                        ) : (
-                            ""
-                        )}
-             */}
                     </Grid>
                 </Grid>
             </>

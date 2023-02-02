@@ -84,13 +84,15 @@ class QuestionPage extends React.Component {
                     <Grid
                         item
                         xs={12}
-                        md={6}
+                        md={9}
+                        lg={6}
                         sx={{
                             paddingRight: { xs: "0px" },
                             margin: "0 auto",
                             marginTop: { xs: "-20px" },
                             paddingBottom: "50px",
                             minHeight: "100vh",
+                            marginLeft: { md: "18%" },
                         }}
                     >
                         <FullQuestion

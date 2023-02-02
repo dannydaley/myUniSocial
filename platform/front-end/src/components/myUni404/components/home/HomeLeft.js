@@ -12,14 +12,16 @@ export default function HomeLeft(props) {
             xs={0}
             sx={{
                 // width: "224px",
-                padding: "20px",
-                paddingTop: "110px",
+                padding: { md: "110px 0 0 0", lg: "110 20px 20px 20px" },
+
+                // paddingTop: "110px",
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 flexDirection: "column",
                 backgroundColor: "#292929",
-                width: "220px",
+                width: { md: "150px", lg: "224px" },
+                // border: { }
                 height: "100vh",
                 position: "fixed",
                 top: 0,
@@ -52,7 +54,7 @@ export default function HomeLeft(props) {
                 <Button
                     variant="contained"
                     sx={{
-                        width: "100%",
+                        padding: "5px 0",
                         backgroundColor: "#f5c732",
                         "&:hover": { backgroundColor: "gray" },
                     }}
@@ -65,7 +67,7 @@ export default function HomeLeft(props) {
                 <Button
                     variant="contained"
                     sx={{
-                        width: "100%",
+                        padding: "5px 0",
                         backgroundColor: "#f5c732",
                         "&:hover": { backgroundColor: "gray" },
                     }}
@@ -78,7 +80,7 @@ export default function HomeLeft(props) {
                 <Button
                     variant="contained"
                     sx={{
-                        width: "100%",
+                        padding: "5px 0",
                         backgroundColor: "#f5c732",
                         "&:hover": { backgroundColor: "gray" },
                     }}
@@ -92,7 +94,7 @@ export default function HomeLeft(props) {
                 <Button
                     variant="contained"
                     sx={{
-                        width: "100%",
+                        padding: "5px 0",
                         backgroundColor: "#f5c732",
                         "&:hover": { backgroundColor: "gray" },
                     }}
@@ -106,7 +108,7 @@ export default function HomeLeft(props) {
                 <Button
                     variant="contained"
                     sx={{
-                        width: "100%",
+                        padding: "5px 0",
                         backgroundColor: "#f5c732",
                         "&:hover": { backgroundColor: "gray" },
                     }}
