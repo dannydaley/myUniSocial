@@ -10,7 +10,6 @@ class HomePage404 extends React.Component {
     }
 
     changeKey = () => {
-        alert("triggered");
         this.setState({ key: this.state.key + 1 });
     };
     loggedInEmail = "";

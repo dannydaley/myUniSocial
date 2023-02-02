@@ -40,7 +40,6 @@ export default class HomeLeft extends React.Component {
             <Container
                 xs={0}
                 sx={{
-                    // width: "224px",
                     padding: "20px",
                     paddingTop: "110px",
                     display: "flex",
@@ -181,9 +180,9 @@ export default class HomeLeft extends React.Component {
                         </React.Fragment>
                     </div>
                 )}
-                <a
-                    href="http://147.182.247.158:9010/"
-                    target="_blank"
+                <Link
+                    to="/myuni404"
+                    // target="_blank"
                     rel="noreferrer"
                     style={{
                         justifySelf: "flex-end",
@@ -202,7 +201,7 @@ export default class HomeLeft extends React.Component {
                     >
                         <img src={myUni404} width={"105px"} alt="myUni404" />
                     </Button>
-                </a>
+                </Link>
                 <a
                     href="https://falmouth.myday.cloud/dashboard/home"
                     target={"_blank"}

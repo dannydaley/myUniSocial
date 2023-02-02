@@ -12,6 +12,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import AccountPage from "./pages/AccountPage";
 import HomePage404 from "./components/myUni404/pages/HomePage404";
+import QuestionPage from "./components/myUni404/pages/QuestionPage";
+import QuestionGate from "./components/myUni404/components/FullQuestion/QuestionGate";
 
 export default class App extends Component {
     constructor() {
@@ -369,6 +371,52 @@ export default class App extends Component {
                                             userLastName={
                                                 this.state.userLastName
                                             }
+                                        />
+                                    }
+                                ></Route>
+                                <Route
+                                    path="question/:id"
+                                    element={
+                                        <QuestionGate
+                                            userProfilePicture={
+                                                this.state.userProfilePicture
+                                            }
+                                            getNotifications={
+                                                this.getNotifications
+                                            }
+                                            userFirstName={
+                                                this.state.userFirstName
+                                            }
+                                            userLastName={
+                                                this.state.userLastName
+                                            }
+                                            state={{ from: "the-page-id" }}
+                                            loggedInUsername={
+                                                this.state.loggedInUsername
+                                            }
+
+                                            // authorProfilePicture={
+                                            //     this.state.questionInfo
+                                            //         .authorProfilePicture
+                                            // }
+                                            // viewProfile={this.viewProfile}
+                                            // key={this.state.key}
+                                            // userID={this.props.userID}
+                                            // userData={this.props.userData}
+                                            // title={
+                                            //     this.state.questionInfo.title
+                                            // }
+                                            // author={
+                                            //     this.state.questionInfo.author
+                                            // }
+                                            // text={this.state.questionInfo.text}
+                                            // code={this.state.questionInfo.code}
+                                            // postID={
+                                            //     this.state.questionInfo.postID
+                                            // }
+                                            // authorID={
+                                            //     this.state.questionInfo.authorID
+                                            // }
                                         />
                                     }
                                 ></Route>

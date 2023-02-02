@@ -3,13 +3,12 @@ var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
 const { passwordHash, generatePepper } = require("../security");
-const defaultProfilePicture = require("../imageUpload");
 
 //#region SIGN UP & SIGN IN
 
 const FIND_USER = "SELECT * FROM users WHERE email = ?";
 const SIGN_UP_USER =
-    "INSERT INTO users (email, username, firstName,lastName, password, passwordSalt, profilePicture) VALUES(?,?,?,?,?,?,?)";
+    "INSERT INTO users (email, username, firstName, lastName, password, passwordSalt, aboutMe, course, year, profilePicture, asked, answered) VALUES(?,?,? ,?,?,? ,?,?,? ,?,?,?)";
 
 router.post("/signUp", (req, res) => {
     //set up variables from the request for better readability
@@ -28,8 +27,14 @@ router.post("/signUp", (req, res) => {
         //generate password to store, using password from the confirm field, and the generated salt
         let storePassword = passwordHash(confirmSignUpPassword, passwordSalt);
         //assign default profile picture
-        let profilePicture = defaultProfilePicture;
+        let profilePicture = "images/defaultUser.png";
         //Create a new user in the user database with the fields from the form, the default profile picture and the generated password hash and salt
+        let aboutMe = "I haven't added an about me yet!";
+        let course = "I haven't added my course yet!";
+        let year = 1;
+        let asked = 0;
+        let answered = 0;
+
         db.query(
             SIGN_UP_USER,
             [
@@ -39,11 +44,17 @@ router.post("/signUp", (req, res) => {
                 signUpLastName,
                 storePassword,
                 passwordSalt,
+                aboutMe,
+                course,
+                year,
                 profilePicture,
+                asked,
+                answered,
             ],
             (err, rows) => {
                 if (err) {
                     console.log("failed to add user to database");
+                    console.log(err);
                     // if username already exists in database
                     if (
                         err.message ===

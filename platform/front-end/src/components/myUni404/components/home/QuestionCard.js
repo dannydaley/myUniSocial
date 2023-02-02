@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Divider } from "@mui/material";
 import ReplyIcon from "@mui/icons-material/Reply";
+import { Link } from "react-router-dom";
 
 export default class Question extends React.Component {
     goToQuestion = (
@@ -42,26 +43,33 @@ export default class Question extends React.Component {
                                 alignItems: "top",
                             }}
                         >
-                            <div
-                                style={{
-                                    backgroundImage:
-                                        "url(" +
-                                        process.env.REACT_APP_SERVER +
-                                        "/public/" +
-                                        this.props.authorProfilePicture +
-                                        ")",
-                                    backgroundSize: "cover",
-                                    minWidth: "50px",
-                                    height: "50px",
-                                    marginBottom: "50px",
-                                    border: "1px solid gray",
-                                    borderRadius: "50%",
-                                }}
-                                onClick={() =>
-                                    this.props.viewProfile(this.props.authorID)
-                                }
-                            ></div>
-
+                            {" "}
+                            <Link
+                                to={`/${this.props.authorID}`}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <div
+                                    style={{
+                                        backgroundImage:
+                                            "url(" +
+                                            process.env.REACT_APP_SERVER +
+                                            "/public/" +
+                                            this.props.authorProfilePicture +
+                                            ")",
+                                        backgroundSize: "cover",
+                                        minWidth: "50px",
+                                        height: "50px",
+                                        marginBottom: "50px",
+                                        border: "1px solid gray",
+                                        borderRadius: "50%",
+                                    }}
+                                    onClick={() =>
+                                        this.props.viewProfile(
+                                            this.props.authorID
+                                        )
+                                    }
+                                ></div>
+                            </Link>
                             <Typography
                                 sx={{
                                     fontSize: 15,
@@ -74,25 +82,30 @@ export default class Question extends React.Component {
                             </Typography>
                         </div>
                         <div style={{ width: "80%", marginLeft: "auto" }}>
-                            <Typography
-                                variant="h5"
-                                style={{ textAlign: "left" }}
-                                component="div"
-                                onClick={() =>
-                                    this.goToQuestion(
-                                        this.props.authorProfilePicture,
-                                        this.props.title,
-                                        this.props.poster,
-                                        this.props.question,
-                                        this.props.code,
-                                        this.props.postID,
-                                        this.props.language,
-                                        this.props.authorID
-                                    )
-                                }
+                            <Link
+                                to={`/question/${this.props.postID}`}
+                                style={{ textDecoration: "none" }}
                             >
-                                {this.props.title}
-                            </Typography>
+                                <Typography
+                                    variant="h5"
+                                    style={{ textAlign: "left" }}
+                                    component="div"
+                                    onClick={() =>
+                                        this.goToQuestion(
+                                            this.props.authorProfilePicture,
+                                            this.props.title,
+                                            this.props.poster,
+                                            this.props.question,
+                                            this.props.code,
+                                            this.props.postID,
+                                            this.props.language,
+                                            this.props.authorID
+                                        )
+                                    }
+                                >
+                                    {this.props.title}
+                                </Typography>
+                            </Link>
                             <Typography
                                 variant="body2"
                                 sx={{ textAlign: "left" }}

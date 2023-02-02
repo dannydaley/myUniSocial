@@ -11,6 +11,9 @@ let userActionsDataJSON = require("../database/userActions.json");
 let chatsDataJSON = require("../database/chats.json");
 let messagesDataJSON = require("../database/messages.json");
 let circlesDataJSON = require("../database/circles.json");
+let questionsDataJSON = require("../database/questions.json");
+
+const GET_ALL_QUESTIONS = "SELECT * FROM `questions` ORDER BY postID DESC";
 
 //#region SQL SETUP ENDPOINTS
 
@@ -21,7 +24,7 @@ router.get("/usersSetup", (req, res, next) => {
         db.query("DROP TABLE IF EXISTS `users`");
         //recreate the users table
         db.query(
-            "CREATE TABLE `users` (id INTEGER PRIMARY KEY AUTO_INCREMENT, username varchar(255) UNIQUE, firstName varchar(255), lastName varchar(255), email varchar(255) UNIQUE, password varchar(255), passwordSalt varchar(512), aboutMe text, location varchar(255), education varchar(255), work varchar(255), profilePicture varchar(255), coverPicture varchar(255), circles text)"
+            "CREATE TABLE `users` (id INTEGER PRIMARY KEY AUTO_INCREMENT, username varchar(255) UNIQUE, firstName varchar(255), lastName varchar(255), email varchar(255) UNIQUE, password varchar(255), passwordSalt varchar(512), aboutMe text, course varchar(255), year int, location varchar(255), education varchar(255), work varchar(255), profilePicture varchar(255), coverPicture varchar(255), circles text, asked int, answered int)"
         );
         //create array of users from the dummy data JSON file
         let users = userDataJSON.users;
@@ -29,7 +32,7 @@ router.get("/usersSetup", (req, res, next) => {
         users.forEach((user) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `users` (username, firstName, lastName, email, password, passwordSalt, aboutMe, location, education, work, profilePicture, coverPicture, circles) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)",
+                "INSERT INTO `users` (username, firstName, lastName, email, password, passwordSalt, aboutMe, course, year, location, education, work, profilePicture, coverPicture, circles, asked, answered) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
                 // values passed in from current iteration of the users array
                 [
                     user.username,
@@ -39,12 +42,16 @@ router.get("/usersSetup", (req, res, next) => {
                     user.password,
                     user.passwordSalt,
                     user.aboutMe,
+                    user.course,
+                    user.year,
                     user.location,
                     user.education,
                     user.work,
                     user.profilePicture,
                     user.coverPicture,
                     user.circles,
+                    user.asked,
+                    user.answered,
                 ]
             );
         });
@@ -268,6 +275,54 @@ router.get("/circlesSetup", (req, res, next) => {
     res.send("circles-db-done");
 });
 
+router.get("/questionsSetup", (req, res) => {
+    db.query(() => {
+        // delete any existing user table
+        db.query("DROP TABLE IF EXISTS `questions`"),
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            };
+        //rebuild the users table
+        db.query(
+            "CREATE TABLE `questions` (postID INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), authorID varchar(255), authorProfilePicture VARCHAR(255), date varchar(255), category varchar(255), score INTEGER, relativePostID INTEGER, title varchar(255), text TEXT, code TEXT, language varchar(255))",
+            // "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool)"
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            }
+        );
+        let questions = questionsDataJSON.entries;
+        questions.forEach((question) => {
+            db.query(
+                "INSERT INTO questions (author, authorID, authorProfilePicture, date, category, score, relativePostID, title, text, code, language) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                // pass in values from the json objects
+                [
+                    question.author,
+                    question.authorID,
+                    question.authorProfilePicture,
+                    question.date,
+                    question.category,
+                    question.score,
+                    question.relativePostID,
+                    question.title,
+                    question.text,
+                    question.code,
+                    question.language,
+                ],
+                (err) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                }
+            );
+        });
+    });
+    console.log("questions table set up complete");
+    res.send("Questions table setup complete");
+});
 //#endregion SQL SETUP ENDPOINTS
 
 //#region DATABASE TEST ENDPOINTS
@@ -374,6 +429,21 @@ router.get("/getAllMessages", (req, res, next) => {
         }
         // respond with messageData on success
         res.send(messageData);
+    });
+});
+
+// get all users
+router.get("/getAllQuestions", (req, res, next) => {
+    // grab all user data
+    db.query(GET_ALL_QUESTIONS, [], (err, postData) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            res.status(500).send(err.message);
+            return;
+        }
+        // respond with userData on success
+        res.send(postData);
     });
 });
 

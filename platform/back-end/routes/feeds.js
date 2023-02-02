@@ -6,6 +6,12 @@ const db = require("../config/database");
 const GET_ALL_USERS_FRIENDS =
     "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
 
+const GET_QUESTION_FEED =
+    "SELECT * FROM `questions` WHERE (title != ?) AND (category = ?) ORDER BY postID DESC";
+
+const GET_QUESTION_REPLIES =
+    "SELECT * FROM questions WHERE relativePostID = ? ORDER BY score DESC";
+
 router.post("/getFeedFriendsOnly", (req, res) => {
     //set up variables from the request body
     let user = req.body.user;
@@ -169,6 +175,61 @@ router.post("/getFeedFriendsOnly", (req, res) => {
                 }
             );
         }
+    });
+});
+
+router.post("/getQuestion", (req, res, next) => {
+    // grab all user data
+
+    //dont include 'reply' as title to not pull replies
+
+    postID = req.body.postID;
+    db.query(
+        "SELECT * FROM questions WHERE postID = ?",
+        [postID],
+        (err, postData) => {
+            // if error
+            if (err) {
+                // respond with error status and error message
+                res.status(500).send(err.message);
+                return;
+            }
+            //respond with userData on success
+            res.json(postData);
+        }
+    );
+});
+
+router.post("/getQuestionFeed", (req, res, next) => {
+    // grab all user data
+    //dont include 'reply' as title to not pull replies
+    let dontInclude = "reply";
+    let category = req.body.feed;
+    db.query(GET_QUESTION_FEED, [dontInclude, category], (err, postData) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            res.status(500).send(err.message);
+            return;
+        }
+        // respond with userData on success
+        res.json(postData);
+    });
+});
+
+router.post("/getQuestionReplies", (req, res, next) => {
+    // grab all user data
+
+    let relativePostID = req.body.postID;
+    db.query(GET_QUESTION_REPLIES, relativePostID, (err, postData) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            res.status(500).send(err.message);
+            return;
+        }
+        // respond with userData on success
+        res.json(postData);
     });
 });
 
