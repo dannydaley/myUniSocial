@@ -94,6 +94,6 @@ app.use("/notifications", notificationRoutes);
 app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
 
-app.use(fall);
+// app.use(fall);
 app.listen(process.env.PORT);
 console.log("server.js running on port " + process.env.PORT);
