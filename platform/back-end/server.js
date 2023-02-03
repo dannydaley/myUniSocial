@@ -5,7 +5,7 @@ const app = express();
 var dotenv = require("dotenv").config();
 const cors = require("cors");
 var bodyParser = require("body-parser");
-var fallback = require("express-history-api-fallback");
+// var fallback = require("express-history-api-fallback");
 app.use(cors());
 app.use(bodyParser.json());
 var path = require("path");
