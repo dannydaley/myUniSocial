@@ -1,27 +1,18 @@
-import SignInForm from "../components/signIn/SignInForm"
+import SignInForm from "../components/signIn/SignInForm";
 import SignUpForm from "../components/signIn/SignUpForm";
-import SignInLeft from "../components/signIn/SignInLeft"
-import Divider from '@mui/material/Divider';
+import SignInLeft from "../components/signIn/SignInLeft";
+import Divider from "@mui/material/Divider";
 import React from "react";
+import { Box } from "@material-ui/core";
 
 export default class SignIn extends React.Component {
-    
-    
     render() {
-        let { onRouteChange, route, updateSession } = this.props;      
-    
-        if (route === 'signin' || route === 'signout'){        
-            return (        
-                <div style={{backgroundColor: '#292929',display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh',justifyContent: 'space-evenly', alignItems: 'center'}}>
-                    <SignInLeft />
-                    <Divider orientation="vertical" variant="middle" style={{height: '50%'}}/>
-                    <SignInForm onRouteChange={onRouteChange} updateSession={updateSession} />               
-                </div>
-            )   
-        } else if (route === 'signup'){
+        let { onRouteChange, route, updateSession } = this.props;
+
+        if (route === "signin" || route === "signout") {
             return (
-                 <div
-                    style={{
+                <Box
+                    sx={{
                         backgroundColor: "#292929",
                         display: "flex",
                         flexDirection: "row",
@@ -31,12 +22,50 @@ export default class SignIn extends React.Component {
                         alignItems: "center",
                     }}
                 >
-                    <SignInLeft />
-                    <Divider orientation="vertical" variant="middle" style={{height: '50%'}}/>
-                    <SignUpForm onRouteChange={onRouteChange}/>               
-                </div>
-            )
+                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                        <SignInLeft />
+                    </Box>
+                    <Divider
+                        orientation="vertical"
+                        variant="middle"
+                        sx={{
+                            display: { xs: "none", md: "none", lg: "block" },
+                            height: "50%",
+                        }}
+                    />
+                    <SignInForm
+                        onRouteChange={onRouteChange}
+                        updateSession={updateSession}
+                    />
+                </Box>
+            );
+        } else if (route === "signup") {
+            return (
+                <Box
+                    sx={{
+                        backgroundColor: "#292929",
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100vw",
+                        height: "100vh",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                    }}
+                >
+                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                        <SignInLeft />
+                    </Box>
+                    <Divider
+                        orientation="vertical"
+                        variant="middle"
+                        sx={{
+                            display: { xs: "none", md: "none", lg: "block" },
+                            height: "50%",
+                        }}
+                    />
+                    <SignUpForm onRouteChange={onRouteChange} />
+                </Box>
+            );
         }
     }
 }
-

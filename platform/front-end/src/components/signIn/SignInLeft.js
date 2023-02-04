@@ -1,6 +1,7 @@
 //This component handles the image aside from the login/sign up form.
 import myUniSocial from "../../assets/myUniSocial.png";
 import falUni from "../../assets/falLogo.png";
+
 function SignInLeft() {
     return (
         <div

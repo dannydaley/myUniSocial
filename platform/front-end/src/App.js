@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import SignIn from "./pages/SignIn";
 import NavBar from "./components/navBar";
 import ProfilePage from "./pages/ProfilePage";
-// import MyAccountPage from "./pages/myAccountPage";
 import theme from "./theme";
 import { ThemeProvider } from "@material-ui/core/styles";
 import ProfileGate from "./pages/ProfileGate";
@@ -12,7 +11,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import AccountPage from "./pages/AccountPage";
 import HomePage404 from "./components/myUni404/pages/HomePage404";
-import QuestionPage from "./components/myUni404/pages/QuestionPage";
 import QuestionGate from "./components/myUni404/components/FullQuestion/QuestionGate";
 
 export default class App extends Component {
