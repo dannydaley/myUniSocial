@@ -53,6 +53,8 @@ export default class HomePage extends React.Component {
 
     componentDidMount() {
         this.getFeed(this.state.circle);
+
+        this.props.SwitchPlatform("myUniSocial");
     }
     // //CHANGE CIRCLE SHOULD BE REMOVED AND JUST CALL GET FEED INSTEAD, THIS IS AN UNNESSECARY MIDDLE MAN
     changeCircle = (newCircle) => {

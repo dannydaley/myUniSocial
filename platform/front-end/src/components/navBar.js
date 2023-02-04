@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
-import myUniSocial from "./../../src/logo.png";
+import myUniSocial from "../assets/myUniSocial.png";
+import myUni404 from "../assets/myUni404small.png";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,8 +19,11 @@ import SearchBar from "./SearchBar";
 import ShowNotifications from "./navBar/showNotifications";
 import { Link } from "react-router-dom";
 import ShowMessages from "./navBar/showMessages";
+import { getThemeProps } from "@mui/system";
 
 function NavBar({
+    platform,
+
     getNotifications,
     refuseFriendRequest,
     confirmFriendRequest,
@@ -241,12 +245,21 @@ function NavBar({
                                         src={FalF}
                                         style={{ width: "45px" }}
                                     />
-                                    <img
-                                        alt=""
-                                        src={myUniSocial}
-                                        // height="50px"
-                                        width="150px"
-                                    />
+                                    {platform === "myUniSocial" ? (
+                                        <img
+                                            alt=""
+                                            src={myUniSocial}
+                                            // height="50px"
+                                            width="150px"
+                                        />
+                                    ) : (
+                                        <img
+                                            alt=""
+                                            src={myUni404}
+                                            // height="50px"
+                                            width="150px"
+                                        />
+                                    )}
                                 </Link>
                             </Typography>
 

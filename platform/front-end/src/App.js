@@ -21,6 +21,7 @@ export default class App extends Component {
         this.state = {
             input: "",
             route: "signin",
+            platform: "myUniSocial",
             isSignedIn: false,
             mailNotifications: 0,
             notifications: ["1", "2", "3"],
@@ -40,6 +41,8 @@ export default class App extends Component {
     delayFunction = (time) => {
         this.delay(time);
     };
+
+    SwitchPlatform = (platform) => this.setState({ platform: platform });
 
     getNotifications = async () => {
         fetch(
@@ -179,6 +182,7 @@ export default class App extends Component {
                     {this.state.isSignedIn === true ? (
                         <div>
                             <NavBar
+                                platform={this.state.platform}
                                 loggedInUsername={this.state.loggedInUsername}
                                 getNotifications={this.getNotifications}
                                 refuseFriendRequest={this.refuseFriendRequest}
@@ -203,6 +207,7 @@ export default class App extends Component {
                                     path="/"
                                     element={
                                         <HomePage
+                                            SwitchPlatform={this.SwitchPlatform}
                                             getNotifications={
                                                 this.getNotifications
                                             }
@@ -232,6 +237,7 @@ export default class App extends Component {
                                     path="myProfile"
                                     element={
                                         <ProfilePage
+                                            SwitchPlatform={this.SwitchPlatform}
                                             getNotifications={
                                                 this.getNotifications
                                             }
@@ -261,6 +267,7 @@ export default class App extends Component {
                                     component={ProfilePage}
                                     element={
                                         <ProfileGate
+                                            SwitchPlatform={this.SwitchPlatform}
                                             getNotifications={
                                                 this.getNotifications
                                             }
@@ -304,6 +311,7 @@ export default class App extends Component {
                                         //     }
                                         // />
                                         <AccountPage
+                                            SwitchPlatform={this.SwitchPlatform}
                                             refreshData={this.refreshData}
                                             updateSession={this.updateSession}
                                             getNotifications={
@@ -328,6 +336,7 @@ export default class App extends Component {
                                     path="messages"
                                     element={
                                         <MessagesPage
+                                            SwitchPlatform={this.SwitchPlatform}
                                             getNotifications={
                                                 this.getNotifications
                                             }
@@ -357,6 +366,7 @@ export default class App extends Component {
                                     path="myuni404"
                                     element={
                                         <HomePage404
+                                            SwitchPlatform={this.SwitchPlatform}
                                             updateProfilePicture={
                                                 this.updateProfilePicture
                                             }
@@ -378,6 +388,7 @@ export default class App extends Component {
                                     path="question/:id"
                                     element={
                                         <QuestionGate
+                                            SwitchPlatform={this.SwitchPlatform}
                                             userProfilePicture={
                                                 this.state.userProfilePicture
                                             }

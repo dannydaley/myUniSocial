@@ -26,6 +26,7 @@ class QuestionPage extends React.Component {
     };
 
     componentDidMount = async () => {
+        this.props.SwitchPlatform("myUni404");
         this.setState({ contentLoaded: false });
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
         fetch(process.env.REACT_APP_SERVER + "/feeds/getQuestion", {

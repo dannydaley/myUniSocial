@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 var path = require("path");
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-// app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "build")));
 // const root = path.join(__dirname, "../build")
 // app.use(fallbacl("index.html", { root: root }));
 app.get("/", function (req, res) {

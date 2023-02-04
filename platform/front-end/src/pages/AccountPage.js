@@ -21,6 +21,7 @@ export default class AccountPage extends React.Component {
 
     //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
     componentDidMount = async (newSettings) => {
+        this.props.SwitchPlatform("myUniSocial");
         if (!newSettings) {
             newSettings = this.state.settings;
         }

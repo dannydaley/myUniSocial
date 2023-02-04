@@ -20,6 +20,8 @@ export default class ProfilePage extends React.Component {
     }
 
     componentDidMount = () => {
+        this.props.SwitchPlatform("myUniSocial");
+
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
         fetch(process.env.REACT_APP_SERVER + "/profile/getUserProfile", {
             method: "post",

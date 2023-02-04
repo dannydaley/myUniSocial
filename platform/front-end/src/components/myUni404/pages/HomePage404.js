@@ -54,6 +54,9 @@ class HomePage404 extends React.Component {
         this.setState({ key: key, viewFeed: feed });
         this.changeRoute("feed");
     };
+    componentDidMount() {
+        this.props.SwitchPlatform("myUni404");
+    }
 
     render() {
         return (
