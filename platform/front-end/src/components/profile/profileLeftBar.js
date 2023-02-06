@@ -1,6 +1,5 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -58,124 +57,111 @@ export default class ProfileLeftBar extends React.Component {
     };
 
     render() {
-        const {
-            userFirstName,
-            userLastName,
-            userProfilePicture,
-            isFriendsWithLoggedInUser,
-            sendFriendRequest,
-        } = this.props;
+        const { isFriendsWithLoggedInUser, sendFriendRequest } = this.props;
         return (
-            <div>
-                <React.Fragment>
-                    <CssBaseline />
-                    <Container
-                        position="fixed"
-                        maxWidth="sm"
-                        sx={{
-                            position: "fixed",
-                            bgcolor: "#343434",
-                            border: "",
-                            height: "80vh",
-                            width: 300,
-                            ml: 2,
-                            mr: 2,
-                            mt: 16,
-                            justifyContent: "flex-start",
-                            alignItems: "center",
+            <Container
+                xs={0}
+                sx={{
+                    padding: "20px",
+                    paddingTop: "110px",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    backgroundColor: "#292929",
+                    width: "220px",
+                    height: "100vh",
+                    position: "fixed",
+                    top: 0,
+                }}
+            >
+                <Box sx={{ padding: 2, bgcolor: "none" }}>
+                    <div
+                        style={{
+                            backgroundImage:
+                                "url(" +
+                                process.env.REACT_APP_SERVER +
+                                "/public/" +
+                                this.state.profilePicture +
+                                ")",
+                            backgroundSize: "cover",
+                            minWidth: "120px",
+                            minHeight: "120px",
+                            marginBottom: "50px",
+                            border: "1px solid gray",
+                            borderRadius: "50%",
+                            width: "200px",
+                            height: "200px",
+                            ":hover": { cursor: "pointer" },
                         }}
-                    >
-                        <Box sx={{ padding: 2, bgcolor: "none" }}>
-                            <div
-                                style={{
-                                    backgroundImage:
-                                        "url(" +
-                                        process.env.REACT_APP_SERVER +
-                                        "/public/" +
-                                        userProfilePicture +
-                                        ")",
-                                    backgroundSize: "cover",
-                                    minWidth: "120px",
-                                    minHeight: "120px",
-                                    marginBottom: "50px",
-                                    border: "1px solid gray",
-                                    borderRadius: "50%",
-                                    width: "200px",
-                                    height: "200px",
-                                    ":hover": { cursor: "pointer" },
-                                }}
-                            ></div>
+                    ></div>
 
-                            <Typography
-                                variant="h5"
-                                component="div"
-                                color="white"
-                                sx={{ textAlign: "center", mt: 2 }}
-                            >
-                                {userFirstName} {userLastName}
-                            </Typography>
-                            {isFriendsWithLoggedInUser ? (
-                                ""
-                            ) : (
-                                <Button
-                                    variant="contained"
-                                    startIcon={<PersonAddIcon />}
-                                    sx={{ textTransform: "none", mt: 2 }}
-                                    onClick={sendFriendRequest}
-                                >
-                                    Add Friend
-                                </Button>
-                            )}
-                        </Box>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            color="white"
-                            sx={{ mt: 2 }}
+                    <Typography
+                        variant="h5"
+                        component="div"
+                        color="white"
+                        sx={{ textAlign: "center", mt: 2 }}
+                    >
+                        {this.state.firstName} {this.state.lastName}
+                    </Typography>
+                    {isFriendsWithLoggedInUser ? (
+                        ""
+                    ) : (
+                        <Button
+                            variant="contained"
+                            startIcon={<PersonAddIcon />}
+                            sx={{ textTransform: "none", mt: 2 }}
+                            onClick={sendFriendRequest}
                         >
-                            About {this.state.firstName}
-                        </Typography>
-                        <PersonIcon sx={{ color: "white", mt: 2 }} />
-                        <Typography
-                            variant="h7"
-                            component="div"
-                            color="white"
-                            sx={{ textAlign: "center" }}
-                        >
-                            "{this.state.aboutMe}"
-                        </Typography>
-                        <Typography
-                            variant="h7"
-                            component="div"
-                            color="white"
-                            sx={{ textAlign: "center", mt: 4 }}
-                        >
-                            <WorkIcon sx={{ textAlign: "center", mr: 2 }} />
-                            {this.state.work}
-                        </Typography>
-                        <Typography
-                            variant="h7"
-                            component="div"
-                            color="white"
-                            sx={{ textAlign: "center", mt: 2 }}
-                        >
-                            <LocationCityIcon
-                                sx={{ textAlign: "center", mr: 2 }}
-                            />
-                            {this.state.location}
-                        </Typography>
-                        <Typography
-                            variant="h7"
-                            component="div"
-                            color="white"
-                            sx={{ textAlign: "center", mt: 2 }}
-                        >
-                            <SchoolIcon sx={{ textAlign: "center", mr: 2 }} />
-                            {this.state.education}
-                        </Typography>
-                    </Container>
-                </React.Fragment>
-            </div>
+                            Add Friend
+                        </Button>
+                    )}
+                </Box>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    color="white"
+                    sx={{ mt: 2 }}
+                >
+                    About {this.state.firstName}
+                </Typography>
+                <PersonIcon sx={{ color: "white", mt: 2 }} />
+                <Typography
+                    variant="h7"
+                    component="div"
+                    color="white"
+                    sx={{ textAlign: "center" }}
+                >
+                    "{this.state.aboutMe}"
+                </Typography>
+                <Typography
+                    variant="h7"
+                    component="div"
+                    color="white"
+                    sx={{ textAlign: "center", mt: 4 }}
+                >
+                    <WorkIcon sx={{ textAlign: "center", mr: 2 }} />
+                    {this.state.work}
+                </Typography>
+                <Typography
+                    variant="h7"
+                    component="div"
+                    color="white"
+                    sx={{ textAlign: "center", mt: 2 }}
+                >
+                    <LocationCityIcon sx={{ textAlign: "center", mr: 2 }} />
+                    {this.state.location}
+                </Typography>
+                <Typography
+                    variant="h7"
+                    component="div"
+                    color="white"
+                    sx={{ textAlign: "center", mt: 2 }}
+                >
+                    <SchoolIcon sx={{ textAlign: "center", mr: 2 }} />
+                    {this.state.education}
+                </Typography>
+            </Container>
         );
     }
 }

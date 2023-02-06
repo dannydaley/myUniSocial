@@ -1,14 +1,15 @@
 import Grid from "@mui/material/Grid"; // Grid version 1
 import HomeLeft from "../components/home/HomeLeft";
 import React from "react";
-import FullQuestion from "../components/FullQuestion/FullQuestion";
+import AskQuestion from "../components/AskQuestion";
 
-class QuestionPage extends React.Component {
+class AskQuestionPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             route: "feed",
             viewFeed: "Web",
+            viewProfile: 0,
             key: 1,
             questionInfo: {
                 authorProfilePicture: "",
@@ -21,36 +22,41 @@ class QuestionPage extends React.Component {
         };
     }
 
-    delayFunction = async () => {
-        await this.delay(1000);
-    };
+    viewProfile = (num) =>
+        this.setState({ viewProfile: num, route: "profile" });
 
-    componentDidMount = async () => {
-        this.props.SwitchPlatform("myUni404");
-        this.setState({ contentLoaded: false });
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/feeds/getQuestion", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                postID: this.props.questionToGet,
-            }),
-        })
-            //TURN THE RESPONSE INTO A JSON OBJECT
-            .then((response) => response.json())
-            .then((data) => {
-                this.setState({ questionInfo: data[0] });
-                this.setState({ contentLoaded: true });
-            });
-    };
+    changeRoute = (route) => this.setState({ route: route });
 
-    refreshQuestion = () => {
-        this.componentDidMount();
+    readyQuestion = (
+        authorProfilePicture,
+        title,
+        author,
+        text,
+        code,
+        postID,
+        language,
+        authorID
+    ) => {
+        this.setState({
+            questionInfo: {
+                authorProfilePicture: authorProfilePicture,
+                title: title,
+                author: author,
+                text: text,
+                code: code,
+                postID: postID,
+                language: language,
+                authorID: authorID,
+            },
+        });
     };
-
     changeFeed = (key, feed) => {
         this.setState({ key: key, viewFeed: feed });
+        this.changeRoute("feed");
     };
+    componentDidMount() {
+        this.props.SwitchPlatform("myUni404");
+    }
 
     render() {
         return (
@@ -69,7 +75,8 @@ class QuestionPage extends React.Component {
                         item
                         sx={{
                             display: { xs: "none", md: "block" },
-                            width: "225px",
+                            width: { md: "1500px", lg: "225px" },
+                            // width: "225px",
                         }}
                     >
                         <HomeLeft
@@ -81,6 +88,7 @@ class QuestionPage extends React.Component {
                             userData={this.props.userData}
                         />
                     </Grid>
+
                     <Grid
                         item
                         xs={12}
@@ -95,24 +103,13 @@ class QuestionPage extends React.Component {
                             marginLeft: { md: "18%" },
                         }}
                     >
-                        <FullQuestion
-                            loggedInUsername={this.props.loggedInUsername}
+                        <AskQuestion
+                            changeFeed={this.changeFeed}
                             userProfilePicture={this.props.userProfilePicture}
-                            authorProfilePicture={
-                                this.state.questionInfo.authorProfilePicture
-                            }
-                            viewProfile={this.viewProfile}
-                            key={this.state.key}
+                            userData={this.props.userData}
                             userID={this.props.userID}
                             userFirstName={this.props.userFirstName}
                             userLastName={this.props.userLastName}
-                            userData={this.props.userData}
-                            title={this.state.questionInfo.title}
-                            author={this.state.questionInfo.author}
-                            text={this.state.questionInfo.text}
-                            code={this.state.questionInfo.code}
-                            postID={this.props.questionToGet}
-                            authorID={this.state.questionInfo.authorID}
                         />
                     </Grid>
                 </Grid>
@@ -121,4 +118,4 @@ class QuestionPage extends React.Component {
     }
 }
 
-export default QuestionPage;
+export default AskQuestionPage;

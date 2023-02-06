@@ -76,9 +76,9 @@ export default class MyInformation extends React.Component {
             )
             .then((res) => {
                 this.setState({ profilePicture: res.profilePicture });
-                this.props.remountParent();
                 this.props.refreshData();
-            });
+            })
+            .then(this.props.remountParent());
     };
 
     updateCoverPicture = async (image) => {

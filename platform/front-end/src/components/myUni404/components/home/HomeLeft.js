@@ -2,7 +2,7 @@ import * as React from "react";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import myUniSocial from "../../../../../src/logo.png";
 
 export default function HomeLeft(props) {
@@ -51,18 +51,21 @@ export default function HomeLeft(props) {
                 direction="column"
                 sx={{ width: "80%", margin: "0 auto" }}
             >
-                <Button
-                    variant="contained"
-                    sx={{
-                        padding: "5px 0",
-                        backgroundColor: "#f5c732",
-                        "&:hover": { backgroundColor: "gray" },
-                    }}
-                    size="medium"
-                    onClick={() => props.changeRoute("ask")}
-                >
-                    Ask a question
-                </Button>
+                <Link to="/ask-question" sx={{ textDecoration: "none" }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            textDecoration: "none",
+                            padding: "5px 0",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="medium"
+                        // onClick={() => props.changeRoute("ask")}
+                    >
+                        Ask a question
+                    </Button>
+                </Link>
 
                 <Button
                     variant="contained"
@@ -76,6 +79,7 @@ export default function HomeLeft(props) {
                 >
                     Web
                 </Button>
+
                 {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
                 <Button
                     variant="contained"
@@ -113,7 +117,10 @@ export default function HomeLeft(props) {
                         "&:hover": { backgroundColor: "gray" },
                     }}
                     size="medium"
-                    onClick={() => props.changeFeed(4, "Robotics")}
+                    onClick={() => {
+                        props.changeFeed(4, "Robotics");
+                        // useNavigate("/myUni404");
+                    }}
                 >
                     Robotics
                 </Button>

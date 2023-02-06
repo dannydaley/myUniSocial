@@ -79,29 +79,14 @@ export default class RightBarImages extends React.Component {
         const { imagesAreLoaded } = this.state;
         if (!imagesAreLoaded) {
             return (
-                <ImageList
-                    sx={{
-                        width: 260,
-                        height: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                    }}
-                    variant="quilted"
-                    cols={1}
-                    rowHeight={121}
-                >
+                <ImageList sx={{}} variant="quilted" cols={1} rowHeight={121}>
                     <CircularProgress />
                 </ImageList>
             );
         } else {
             return (
                 <>
-                    <ImageList
-                        sx={{ width: 260, height: "100%", pb: 3 }}
-                        variant="quilted"
-                        cols={4}
-                        rowHeight={121}
-                    >
+                    <ImageList variant="quilted" cols={4} rowHeight={121}>
                         {this.images.length > 0
                             ? this.images.map((item) => (
                                   <ImageListItem

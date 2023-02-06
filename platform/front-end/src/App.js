@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage.js";
 import AccountPage from "./pages/AccountPage";
 import HomePage404 from "./components/myUni404/pages/HomePage404";
 import QuestionGate from "./components/myUni404/components/FullQuestion/QuestionGate";
+import AskQuestionPage from "./components/myUni404/pages/AskQuestionPage";
 
 export default class App extends Component {
     constructor() {
@@ -383,6 +384,28 @@ export default class App extends Component {
                                     }
                                 ></Route>
                                 <Route
+                                    path="myuni404/:feed"
+                                    element={
+                                        <HomePage404
+                                            SwitchPlatform={this.SwitchPlatform}
+                                            updateProfilePicture={
+                                                this.updateProfilePicture
+                                            }
+                                            userProfilePicture={
+                                                this.state.userProfilePicture
+                                            }
+                                            userData={this.state}
+                                            userID={this.state.userID}
+                                            userFirstName={
+                                                this.state.userFirstName
+                                            }
+                                            userLastName={
+                                                this.state.userLastName
+                                            }
+                                        />
+                                    }
+                                ></Route>
+                                <Route
                                     path="question/:id"
                                     element={
                                         <QuestionGate
@@ -426,6 +449,28 @@ export default class App extends Component {
                                             // authorID={
                                             //     this.state.questionInfo.authorID
                                             // }
+                                        />
+                                    }
+                                ></Route>
+                                <Route
+                                    path="ask-question"
+                                    element={
+                                        <AskQuestionPage
+                                            SwitchPlatform={this.SwitchPlatform}
+                                            updateProfilePicture={
+                                                this.updateProfilePicture
+                                            }
+                                            userProfilePicture={
+                                                this.state.userProfilePicture
+                                            }
+                                            userData={this.state}
+                                            userID={this.state.userID}
+                                            userFirstName={
+                                                this.state.userFirstName
+                                            }
+                                            userLastName={
+                                                this.state.userLastName
+                                            }
                                         />
                                     }
                                 ></Route>

@@ -10,6 +10,7 @@ export default function ProfileGate(props) {
     return (
         <>
             <QuestionPage
+                SwitchPlatform={props.SwitchPlatform}
                 questionToGet={questionToGet}
                 loggedInUsername={props.loggedInUsername}
                 userFirstName={props.userFirstName}

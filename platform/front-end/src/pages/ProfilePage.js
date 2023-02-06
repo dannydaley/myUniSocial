@@ -1,8 +1,10 @@
 import ProfileHeader from "../components/profile/profileHeader";
-import ProfileOverlay from "../components/profile/profileOverlay";
 import ProfileFeed from "../components/profile/profileFeed";
 import * as React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid"; // Grid version 1
+import ProfileRightBar from "../components/profile/profileRightBar";
+import ProfileLeftBar from "../components/profile/profileLeftBar";
 
 export default class ProfilePage extends React.Component {
     constructor(props) {
@@ -68,37 +70,79 @@ export default class ProfilePage extends React.Component {
             userLastName,
             userProfilePicture,
         } = this.props;
-        const {
-            firstName,
-            lastName,
-            profilePicture,
-            contentIsLoaded,
-            coverPicture,
-            isFriendsWithLoggedInUser,
-        } = this.state;
+        const { contentIsLoaded, coverPicture, isFriendsWithLoggedInUser } =
+            this.state;
         if (contentIsLoaded) {
             return (
-                <>
-                    <ProfileOverlay
-                        loggedInUsername={loggedInUsername}
-                        userFirstName={firstName}
-                        userLastName={lastName}
-                        userProfilePicture={profilePicture}
-                        userProfileToGet={userProfileToGet}
-                        changeAlertNotifications={changeAlertNotifications}
-                        isFriendsWithLoggedInUser={isFriendsWithLoggedInUser}
-                        sendFriendRequest={this.sendFriendRequest}
-                    />
-                    <ProfileHeader coverPicture={coverPicture} />
-                    <ProfileFeed
-                        userProfileToGet={userProfileToGet}
-                        isFriendsWithLoggedInUser={isFriendsWithLoggedInUser}
-                        loggedInUsername={loggedInUsername}
-                        userFirstName={userFirstName}
-                        userLastName={userLastName}
-                        userProfilePicture={userProfilePicture}
-                    />
-                </>
+                <Grid
+                    container
+                    spacing={3}
+                    sx={{
+                        overflow: "hidden",
+                        backgroundColor: "#333",
+                        marginTop: "55px",
+                        minHeight: "90vh",
+                    }}
+                >
+                    <Grid
+                        item
+                        sx={{
+                            display: { xs: "none", md: "block" },
+                            width: "225px",
+                        }}
+                    >
+                        <ProfileLeftBar
+                            userProfileToGet={userProfileToGet}
+                            sendFriendRequest={this.sendFriendRequest}
+                            userFirstName={userFirstName}
+                            userLastName={userLastName}
+                            isFriendsWithLoggedInUser={
+                                isFriendsWithLoggedInUser
+                            }
+                            changeAlertNotifications={changeAlertNotifications}
+                            userProfilePicture={userProfilePicture}
+                        />
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{
+                            backgroundColor: "#292929",
+                            paddingRight: { xs: "30px" },
+                            margin: "0 auto",
+                            marginTop: { xs: "-20px" },
+                            paddingBottom: "50px",
+                            minHeight: "100vh",
+                        }}
+                    >
+                        <ProfileHeader coverPicture={coverPicture} />
+                        <ProfileFeed
+                            userProfileToGet={userProfileToGet}
+                            isFriendsWithLoggedInUser={
+                                isFriendsWithLoggedInUser
+                            }
+                            loggedInUsername={loggedInUsername}
+                            userFirstName={userFirstName}
+                            userLastName={userLastName}
+                            userProfilePicture={userProfilePicture}
+                        />
+                    </Grid>
+                    <Grid
+                        item
+                        sx={{
+                            display: { xs: "none", md: "none", lg: "block" },
+                            width: "275px",
+                        }}
+                    >
+                        <ProfileRightBar
+                            userFirstName={userFirstName}
+                            userLastName={userLastName}
+                            userProfileToGet={userProfileToGet}
+                        />
+                    </Grid>
+                </Grid>
             );
         } else {
             return (

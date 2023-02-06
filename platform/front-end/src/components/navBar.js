@@ -19,7 +19,6 @@ import SearchBar from "./SearchBar";
 import ShowNotifications from "./navBar/showNotifications";
 import { Link } from "react-router-dom";
 import ShowMessages from "./navBar/showMessages";
-import { getThemeProps } from "@mui/system";
 
 function NavBar({
     platform,
@@ -229,42 +228,59 @@ function NavBar({
                                 }}
                                 onClick={() => onRouteChange("home")}
                             >
-                                <Link
-                                    to="/"
-                                    onClick={() => {
-                                        showMessagesToggle(
-                                            (showMessages = false)
-                                        );
-                                        showNotificationsToggle(
-                                            (showNotifications = false)
-                                        );
-                                    }}
-                                >
-                                    <img
-                                        alt=""
-                                        src={FalF}
-                                        style={{ width: "45px" }}
-                                    />
-                                    {platform === "myUniSocial" ? (
+                                {platform === "myUniSocial" ? (
+                                    <Link
+                                        to="/"
+                                        onClick={() => {
+                                            showMessagesToggle(
+                                                (showMessages = false)
+                                            );
+                                            showNotificationsToggle(
+                                                (showNotifications = false)
+                                            );
+                                        }}
+                                    >
+                                        <img
+                                            alt=""
+                                            src={FalF}
+                                            style={{ width: "45px" }}
+                                        />
                                         <img
                                             alt=""
                                             src={myUniSocial}
                                             // height="50px"
                                             width="150px"
                                         />
-                                    ) : (
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        to="/myuni404"
+                                        onClick={() => {
+                                            showMessagesToggle(
+                                                (showMessages = false)
+                                            );
+                                            showNotificationsToggle(
+                                                (showNotifications = false)
+                                            );
+                                        }}
+                                    >
+                                        <img
+                                            alt=""
+                                            src={FalF}
+                                            style={{ width: "45px" }}
+                                        />
                                         <img
                                             alt=""
                                             src={myUni404}
                                             // height="50px"
                                             width="150px"
                                         />
-                                    )}
-                                </Link>
+                                    </Link>
+                                )}
                             </Typography>
 
                             <Box sx={{ flexGrow: 0.6 }} />
-                            <SearchBar />
+                            <SearchBar platform={platform} />
                             <Box sx={{ flexGrow: 1 }} />
                             <Box sx={{ display: { xs: "none", md: "flex" } }}>
                                 {/* Messages button */}

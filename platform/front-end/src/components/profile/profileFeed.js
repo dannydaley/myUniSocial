@@ -69,7 +69,6 @@ export default class ProfileFeed extends React.Component {
                 <div>
                     <div
                         style={{
-                            backgroundColor: "#010101",
                             display: "flex",
                             justifyContent: "space-between",
                             paddingBottom: "100px",
@@ -88,7 +87,8 @@ export default class ProfileFeed extends React.Component {
                                 maxWidth="lg"
                                 sx={{
                                     zIndex: 10,
-                                    bgcolor: "#343434",
+                                    backgroundColor: "#292929",
+                                    bgcolor: "#292929",
                                     borderRadius: "0px 0px 30px 30px",
                                     width: "100%",
                                     pb: 2,
@@ -150,7 +150,6 @@ export default class ProfileFeed extends React.Component {
                     <div>
                         <div
                             style={{
-                                backgroundColor: "#010101",
                                 display: "flex",
                                 justifyContent: "space-between",
                                 paddingBottom: "100px",
@@ -166,7 +165,7 @@ export default class ProfileFeed extends React.Component {
                                     maxWidth="lg"
                                     sx={{
                                         zIndex: 10,
-                                        bgcolor: "#343434",
+                                        bgcolor: "#292929",
                                         borderRadius: "0px 0px 30px 30px",
                                         width: "100%",
                                         pb: 2,
@@ -195,7 +194,6 @@ export default class ProfileFeed extends React.Component {
                     <div>
                         <div
                             style={{
-                                backgroundColor: "#010101",
                                 display: "flex",
                                 justifyContent: "space-between",
                                 paddingBottom: "100px",
@@ -211,13 +209,12 @@ export default class ProfileFeed extends React.Component {
                                     maxWidth="lg"
                                     sx={{
                                         zIndex: 10,
-                                        bgcolor: "#343434",
+                                        bgcolor: "#292929",
                                         borderRadius: "0px 0px 30px 30px",
                                         width: "100%",
                                         pb: 2,
-                                        ml: 2,
-                                        mr: 2,
-                                        mt: 12,
+
+                                        // mt: 12,
                                     }}
                                 >
                                     <NewPost

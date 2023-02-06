@@ -229,7 +229,7 @@ router.post("/postQuestion", (req, res) => {
     if (postData.relativePostID === 0) {
         //increment asked by one on account
         db.query(
-            "UPDATE users SET asked = asked + 1 WHERE userID = ?",
+            "UPDATE users SET asked = asked + 1 WHERE id = ?",
             postData.authorID,
             (err) => {
                 if (err) {
