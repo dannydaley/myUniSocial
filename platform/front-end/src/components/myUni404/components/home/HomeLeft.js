@@ -2,7 +2,7 @@ import * as React from "react";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import myUniSocial from "../../../../../src/logo.png";
 
 export default function HomeLeft(props) {
@@ -11,17 +11,13 @@ export default function HomeLeft(props) {
         <Container
             xs={0}
             sx={{
-                // width: "224px",
                 padding: { md: "110px 0 0 0", lg: "110 20px 20px 20px" },
-
-                // paddingTop: "110px",
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 flexDirection: "column",
                 backgroundColor: "#292929",
                 width: { md: "150px", lg: "224px" },
-                // border: { }
                 height: "100vh",
                 position: "fixed",
                 top: 0,
@@ -29,7 +25,6 @@ export default function HomeLeft(props) {
         >
             <Link to="/myProfile">
                 <div
-                    // onClick={() => this.props.changeRoute("myProfile")}
                     style={{
                         backgroundImage:
                             "url(" +
@@ -51,84 +46,95 @@ export default function HomeLeft(props) {
                 direction="column"
                 sx={{ width: "80%", margin: "0 auto" }}
             >
-                <Link to="/ask-question" sx={{ textDecoration: "none" }}>
+                <Link to="/ask-question" style={{ textDecoration: "none" }}>
                     <Button
                         variant="contained"
                         sx={{
-                            textDecoration: "none",
+                            width: "100%",
                             padding: "5px 0",
                             backgroundColor: "#f5c732",
                             "&:hover": { backgroundColor: "gray" },
                         }}
                         size="medium"
-                        // onClick={() => props.changeRoute("ask")}
                     >
                         Ask a question
                     </Button>
                 </Link>
-
-                <Button
-                    variant="contained"
-                    sx={{
-                        padding: "5px 0",
-                        backgroundColor: "#f5c732",
-                        "&:hover": { backgroundColor: "gray" },
-                    }}
-                    size="medium"
-                    onClick={() => props.changeFeed(1, "Web")}
+                <Link
+                    to="/myuni404/feed/Web"
+                    style={{ textDecoration: "none" }}
                 >
-                    Web
-                </Button>
-
-                {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
-                <Button
-                    variant="contained"
-                    sx={{
-                        padding: "5px 0",
-                        backgroundColor: "#f5c732",
-                        "&:hover": { backgroundColor: "gray" },
-                    }}
-                    size="medium"
-                    onClick={() => props.changeFeed(2, "GamDev")}
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            padding: "5px 0",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="medium"
+                        onClick={() => props.changeFeed(1, "Web")}
+                    >
+                        Web
+                    </Button>
+                </Link>
+                <Link
+                    to="/myuni404/feed/GamDev"
+                    style={{ textDecoration: "none" }}
                 >
-                    Game Dev
-                </Button>
-                {/* </Link>  */}
-                {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
-                <Button
-                    variant="contained"
-                    sx={{
-                        padding: "5px 0",
-                        backgroundColor: "#f5c732",
-                        "&:hover": { backgroundColor: "gray" },
-                    }}
-                    size="medium"
-                    onClick={() => props.changeFeed(3, "SysOs")}
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            padding: "5px 0",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="medium"
+                        onClick={() => props.changeFeed(2, "GamDev")}
+                    >
+                        Game Dev
+                    </Button>
+                </Link>
+                <Link
+                    to="/myuni404/feed/SysOs"
+                    style={{ textDecoration: "none" }}
                 >
-                    Systems/OS
-                </Button>
-                {/* </Link> */}
-                {/* <Link to={'feed'} style={{textDecoration: 'none'}}> */}
-                <Button
-                    variant="contained"
-                    sx={{
-                        padding: "5px 0",
-                        backgroundColor: "#f5c732",
-                        "&:hover": { backgroundColor: "gray" },
-                    }}
-                    size="medium"
-                    onClick={() => {
-                        props.changeFeed(4, "Robotics");
-                        // useNavigate("/myUni404");
-                    }}
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            padding: "5px 0",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="medium"
+                        onClick={() => props.changeFeed(3, "SysOs")}
+                    >
+                        Systems/OS
+                    </Button>
+                </Link>
+                <Link
+                    to="/myuni404/feed/Robotics"
+                    style={{ textDecoration: "none" }}
                 >
-                    Robotics
-                </Button>
-                {/* </Link> */}
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            padding: "5px 0",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="medium"
+                        onClick={() => props.changeFeed(4, "Robotics")}
+                    >
+                        Robotics
+                    </Button>
+                </Link>
             </Stack>
             <Link
                 to="/"
-                // target="_blank"
                 rel="noreferrer"
                 style={{
                     justifySelf: "flex-end",

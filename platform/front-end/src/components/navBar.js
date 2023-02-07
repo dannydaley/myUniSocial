@@ -254,7 +254,7 @@ function NavBar({
                                     </Link>
                                 ) : (
                                     <Link
-                                        to="/myuni404"
+                                        to="/myuni404/feed/Web"
                                         onClick={() => {
                                             showMessagesToggle(
                                                 (showMessages = false)

@@ -113,6 +113,7 @@ router.post("/signin", (req, res) => {
             req.session.userData.loggedInUsername = user.username;
             req.session.userData.userProfilePicture = user.profilePicture;
             req.session.userData.userCoverPicture = user.coverPicture;
+
             //respond with user data on succesful login
             res.json({
                 status: "success",
@@ -141,8 +142,9 @@ router.post("/signout", (req, res) => {
     res.json("success");
 });
 
-router.get("/refreshSessionStatus", (req, res) => {
+router.post("/refreshSessionStatus", (req, res) => {
     // if userData exists in session
+
     if (req.session.userData !== undefined) {
         // respond with session exists status and session data
         res.json({

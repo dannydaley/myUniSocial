@@ -181,7 +181,7 @@ export default class HomeLeft extends React.Component {
                     </div>
                 )}
                 <Link
-                    to="/myuni404"
+                    to="/myuni404/feed/Web"
                     // target="_blank"
                     rel="noreferrer"
                     style={{

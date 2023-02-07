@@ -10,10 +10,13 @@ import MessagesPage from "./pages/messagesPage";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import AccountPage from "./pages/AccountPage";
-import HomePage404 from "./components/myUni404/pages/HomePage404";
 import QuestionGate from "./components/myUni404/components/FullQuestion/QuestionGate";
 import AskQuestionPage from "./components/myUni404/pages/AskQuestionPage";
+import QuestionFeedGate from "./components/myUni404/components/home/QuestionFeedGate";
 
+import { io } from "socket.io-client";
+// import socketClient from "socket.io-client";
+// const socket = io.connect("http://localhost:3001");
 export default class App extends Component {
     constructor() {
         super();
@@ -32,7 +35,10 @@ export default class App extends Component {
             userProfilePicture: "",
             userCoverPicture: "",
             UIColor: "",
+            socketId: "",
         };
+
+        // this.socket = socketClient(process.env.REACT_APP_SERVER);
     }
     // const isLoggedIn = useSelector(state => state.isLoggedIn),
     delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -66,9 +72,18 @@ export default class App extends Component {
                 });
             });
     };
-
+    checkForSession = () => {
+        fetch(process.env.REACT_APP_SERVER + "/auth/refreshSessionStatus", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: "check for session",
+            }),
+        }).then((response) => console.log(response.json()));
+    };
     componentDidMount() {
-        this.interval = setInterval(() => this.getNotifications(), 10000);
+        // this.interval = setInterval(() => this.getNotifications(), 10000);
+        // this.checkForSession();
     }
     componentWillUnmount() {
         clearInterval(this.interval);
@@ -118,6 +133,17 @@ export default class App extends Component {
                 }),
             });
         } else if (route === "home") {
+            if (!this.state.socketId) {
+                const socket = io.connect("http://localhost:3001");
+                socket.on("connect", () => {
+                    this.setState({ socketId: socket.id });
+                });
+                socket.on("connect_error", () => {
+                    console.log("error");
+                    setTimeout(() => socket.connect(), 3001);
+                });
+            }
+            alert(this.state.socketId);
             this.setState({ isSignedIn: true });
         }
         this.setState({ route: route });
@@ -290,25 +316,6 @@ export default class App extends Component {
                                 <Route
                                     path="myAccount"
                                     element={
-                                        // <MyAccountPage
-                                        //     refreshData={this.refreshData}
-                                        //     updateSession={this.updateSession}
-                                        //     getNotifications={
-                                        //         this.getNotifications
-                                        //     }
-                                        //     userFirstName={
-                                        //         this.state.userFirstName
-                                        //     }
-                                        //     userProfilePicture={
-                                        //         this.state.userProfilePicture
-                                        //     }
-                                        //     loggedInUsername={
-                                        //         this.state.loggedInUsername
-                                        //     }
-                                        //     userCoverPicture={
-                                        //         this.state.userCoverPicture
-                                        //     }
-                                        // />
                                         <AccountPage
                                             SwitchPlatform={this.SwitchPlatform}
                                             refreshData={this.refreshData}
@@ -362,31 +369,9 @@ export default class App extends Component {
                                     }
                                 />
                                 <Route
-                                    path="myuni404"
+                                    path="myuni404/feed/:feed"
                                     element={
-                                        <HomePage404
-                                            SwitchPlatform={this.SwitchPlatform}
-                                            updateProfilePicture={
-                                                this.updateProfilePicture
-                                            }
-                                            userProfilePicture={
-                                                this.state.userProfilePicture
-                                            }
-                                            userData={this.state}
-                                            userID={this.state.userID}
-                                            userFirstName={
-                                                this.state.userFirstName
-                                            }
-                                            userLastName={
-                                                this.state.userLastName
-                                            }
-                                        />
-                                    }
-                                ></Route>
-                                <Route
-                                    path="myuni404/:feed"
-                                    element={
-                                        <HomePage404
+                                        <QuestionFeedGate
                                             SwitchPlatform={this.SwitchPlatform}
                                             updateProfilePicture={
                                                 this.updateProfilePicture
@@ -426,29 +411,6 @@ export default class App extends Component {
                                             loggedInUsername={
                                                 this.state.loggedInUsername
                                             }
-
-                                            // authorProfilePicture={
-                                            //     this.state.questionInfo
-                                            //         .authorProfilePicture
-                                            // }
-                                            // viewProfile={this.viewProfile}
-                                            // key={this.state.key}
-                                            // userID={this.props.userID}
-                                            // userData={this.props.userData}
-                                            // title={
-                                            //     this.state.questionInfo.title
-                                            // }
-                                            // author={
-                                            //     this.state.questionInfo.author
-                                            // }
-                                            // text={this.state.questionInfo.text}
-                                            // code={this.state.questionInfo.code}
-                                            // postID={
-                                            //     this.state.questionInfo.postID
-                                            // }
-                                            // authorID={
-                                            //     this.state.questionInfo.authorID
-                                            // }
                                         />
                                     }
                                 ></Route>

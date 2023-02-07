@@ -1,22 +1,64 @@
 //#region SETUP
 
 var express = require("express");
-const app = express();
-var dotenv = require("dotenv").config();
+var app = express();
 const cors = require("cors");
+const http = require("http");
+// var app = express();
+const socket = require("./socket");
+const server = http.createServer(app);
+app.use(express.json());
+app.use(
+    cors({
+        origin: ["http://localhost:3000"],
+        methods: ["GET", "POST"],
+        credentials: true,
+    })
+);
+
+var dotenv = require("dotenv").config();
+
 var bodyParser = require("body-parser");
-// var fallback = require("express-history-api-fallback");
-app.use(cors());
+var fallback = require("express-history-api-fallback");
+
 app.use(bodyParser.json());
 var path = require("path");
 app.use("/public", express.static(path.join(__dirname, "public")));
-
 app.use(express.static(path.join(__dirname, "build")));
-// const root = path.join(__dirname, "../build")
-// app.use(fallbacl("index.html", { root: root }));
+const root = path.join(__dirname, "build");
+app.use(fallback("index.html", { root: root }));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+
+//#region SOCKET SETUP
+
+// const socketIo = require("socket.io");
+// const http = require("http");
+
+// const server = http.createServer(app);
+// const io = socketIo(server, {
+//     cors: {
+//         origin: "http://localhost:3000",
+//     },
+// }); //in case server and client run on different urls
+// io.on("connection", (socket) => {
+//     console.log("client connected: ", socket.id);
+
+//     socket.join("clock-room");
+
+//     socket.on("disconnect", (reason) => {
+//         console.log(reason);
+//     });
+// });
+
+// setInterval(() => {
+//     io.to("clock-room").emit("time", new Date());
+// }, 1000);
+
+//#endregion SOCKET SETUP
+
+const session = require("./session");
 
 //#region IMAGES AND IMAGE UPLOAD HANDLING
 
@@ -47,25 +89,26 @@ let upload = multer({ storage: storage });
 //#endregion IMAGES AND IMAGE UPLOAD HANDLING
 
 // Session setup
-var session = require("cookie-session");
-var cookieParser = require("cookie-parser");
-app.use(cookieParser());
-var userSession = {
-    secret: "myMegaSecret",
-    keys: ["key1", "key2", "key3"],
-    originalMaxAge: 0,
-    maxAge: 0,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-        maxAge: 30,
-    },
-};
+// var session = require("cookie-session");
+// var cookieParser = require("cookie-parser");
+// app.use(cookieParser());
+// var userSession = {
+//     secret: "myMegaSecret",
+//     keys: ["key1", "key2", "key3"],
+//     originalMaxAge: 0,
+//     maxAge: 0,
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//         httpOnly: true,
+//         secure: false,
+//         maxAge: 30,
+//     },
+// };
 
-app.use(cookieParser());
-app.use(session(userSession));
+// app.use(cookieParser());
+// app.use(session(userSession));
+app.use(session); //Session config
 
 const GET_ALL_USERS_FRIENDS =
     "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
@@ -95,5 +138,11 @@ app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
 
 // app.use(fall);
-app.listen(process.env.PORT);
+
+// app.listen(process.env.PORT);
+
 console.log("server.js running on port " + process.env.PORT);
+server.listen(process.env.PORT, () => {
+    console.log(`Server listening on port ${process.env.PORT}`);
+    socket(server); //Adds socket listener
+});

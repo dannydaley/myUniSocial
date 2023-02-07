@@ -3,14 +3,12 @@ import HomeLeft from "../components/home/HomeLeft";
 import React from "react";
 import QuestionFeed from "../components/home/QuestionFeed";
 
-import { Navigate } from "react-router-dom";
-
 class HomePage404 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             route: "feed",
-            viewFeed: "Web",
+            viewFeed: this.props.feedToGet,
             viewProfile: 0,
             key: 1,
             questionInfo: {
@@ -23,10 +21,6 @@ class HomePage404 extends React.Component {
             },
         };
     }
-
-    // params = useLocation();
-    // pathname = this.params.pathname;
-    // feedToGet = this.pathname.substring(10);
 
     viewProfile = (num) =>
         this.setState({ viewProfile: num, route: "profile" });
@@ -59,7 +53,6 @@ class HomePage404 extends React.Component {
     changeFeed = (key, feed) => {
         this.setState({ key: key, viewFeed: feed });
         this.changeRoute("feed");
-        // navigate("/myuni404");
     };
     componentDidMount() {
         this.props.SwitchPlatform("myUni404");

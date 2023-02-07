@@ -4,6 +4,7 @@ const { request } = require("express");
 var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
+const socket = require("../socket");
 
 const GET_USERS_CHATS =
     "SELECT chats.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM chats LEFT OUTER JOIN `users` ON (`chats`.`user1` != ? AND `chats`.`user1` = `users`.`username`) OR (`chats`.`user2` != ? AND `chats`.`user2` = `users`.`username`) WHERE `user1` = ? OR `user2` = ? ORDER BY lastActive DESC";
