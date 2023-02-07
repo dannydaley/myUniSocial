@@ -134,7 +134,7 @@ export default class App extends Component {
             });
         } else if (route === "home") {
             if (!this.state.socketId) {
-                const socket = io.connect("http://localhost:3001");
+                const socket = io.connect(process.env.REACT_APP_SERVER);
                 socket.on("connect", () => {
                     this.setState({ socketId: socket.id });
                 });
@@ -143,7 +143,6 @@ export default class App extends Component {
                     setTimeout(() => socket.connect(), 3001);
                 });
             }
-            alert(this.state.socketId);
             this.setState({ isSignedIn: true });
         }
         this.setState({ route: route });
