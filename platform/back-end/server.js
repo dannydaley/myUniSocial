@@ -10,7 +10,11 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(
     cors({
-        origin: [process.env.FRONTEND],
+        origin: [
+            process.env.FRONTEND,
+            "http://dd252935.kemeneth.net:9030",
+            "http://myunisocial.kemeneth.net",
+        ],
         methods: ["GET", "POST"],
         credentials: true,
     })
