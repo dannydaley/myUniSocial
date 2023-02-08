@@ -24,6 +24,7 @@ export default class MessagesPage extends React.Component {
         return (
             <div>
                 <MessagesFeed
+                    socket={this.props.socket}
                     getNotifications={getNotifications}
                     circle={this.state.circle}
                     changeMailNotifications={this.changeMailNotifications}

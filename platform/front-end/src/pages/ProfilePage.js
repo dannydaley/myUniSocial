@@ -124,8 +124,8 @@ export default class ProfilePage extends React.Component {
                                 isFriendsWithLoggedInUser
                             }
                             loggedInUsername={loggedInUsername}
-                            userFirstName={userFirstName}
-                            userLastName={userLastName}
+                            userFirstName={this.state.firstName}
+                            userLastName={this.state.lastName}
                             userProfilePicture={userProfilePicture}
                         />
                     </Grid>
@@ -137,8 +137,8 @@ export default class ProfilePage extends React.Component {
                         }}
                     >
                         <ProfileRightBar
-                            userFirstName={userFirstName}
-                            userLastName={userLastName}
+                            userFirstName={this.state.firstName}
+                            userLastName={this.state.lastName}
                             userProfileToGet={userProfileToGet}
                         />
                     </Grid>

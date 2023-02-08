@@ -1,17 +1,18 @@
 //#region SETUP
-
 var express = require("express");
 var app = express();
 const cors = require("cors");
 const http = require("http");
-// var app = express();
 const socket = require("./socket");
 const server = http.createServer(app);
 app.use(express.json());
+
+// set up cors to allow for different cross origin requests and prevent security errors.
 app.use(
     cors({
         origin: [
             process.env.FRONTEND,
+            "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
         ],
@@ -34,35 +35,6 @@ app.use(fallback("index.html", { root: root }));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
-//#region SOCKET SETUP
-
-// const socketIo = require("socket.io");
-// const http = require("http");
-
-// const server = http.createServer(app);
-// const io = socketIo(server, {
-//     cors: {
-//         origin: "http://localhost:3000",
-//     },
-// }); //in case server and client run on different urls
-// io.on("connection", (socket) => {
-//     console.log("client connected: ", socket.id);
-
-//     socket.join("clock-room");
-
-//     socket.on("disconnect", (reason) => {
-//         console.log(reason);
-//     });
-// });
-
-// setInterval(() => {
-//     io.to("clock-room").emit("time", new Date());
-// }, 1000);
-
-//#endregion SOCKET SETUP
-
-const session = require("./session");
 
 //#region IMAGES AND IMAGE UPLOAD HANDLING
 
@@ -91,32 +63,14 @@ const storage = multer.diskStorage({
 let upload = multer({ storage: storage });
 
 //#endregion IMAGES AND IMAGE UPLOAD HANDLING
-
-// Session setup
-// var session = require("cookie-session");
-// var cookieParser = require("cookie-parser");
-// app.use(cookieParser());
-// var userSession = {
-//     secret: "myMegaSecret",
-//     keys: ["key1", "key2", "key3"],
-//     originalMaxAge: 0,
-//     maxAge: 0,
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie: {
-//         httpOnly: true,
-//         secure: false,
-//         maxAge: 30,
-//     },
-// };
-
-// app.use(cookieParser());
-// app.use(session(userSession));
+//import session file
+const session = require("./session");
 app.use(session); //Session config
 
 const GET_ALL_USERS_FRIENDS =
     "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
 
+//import different route files
 const setupRoutes = require("./routes/setup");
 const authRoutes = require("./routes/auth");
 const searchRoutes = require("./routes/search");
@@ -129,6 +83,7 @@ const notificationRoutes = require("./routes/notifications");
 const postRoutes = require("./routes/posts");
 const feedRoutes = require("./routes/feeds");
 
+//apply route files to app()
 app.use("/setup", setupRoutes);
 app.use("/auth", authRoutes);
 app.use("/search", searchRoutes);
@@ -145,8 +100,9 @@ app.use("/feeds", feedRoutes);
 
 // app.listen(process.env.PORT);
 
-console.log("server.js running on port " + process.env.PORT);
+//set server to listen to port from .env
 server.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
-    socket(server); //Adds socket listener
+    //Adds socket listener
+    socket(server);
 });

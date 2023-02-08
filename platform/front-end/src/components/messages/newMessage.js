@@ -12,6 +12,7 @@ export default class NewMessage extends React.Component {
             sender: this.props.loggedInUsername,
             message: "",
             recipient: "",
+            socket: "",
         };
     }
 
@@ -27,29 +28,35 @@ export default class NewMessage extends React.Component {
         this.setState({ message: event.target.value });
     };
 
-    onPostSubmit = async () => {
-        fetch(process.env.REACT_APP_SERVER + "/messages/newMessage", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+    onPostSubmit = async (event) => {
+        if (this.state.message) {
+            const messageData = {
                 chatId: this.props.chatId,
+                room: this.props.roomID,
                 sender: this.props.loggedInUsername,
-                message: this.state.message,
                 recipient: this.state.recipient,
-                user1: this.props.chatUser1,
-                user2: this.props.chatUser2,
-            }),
-        }).then((data) => {
-            if (data) {
-                this.props.getChat(
-                    this.props.loggedInUsername,
-                    this.props.chatId,
-                    null
-                );
-            } else {
-                console.log(data);
-            }
-        });
+                message: this.state.message,
+                date:
+                    new Date(Date.now()).getHours() +
+                    ":" +
+                    new Date(Date.now()).getMinutes(),
+            };
+            this.props.socket.emit("send_message", messageData);
+            this.props.SetMessage(messageData);
+            event.target.value = "";
+            fetch(process.env.REACT_APP_SERVER + "/messages/newMessage", {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chatId: this.props.chatId,
+                    sender: this.props.loggedInUsername,
+                    message: this.state.message,
+                    recipient: this.state.recipient,
+                    user1: this.props.chatUser1,
+                    user2: this.props.chatUser2,
+                }),
+            });
+        }
     };
 
     render() {
@@ -70,6 +77,7 @@ export default class NewMessage extends React.Component {
                     hidden
                 />
                 <TextField
+                    // autoFocus={true}
                     style={{
                         backgroundColor: "white",
                         opacity: "0.5",
@@ -86,6 +94,12 @@ export default class NewMessage extends React.Component {
                     placeholder="I've got something to say!"
                     multiline
                     onChange={this.onMessageChange}
+                    onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            this.onPostSubmit(event);
+                        }
+                    }}
                 />
                 <LoadingButton
                     onClick={() => this.onPostSubmit()}

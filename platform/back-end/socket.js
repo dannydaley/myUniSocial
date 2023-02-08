@@ -11,28 +11,33 @@ const socket = (server) => {
         },
     });
 
+    var users = {
+        user: "socketObject",
+    };
+
     //On connection
     io.on("connection", (socket) => {
-        //On message button click
-        //         db.query(
-        //             "SELECT * FROM userActions WHERE sender = ? OR recipient = ? AND seen = `false`",
-        //             ["Daley", "Daley"],
-        //             (err, result) => {
-        //                 console.log(result);
-        //             }
-        //         );
-        console.log(socket.id);
-        socket.on("select_recipient", (data) => {
-            //Assign and log recipient
-            socket.join(data);
+        // socket.on("connection", (socket) => {
+        socket.on("join", function (data) {
+            socket.join(data.username); // We are using room of socket io
+            console.log(data.username + " has joined with ID: " + socket.id);
         });
+        // });
+        socket.on("join_room", (room) => {
+            socket.join(room);
 
+            console.log("joined room: " + room);
+        });
+        socket.on("leave_room", (room) => {
+            socket.leave(room);
+            console.log("leaving room: " + room);
+        });
         //On message send
         socket.on("send_message", (data) => {
             //Log message
             console.log(data);
             //Emit to recipient
-            socket.to(data.recipient).emit("receive_message", data);
+            socket.to(data.room).emit("receive_message", data);
         });
 
         //On disconnect

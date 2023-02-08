@@ -19,19 +19,21 @@ export default class MessageFeed extends React.Component {
             chatData: [],
             chatFeed: [],
             dataIsLoaded: false,
+            roomID: "",
         };
+        this.messageKey = 1;
+        this.bottomRef = React.createRef();
+        this.chat = [];
     }
-
-    scrollToBottom = () => {
-        document.getElementsByClassName("chatWindow")[0].scrollTop =
-            document.getElementsByClassName("chatWindow")[0].scrollHeight;
-    };
 
     //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
     getChat = async (loggedInUsername, chatId, partner) => {
+        const controller = new AbortController();
+        const signal = controller.signal;
         this.setState({ dataIsLoaded: false });
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
         await fetch(process.env.REACT_APP_SERVER + "/messages/getChat", {
+            signal: signal,
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -43,14 +45,26 @@ export default class MessageFeed extends React.Component {
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             .then((data) => {
+                let chatUsers = [data.chatData.user1, data.chatData.user2];
+                this.chat = data.messages.reverse();
+                this.props.socket.emit("join_room", data.chatData.chatId);
                 this.setState({
                     chatData: data.chatData,
-                    chatFeed: data.messages,
+                    // chatFeed: data.messages,
                     dataIsLoaded: true,
+                    roomID: chatUsers.sort().toString(),
                 });
             });
+        this.autoScroll(this.bottomRef);
     };
 
+    LeaveRoom = () => {
+        this.props.socket.emit("leave_room", this.state.chatData.chatId);
+    };
+
+    componentWillUnmount = () => {
+        this.LeaveRoom(this.state.chatData.chatId);
+    };
     setChatAsSeen = (chatId) => {
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
         fetch(process.env.REACT_APP_SERVER + "/messages/setChatAsSeen", {
@@ -66,21 +80,26 @@ export default class MessageFeed extends React.Component {
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             .then((data) => {
-                if (data.messages) {
-                    data.messages.forEach((message) =>
-                        this.state.chatFeed.push(message)
-                    );
-                    this.setState({
-                        chatData: data.chatData,
-                        dataIsLoaded: true,
-                    });
-                } else {
-                    this.setState({
-                        chatData: data.chatData,
-                        dataIsLoaded: true,
-                    });
-                }
+                this.setState({
+                    dataIsLoaded: true,
+                });
             });
+    };
+    autoScroll = (ref) => {
+        // if (!ref.current) return;
+        ref.current.scrollIntoView();
+    };
+
+    SetMessage = (messageData) => {
+        // let chat = [...this.state.chatFeed, messageData];
+        this.setState({
+            dataIsLoaded: false,
+        });
+        this.chat.push(messageData);
+        this.setState({
+            dataIsLoaded: true,
+        });
+        this.autoScroll(this.bottomRef);
     };
 
     render() {
@@ -91,13 +110,14 @@ export default class MessageFeed extends React.Component {
             loggedInUsername,
             userProfilePicture,
         } = this.props;
+
         //SETTING UP ACCESS TO THE STATE VARIABLES
         const { chatSelected, dataIsLoaded, chatData, chatFeed } = this.state;
-        // IF THE DATA ISNT LOADED YET, LOAD AN ALTERNATIVE WHILE WE WAIT
         if (!chatSelected && !dataIsLoaded) {
             return (
                 <div>
                     <MessagesOverlay
+                        LeaveRoom={this.LeaveRoom}
                         changeCircle={this.changeCircle}
                         userProfilePicture={userProfilePicture}
                         loggedInUsername={loggedInUsername}
@@ -143,7 +163,10 @@ export default class MessageFeed extends React.Component {
                   </Typography> */}
                             </Container>
                         </React.Fragment>
-                        <div style={{ width: "30%", height: "100px" }}></div>
+                        <div
+                            ref={this.bottomRef}
+                            style={{ width: "30%", height: "100px" }}
+                        ></div>
                     </div>
                 </div>
             );
@@ -151,6 +174,7 @@ export default class MessageFeed extends React.Component {
             return (
                 <div>
                     <MessagesOverlay
+                        LeaveRoom={this.LeaveRoom}
                         changeCircle={this.changeCircle}
                         userProfilePicture={userProfilePicture}
                         loggedInUsername={loggedInUsername}
@@ -189,15 +213,22 @@ export default class MessageFeed extends React.Component {
                                 />
                             </Container>
                         </React.Fragment>
-                        <div style={{ width: "30%", height: "100px" }}></div>
+                        <div
+                            ref={this.bottomRef}
+                            style={{ width: "30%", height: "100px" }}
+                        ></div>
                     </div>
                 </div>
             );
         } else {
             // OTHERWISE RUN THE GOOD STUFF
+            this.props.socket.on("receive_message", (data) => {
+                this.SetMessage(data);
+            });
             return (
                 <div>
                     <MessagesOverlay
+                        LeaveRoom={this.LeaveRoom}
                         changeCircle={this.changeCircle}
                         onRouteChange={onRouteChange}
                         userProfilePicture={userProfilePicture}
@@ -231,6 +262,7 @@ export default class MessageFeed extends React.Component {
                                 }}
                             >
                                 <p>{this.feedPosts}</p>
+
                                 <Box
                                     className="chatWindow"
                                     sx={{
@@ -251,10 +283,10 @@ export default class MessageFeed extends React.Component {
                                         style={{ flexDirection: "column" }}
                                     >
                                         {/* .MAP IS OUR FOR EACH LOOP, 'ITEM' IS JUST WHAT WE CALL EACH ELEMENT IN THE LIST SO IS INTERCHANGEABLE */}
-                                        {chatFeed.map((message) => (
+                                        {this.chat.map((message) => (
                                             /* RENDER THE COMPONENT WITH PROPS PASSED IN FROM THE SPECIFIC ITEM WERE CURRENTLY ON FOR EACH ITEM PASSED OVER BY THE .MAP */
                                             <Message
-                                                key={message.messageId}
+                                                key={this.messageKey++}
                                                 chatId={chatData.chatId}
                                                 chatUser1={chatData.user1}
                                                 chatUser2={chatData.user2}
@@ -289,10 +321,16 @@ export default class MessageFeed extends React.Component {
                                                 }
                                             />
                                         ))}
+                                        <div ref={this.bottomRef}></div>
                                     </Stack>
                                 </Box>
+
                                 {this.state.chatData.chatId ? (
                                     <NewMessage
+                                        LeaveRoom={this.LeaveRoom}
+                                        SetMessage={this.SetMessage}
+                                        roomID={this.state.roomID}
+                                        socket={this.props.socket}
                                         chatId={chatData.chatId}
                                         chatUser1={chatData.user1}
                                         chatUser2={chatData.user2}

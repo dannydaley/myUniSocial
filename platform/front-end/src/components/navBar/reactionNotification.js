@@ -26,6 +26,7 @@ export default class ReactionNotification extends React.Component {
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
             .then((data) =>
+                
                 data === "success" ? this.setState({ seen: true }) : ""
             );
     };

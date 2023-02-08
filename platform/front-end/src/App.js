@@ -13,10 +13,8 @@ import AccountPage from "./pages/AccountPage";
 import QuestionGate from "./components/myUni404/components/FullQuestion/QuestionGate";
 import AskQuestionPage from "./components/myUni404/pages/AskQuestionPage";
 import QuestionFeedGate from "./components/myUni404/components/home/QuestionFeedGate";
-
 import { io } from "socket.io-client";
-// import socketClient from "socket.io-client";
-// const socket = io.connect("http://localhost:3001");
+
 export default class App extends Component {
     constructor() {
         super();
@@ -36,11 +34,10 @@ export default class App extends Component {
             userCoverPicture: "",
             UIColor: "",
             socketId: "",
+            socket: {},
         };
-
-        // this.socket = socketClient(process.env.REACT_APP_SERVER);
     }
-    // const isLoggedIn = useSelector(state => state.isLoggedIn),
+
     delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     delayFunction = (time) => {
@@ -62,7 +59,6 @@ export default class App extends Component {
         )
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
-            // .then(await this.delayFunction(1000))
             // WHAT WE DO WITH THE DATA WE RECEIVE (data => (data)) SHOULD SHOW WHAT WE GET
             .then((data) => {
                 this.setState({
@@ -83,7 +79,7 @@ export default class App extends Component {
     };
     componentDidMount() {
         // this.interval = setInterval(() => this.getNotifications(), 10000);
-        // this.checkForSession();
+        this.checkForSession();
     }
     componentWillUnmount() {
         clearInterval(this.interval);
@@ -136,7 +132,12 @@ export default class App extends Component {
             if (!this.state.socketId) {
                 const socket = io.connect(process.env.REACT_APP_SERVER);
                 socket.on("connect", () => {
-                    this.setState({ socketId: socket.id });
+                    this.setState({ socketId: socket.id, socket: socket });
+                    console.log(socket.id);
+                    console.log(socket);
+                });
+                socket.emit("join", {
+                    username: this.state.loggedInUsername,
                 });
                 socket.on("connect_error", () => {
                     console.log("error");
@@ -341,10 +342,11 @@ export default class App extends Component {
                                     path="messages"
                                     element={
                                         <MessagesPage
+                                            socket={this.state.socket}
                                             SwitchPlatform={this.SwitchPlatform}
-                                            getNotifications={
-                                                this.getNotifications
-                                            }
+                                            // getNotifications={
+                                            //     this.getNotifications
+                                            // }
                                             setNotifications={
                                                 this.setNotifications
                                             }

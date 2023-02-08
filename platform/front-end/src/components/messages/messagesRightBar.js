@@ -32,6 +32,11 @@ export default class MessagesRightBar extends React.Component {
             });
     };
 
+    SwitchChat = (loggedInUsername, chatId, partner) => {
+        this.props.LeaveRoom();
+        this.props.getChat(loggedInUsername, chatId, partner);
+    };
+
     render() {
         let { getChat, loggedInUsername } = this.props;
         return (
@@ -82,7 +87,7 @@ export default class MessagesRightBar extends React.Component {
                                                 width: "100%",
                                             }}
                                             onClick={() =>
-                                                getChat(
+                                                this.SwitchChat(
                                                     loggedInUsername,
                                                     false,
                                                     friend.username

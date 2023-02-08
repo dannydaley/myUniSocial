@@ -33,6 +33,10 @@ export default class MessagesLeftBar extends React.Component {
                 this.setState({ chats: data, chatsAreLoaded: true });
             });
     };
+    SwitchChat = (loggedInUsername, chatId) => {
+        this.props.LeaveRoom();
+        this.props.getChat(loggedInUsername, chatId);
+    };
 
     render() {
         const { userProfilePicture, loggedInUsername, getChat } = this.props;
@@ -174,7 +178,7 @@ export default class MessagesLeftBar extends React.Component {
                                                     width: "270px",
                                                 }}
                                                 onClick={() =>
-                                                    getChat(
+                                                    this.SwitchChat(
                                                         loggedInUsername,
                                                         chat.chatId
                                                     )
