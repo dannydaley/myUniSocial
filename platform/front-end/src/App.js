@@ -6,7 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import theme from "./theme";
 import { ThemeProvider } from "@material-ui/core/styles";
 import ProfileGate from "./pages/ProfileGate";
-import MessagesPage from "./pages/messagesPage";
+import MessagesPage from "./pages/MessagesPage";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
 import AccountPage from "./pages/AccountPage";
@@ -36,6 +36,7 @@ export default class App extends Component {
             socketId: "",
             socket: {},
         };
+        this.socket = io.connect(process.env.REACT_APP_SERVER);
     }
 
     delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -69,13 +70,13 @@ export default class App extends Component {
             });
     };
     checkForSession = () => {
-        fetch(process.env.REACT_APP_SERVER + "/auth/refreshSessionStatus", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: "check for session",
-            }),
-        }).then((response) => console.log(response.json()));
+        // fetch(process.env.REACT_APP_SERVER + "/auth/refreshSessionStatus", {
+        //     method: "post",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({
+        //         message: "check for session",
+        //     }),
+        // }).then((response) => console.log(response.json()));
     };
     componentDidMount() {
         // this.interval = setInterval(() => this.getNotifications(), 10000);
@@ -120,6 +121,12 @@ export default class App extends Component {
 
     onRouteChange = (route) => {
         if (route === "signout") {
+            this.socket.on("disconnect", () => {
+                this.setState({
+                    socketId: this.socket.id,
+                    socket: this.socket,
+                });
+            });
             this.setState({ isSignedIn: false });
             fetch(process.env.REACT_APP_SERVER + "/auth/signout", {
                 method: "post",
@@ -130,18 +137,19 @@ export default class App extends Component {
             });
         } else if (route === "home") {
             if (!this.state.socketId) {
-                const socket = io.connect(process.env.REACT_APP_SERVER);
-                socket.on("connect", () => {
-                    this.setState({ socketId: socket.id, socket: socket });
-                    console.log(socket.id);
-                    console.log(socket);
+                // const socket = io.connect(process.env.REACT_APP_SERVER);
+                this.socket.on("connect", () => {
+                    this.setState({
+                        socketId: this.socket.id,
+                        socket: this.socket,
+                    });
                 });
-                socket.emit("join", {
+                this.socket.emit("join", {
                     username: this.state.loggedInUsername,
                 });
-                socket.on("connect_error", () => {
+                this.socket.on("connect_error", () => {
                     console.log("error");
-                    setTimeout(() => socket.connect(), 3001);
+                    setTimeout(() => this.socket.connect(), 3001);
                 });
             }
             this.setState({ isSignedIn: true });
@@ -342,7 +350,7 @@ export default class App extends Component {
                                     path="messages"
                                     element={
                                         <MessagesPage
-                                            socket={this.state.socket}
+                                            socket={this.socket}
                                             SwitchPlatform={this.SwitchPlatform}
                                             // getNotifications={
                                             //     this.getNotifications

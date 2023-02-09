@@ -129,23 +129,6 @@ export default class MyFriends extends React.Component {
                                                     borderRadius: "50%",
                                                 }}
                                             ></div>
-                                            {/* <img
-                                                alt=""
-                                                src={
-                                                    process.env
-                                                        .REACT_APP_SERVER +
-                                                    "/public/" +
-                                                    friend.profilePicture
-                                                }
-                                                width="100px"
-                                                height="100px"
-                                                style={{
-                                                    color: "white",
-                                                    mb: 3,
-                                                    marginRight: "10%",
-                                                    borderRadius: "50%",
-                                                }}
-                                            /> */}
                                         </Link>
                                         <Link
                                             to={`/${friend.username}`}

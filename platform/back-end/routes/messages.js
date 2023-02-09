@@ -85,6 +85,8 @@ router.post("/getAllUsersChats", (req, res) => {
 
 router.post("/getChat", async (req, res) => {
     //set up variables from the request body
+
+    console.log(req.body);
     let { user, chatId, partner } = req.body;
     if (chatId === false || chatId === undefined) {
         await db.query(
@@ -135,6 +137,23 @@ router.post("/getChat", async (req, res) => {
                                 res.status(500).send(err.message);
                                 return;
                             }
+                            let userToUpdate = "";
+                            if (chatData[0].user1 === user) {
+                                userToUpdate = "seenByUser1";
+                            } else if (chatData[0].user2 === user) {
+                                userToUpdate = "seenByUser2";
+                            }
+                            db.query(
+                                `UPDATE chats SET ${userToUpdate} = ? WHERE chatId = ?`,
+                                [true, chatId],
+                                (err) => {
+                                    if (err) {
+                                        // respond with error status and error message
+                                        return;
+                                    }
+                                }
+                            );
+
                             // pull all messages from the messages table in the database by chatId above, ordered by date
                             db.query(
                                 GET_MESSAGES_BY_CHAT_ID,
@@ -170,6 +189,22 @@ router.post("/getChat", async (req, res) => {
                     res.status(500).send(err.message);
                     return;
                 }
+                let userToUpdate = "";
+                if (chatData[0].user1 === user) {
+                    userToUpdate = "seenByUser1";
+                } else if (chatData[0].user2 === user) {
+                    userToUpdate = "seenByUser2";
+                }
+                db.query(
+                    `UPDATE chats SET ${userToUpdate} = ? WHERE chatId = ?`,
+                    [true, chatId],
+                    (err) => {
+                        if (err) {
+                            // respond with error status and error message
+                            return;
+                        }
+                    }
+                );
                 // pull all messages from the messages table in the database by chatId above, ordered by date
                 db.query(GET_MESSAGES_BY_CHAT_ID, [chatId], (err, messages) => {
                     // if error
@@ -187,30 +222,6 @@ router.post("/getChat", async (req, res) => {
             }
         );
     }
-});
-
-router.post("/setChatAsSeen", (req, res) => {
-    //set up variables from the request body
-    let { chatId, user1, user2, user } = req.body;
-    let userToUpdate = "";
-    if (user1 === user) {
-        userToUpdate = "seenByUser1";
-    } else if (user2 === user) {
-        userToUpdate = "seenByUser2";
-    }
-    db.query(
-        `UPDATE chats SET ${userToUpdate} = ? WHERE chatId = ?`,
-        [true, chatId],
-        (err) => {
-            if (err) {
-                // respond with error status and error message
-                res.status(500).send(err.message);
-                return;
-            }
-            // respond with success message on completion
-            res.json("success");
-        }
-    );
 });
 
 //#endregion MESSAGING

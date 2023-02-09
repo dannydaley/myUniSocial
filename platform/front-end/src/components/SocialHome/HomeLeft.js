@@ -74,6 +74,7 @@ export default class HomeLeft extends React.Component {
                 </Link>
                 {dataIsLoaded ? (
                     <Stack
+                        key={1}
                         spacing={2}
                         direction="column"
                         sx={{ width: "80%", margin: "0 auto" }}
@@ -94,6 +95,7 @@ export default class HomeLeft extends React.Component {
                         {this.state.circles.map((circle) =>
                             circle.length >= 2 ? (
                                 <Button
+                                    key={Math.random() * 1000}
                                     variant="contained"
                                     sx={{
                                         width: "100%",

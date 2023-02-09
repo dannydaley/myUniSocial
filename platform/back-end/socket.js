@@ -11,18 +11,21 @@ const socket = (server) => {
         },
     });
 
-    var users = {
-        user: "socketObject",
-    };
-
+    const users = {};
     //On connection
     io.on("connection", (socket) => {
-        // socket.on("connection", (socket) => {
+        io.setMaxListeners(0);
         socket.on("join", function (data) {
             socket.join(data.username); // We are using room of socket io
-            console.log(data.username + " has joined with ID: " + socket.id);
+
+            // COMMENTS LEFT HERE FOR REFERENCE WHEN DOING "ONLINE FRIENDS"
+
+            // console.log(data.username + " has joined with ID: " + socket.id);
+
+            // users[socket.id] = data.username;
+            // console.log(users);
         });
-        // });
+
         socket.on("join_room", (room) => {
             socket.join(room);
 
@@ -41,9 +44,11 @@ const socket = (server) => {
         });
 
         //On disconnect
-        socket.on("disconnect_client", () => {
+        socket.on("disconnect", () => {
             //Log user ids
-            console.log(`user disconnected: ${socket.id}`);
+            // users - socket.id;
+            // console.log(users);
+            // console.log(`user disconnected: ${socket.id}`);
         });
     });
 
