@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(
     cors({
         origin: [
+            // REMOVE THE * WILDCARD WHEN DONE TESTING
+            "*",
             process.env.FRONTEND,
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",

@@ -250,7 +250,6 @@ export default class FullQuestion extends React.Component {
                                 <>
                                     <Answer
                                         postID={item.postID}
-                                        viewProfile={this.props.viewProfile}
                                         authorID={item.authorID}
                                         author={item.author}
                                         text={item.text}

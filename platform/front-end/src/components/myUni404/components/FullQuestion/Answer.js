@@ -78,11 +78,6 @@ export default class Answer extends React.Component {
                                         border: "1px solid gray",
                                         borderRadius: "50%",
                                     }}
-                                    onClick={() =>
-                                        this.props.viewProfile(
-                                            this.props.authorID
-                                        )
-                                    }
                                 ></div>
                             </Link>
                             <Link
