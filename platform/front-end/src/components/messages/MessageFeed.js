@@ -55,7 +55,7 @@ export default class MessageFeed extends React.Component {
         this.autoScroll(this.bottomRef, "smooth");
     };
 
-    //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
+    // runs when component mounts
     componentDidMount = async () => {
         // if there is a chat selected
         if (this.props.chatSelected) {
@@ -164,9 +164,6 @@ export default class MessageFeed extends React.Component {
             );
         } else if (this.props.chat) {
             // OTHERWISE RUN THE GOOD STUFF
-            // this.props.socket.on("receive_message", (data) => {
-            //     this.SetMessage(data);
-            // });
             return (
                 <Container
                     maxWidth="lg"

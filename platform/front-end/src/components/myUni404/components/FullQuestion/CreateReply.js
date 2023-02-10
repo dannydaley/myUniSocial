@@ -33,19 +33,24 @@ export default class CreateReply extends React.Component {
         this.setState({ expanded: false });
     };
 
-    //handle input changes
+    // runs on text field change and applies to state
     onTextChange = (event) => this.setState({ text: event.target.value });
+
+    // runs on code field change and applies to state
     onCodeChange = (event) => this.setState({ code: event.target.value });
 
-    //handle form submit
+    // runs when user submits reply
     submitAnswer = () => {
+        // if the answer is too short or title/ category is empty
         if (
             this.state.text.length < 10 ||
             this.state.category === "none" ||
             this.state.title === "none"
         ) {
+            // reject and notify short answer
             this.setState({ shortSubmit: true });
         } else {
+            // otherwise send post data to server
             fetch(process.env.REACT_APP_SERVER + "/posts/postQuestion", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -61,7 +66,9 @@ export default class CreateReply extends React.Component {
                     authorProfilePicture: this.props.userProfilePicture,
                 }),
             })
+                // turn response data into a JSON object
                 .then((response) => response.json())
+                // apply response data to state and refresh question
                 .then((data) => {
                     if (data.status === "success") {
                         this.props.refreshQuestion();

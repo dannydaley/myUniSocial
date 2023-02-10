@@ -28,41 +28,89 @@ export default class MyInformation extends React.Component {
         };
     }
 
+    // calls when component mounts
+    componentDidMount = async (newCircle) => {
+        // if no module is selected, default to general
+        if (!newCircle) {
+            newCircle = "general";
+        }
+        // initiate loading screen
+        this.setState({ dataIsLoaded: false });
+        // fetch general user data from server
+        fetch(process.env.REACT_APP_SERVER + "/account/getUserGeneralInfo", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user: this.props.loggedInUsername,
+            }),
+        })
+            // turn response into a JSON object
+            .then((response) => response.json())
+            // apply response data to state
+            .then((data) => {
+                this.setState({
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    aboutMe: data.aboutMe,
+                    location: data.location,
+                    education: data.education,
+                    coverPicture: data.coverPicture,
+                    work: data.work,
+                    profilePicture: data.profilePicture,
+                    dataIsLoaded: true,
+                });
+            });
+    };
+
+    // calls when 'first name' text field is updated and applies to state
     onFirstNameChange = (event) => {
         this.setState({ firstName: event.target.value });
     };
+
+    // calls when 'last name' text field is updated and applies to state
     onLastNameChange = (event) => {
         this.setState({ lastName: event.target.value });
     };
+
+    // calls when 'about me' text field is updated and applies to state
     onAboutMeChange = (event) => {
         this.setState({ aboutMe: event.target.value });
     };
+
+    // calls when 'location' text field is updated and applies to state
     onLocationChange = (event) => {
         this.setState({ location: event.target.value });
     };
+
+    // calls when 'education' text field is updated and applies to state
     onEducationChange = (event) => {
         this.setState({ education: event.target.value });
     };
+
+    // calls when 'work' text field is updated and applies to state
     onWorkChange = (event) => {
         this.setState({ work: event.target.value });
     };
+
+    // calls when 'profile picture' text field is updated and applies to state
     onProfilePictureChange = (event) => {
         this.updateProfilePicture(event.target.files[0]);
     };
+
+    // calls when 'cover picture' text field is updated and applies to state
     onCoverPictureChange = (event) => {
         this.updateCoverPicture(event.target.files[0]);
     };
 
-    delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-    delayFunction = async () => {
-        await this.delay(10000);
-    };
-
+    // calls when user updates profile picture
     updateProfilePicture = async (image) => {
+        // create data form for file input
         let formData = new FormData();
+        // apply the image to the form
         formData.append("image", image);
+        // apply username to form ready to send to server
         formData.append("username", this.props.loggedInUsername);
+        // send request to server to upload image and update profile picture
         await axios
             .post(
                 process.env.REACT_APP_SERVER + "/account/changeProfilePicture",
@@ -74,17 +122,24 @@ export default class MyInformation extends React.Component {
                     }),
                 }
             )
+            // apply response data to state and refresh the data on the users screen
             .then((res) => {
                 this.setState({ profilePicture: res.profilePicture });
                 this.props.refreshData();
             })
+            // remount the parent component to refresh profile picture accross the site
             .then(this.props.remountParent());
     };
 
+    // calls when user updates cover picture
     updateCoverPicture = async (image) => {
+        // create data form for file input
         let formData = new FormData();
+        // apply the image to the form
         formData.append("image", image);
+        // apply username to form ready to send to server
         formData.append("username", this.props.loggedInUsername);
+        // send request to server to upload image and update cover picture
         await axios
             .post(
                 process.env.REACT_APP_SERVER + "/account/changeCoverPicture",
@@ -96,16 +151,21 @@ export default class MyInformation extends React.Component {
                     }),
                 }
             )
+            // apply response data to state and refresh the data on the users screen
             .then((res) => {
                 this.setState({ coverPicture: res.coverPicture });
                 this.props.remountParent();
+                // remount the parent component
                 this.props.refreshData();
             });
     };
 
+    // calls when user complete form to update user info
     updateUserGeneralInfo = () => {
+        // get the variable from the state
         const { firstName, lastName, aboutMe, location, education, work } =
             this.state;
+        // send data to server
         fetch(process.env.REACT_APP_SERVER + "/account/updateUserGeneralInfo", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -119,43 +179,12 @@ export default class MyInformation extends React.Component {
                 work: work,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-            .then((data) => {
+            // remount the parent component and refresh data
+            .then(() => {
                 this.props.remountParent();
                 this.props.refreshData();
-            });
-    };
-
-    componentDidMount = async (newCircle) => {
-        if (!newCircle) {
-            newCircle = "general";
-        }
-        this.setState({ dataIsLoaded: false });
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(process.env.REACT_APP_SERVER + "/account/getUserGeneralInfo", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user: this.props.loggedInUsername,
-            }),
-        })
-            //TURN THE RESPONSE INTO A JSON OBJECT
-            .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-            .then((data) => {
-                this.setState({
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    aboutMe: data.aboutMe,
-                    location: data.location,
-                    education: data.education,
-                    coverPicture: data.coverPicture,
-                    work: data.work,
-                    profilePicture: data.profilePicture,
-                    dataIsLoaded: true,
-                });
             });
     };
 
@@ -227,7 +256,6 @@ export default class MyInformation extends React.Component {
                                         process.env.REACT_APP_SERVER +
                                         "/public/" +
                                         profilePicture
-                                        // process.env.REACT_APP_SERVER + process.env.REACT_APP_SERVERPUBLICDIRECTORY + props.profilePicture
                                     }
                                     width="200px"
                                     height="150px"
@@ -235,7 +263,6 @@ export default class MyInformation extends React.Component {
                                         boxShadow: "1px 3px 5px 0px black",
                                         mb: 3,
                                     }}
-                                    // onClick={()=>this.props.onRouteChange('profile')}
                                 />
                                 <label htmlFor="file-input">
                                     <div
@@ -294,7 +321,6 @@ export default class MyInformation extends React.Component {
                                         process.env.REACT_APP_SERVER +
                                         "/public/" +
                                         coverPicture
-                                        // process.env.REACT_APP_SERVER + process.env.REACT_APP_SERVERPUBLICDIRECTORY + props.profilePicture
                                     }
                                     width="200px"
                                     height="150px"
@@ -302,7 +328,6 @@ export default class MyInformation extends React.Component {
                                         boxShadow: "1px 3px 5px 0px black",
                                         mb: 3,
                                     }}
-                                    // onClick={()=>this.props.onRouteChange('profile')}
                                 />
                                 <label htmlFor="cover-file-input">
                                     <div

@@ -9,6 +9,8 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import { Link } from "react-router-dom";
 
 export default class Question extends React.Component {
+    // called when user select the question to go to the full question view
+    //take inputs from function call
     goToQuestion = (
         authorProfilePicture,
         title,
@@ -19,6 +21,7 @@ export default class Question extends React.Component {
         language,
         authorID
     ) => {
+        // pass into the ready question function in HomeGrid
         this.props.readyQuestion(
             authorProfilePicture,
             title,
@@ -29,8 +32,10 @@ export default class Question extends React.Component {
             language,
             authorID
         );
+        // change the route to navigate to the question
         this.props.changeRoute("question");
     };
+
     render() {
         return (
             <div style={{ marginBottom: "10px" }}>

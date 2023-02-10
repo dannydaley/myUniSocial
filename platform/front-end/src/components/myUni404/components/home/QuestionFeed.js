@@ -11,11 +11,10 @@ class QuestionFeed extends React.Component {
             passedFirstLoad: false,
         };
     }
-    feedData = "";
-    //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
+
+    // calls when component mounts
     componentDidMount = async () => {
-        // this.setState({ settings: newSettings })
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+        // get the question feed from the server
         fetch(process.env.REACT_APP_SERVER + "/feeds/getQuestionFeed", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -23,16 +22,15 @@ class QuestionFeed extends React.Component {
                 feed: this.props.viewFeed,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn reponse into a JSON object
             .then((response) => response.json())
-
-            // .then(await this.delayFunction())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // apply response data to state
             .then((data) => {
                 this.setState({ feedData: data });
             });
     };
 
+    // create key variable to increment and apply to every post/ question
     key = 0;
     render() {
         return (

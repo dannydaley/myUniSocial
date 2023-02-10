@@ -13,8 +13,11 @@ export default class MyCircles extends React.Component {
         };
     }
 
+    // calls once when component mounts
     componentDidMount = () => {
+        // reinitiate loading screen incase is true when this function is called by another function
         this.setState({ dataIsLoaded: false });
+        // fetch all modules from server
         fetch(process.env.REACT_APP_SERVER + "/modules/getAllCircles", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -22,9 +25,9 @@ export default class MyCircles extends React.Component {
                 user: this.props.loggedInUsername,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // apply response data to state
             .then((data) => {
                 this.setState({
                     circles: data.circles,
@@ -34,8 +37,11 @@ export default class MyCircles extends React.Component {
             });
     };
 
+    // calls when user adds a circle
     addCircle = (circleName) => {
+        // reinitiate loading screen
         this.setState({ dataIsLoaded: false });
+        // send add module request to server
         fetch(process.env.REACT_APP_SERVER + "/modules/addCircle", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -44,14 +50,17 @@ export default class MyCircles extends React.Component {
                 circleName: circleName,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // remount the component and update this component
             .then(this.componentDidMount());
     };
 
+    // calls when user unfollows a module
     deleteCircle = (circleName) => {
+        // reinitiate loading screen
         this.setState({ dataIsLoaded: false });
+        // send delete module request to server
         fetch(process.env.REACT_APP_SERVER + "/modules/deleteCircle", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -60,9 +69,9 @@ export default class MyCircles extends React.Component {
                 circleName: circleName,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // remount the component and update this component
             .then(this.componentDidMount());
     };
 

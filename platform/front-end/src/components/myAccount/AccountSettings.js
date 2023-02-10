@@ -20,16 +20,13 @@ export default class AccountSettings extends React.Component {
         };
     }
 
-    delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-    delayFunction = async () => {
-        await this.delay(1000);
-    };
-
+    // calls when user selects what settings to change and takes to update form
     changeSettings = (newSettings) => {
+        // apply settings type to state
         this.setState({ settings: newSettings });
     };
 
+    // grabs the correct form component depending on settings selection
     settingsGroup = (selection) => {
         switch (selection) {
             case "My information":
@@ -69,15 +66,8 @@ export default class AccountSettings extends React.Component {
     };
 
     render() {
-        // const {
-        //     userFirstName,
-        //     userLastName,
-        //     userProfilePicture,
-        //     loggedInUsername,
-        // } = this.props;
-        //SETTING UP ACCESS TO THE STATE VARIABLES
         const { dataIsLoaded } = this.state;
-        // IF THE DATA ISNT LOADED YET, LOAD AN ALTERNATIVE WHILE WE WAIT
+        // if data isnt loaded yet..
         if (!dataIsLoaded) {
             return (
                 <Container
@@ -105,14 +95,12 @@ export default class AccountSettings extends React.Component {
                     >
                         <CircularProgress />
                     </Box>
-                    <h1 style={{ color: "white" }}>
-                        loading {/* {this.state.settings}*/}
-                    </h1>
+                    <h1 style={{ color: "white" }}>loading</h1>
                     <Divider variant="middle" sx={{ mt: 1.5, mb: 1.5 }} />
                 </Container>
             );
         } else {
-            // OTHERWISE RUN THE GOOD STUFF
+            // load this if data is loaded
             return (
                 <Container
                     maxWidth="lg"

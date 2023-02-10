@@ -12,7 +12,29 @@ export default class MyFriends extends React.Component {
         };
     }
 
+    // calls when component mounts
+    componentDidMount = () => {
+        // initiate loading screen to load data
+        this.setState({ dataIsLoaded: false });
+        // fetch friends list from server
+        fetch(process.env.REACT_APP_SERVER + "/friends/getFriends", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user: this.props.loggedInUsername,
+            }),
+        })
+            // turn reponse into a JSON object
+            .then((response) => response.json())
+            // apply response data to state
+            .then((data) => {
+                this.setState({ friends: data, dataIsLoaded: true });
+            });
+    };
+
+    // calls when user removes a friend
     deleteFriend = (friend) => {
+        // send delete friend request to server
         fetch(process.env.REACT_APP_SERVER + "/friends/deleteFriend", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -21,27 +43,10 @@ export default class MyFriends extends React.Component {
                 friend: friend,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // remount component to refresh
             .then(this.componentDidMount());
-    };
-
-    componentDidMount = () => {
-        this.setState({ dataIsLoaded: false });
-        fetch(process.env.REACT_APP_SERVER + "/friends/getFriends", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user: this.props.loggedInUsername,
-            }),
-        })
-            //TURN THE RESPONSE INTO A JSON OBJECT
-            .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-            .then((data) => {
-                this.setState({ friends: data, dataIsLoaded: true });
-            });
     };
 
     render() {

@@ -16,7 +16,7 @@ export default class MessagesRight extends React.Component {
 
     // runs on startup
     componentDidMount = () => {
-        // get friends list
+        // get friends list from server
         fetch(process.env.REACT_APP_SERVER + "/friends/getFriends", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -24,9 +24,9 @@ export default class MessagesRight extends React.Component {
                 user: this.props.loggedInUsername,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // apply response data to state and disable loading
             .then((data) => {
                 this.setState({ friends: data, dataIsLoaded: true });
             });

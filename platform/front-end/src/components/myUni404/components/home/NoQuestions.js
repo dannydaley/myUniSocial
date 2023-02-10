@@ -14,6 +14,7 @@ export default class NoQuestions extends React.Component {
             postID,
             language
         );
+        // updates the route to navigate site, applies parameter input to route state
         this.props.changeRoute("question");
     };
     render() {

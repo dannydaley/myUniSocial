@@ -1,10 +1,7 @@
-import Grid from "@mui/material/Grid"; // Grid version 1
+import Grid from "@mui/material/Grid";
 import HomeLeft from "./HomeLeft";
 import React from "react";
 import QuestionFeed from "./QuestionFeed";
-// import FullQuestion from "../FullQuestion/FullQuestion";
-// import AskQuestion from "../AskQuestion";
-// import Profile from "../Profile/Profile";
 import NavBar from "../../../navBar";
 
 class HomeGrid extends React.Component {
@@ -26,11 +23,15 @@ class HomeGrid extends React.Component {
         };
     }
 
+    // gets called when user clicks to view a users profile
     viewProfile = (num) =>
+        // set state and update route to go to profile
         this.setState({ viewProfile: num, route: "profile" });
 
+    // updates the route to navigate site, applies parameter input to route state
     changeRoute = (route) => this.setState({ route: route });
 
+    // gets called when a question is selected to view, it gets the question data together and applies to state
     readyQuestion = (
         authorProfilePicture,
         title,
@@ -54,8 +55,12 @@ class HomeGrid extends React.Component {
             },
         });
     };
+
+    // gets called when user selects a different field to view (web, game dev, etc)
     changeFeed = (key, feed) => {
+        // updates the 'key' state to refresh the component and view feed to move to new feed
         this.setState({ key: key, viewFeed: feed });
+        // changes the route to feed, with the above data already prepared
         this.changeRoute("feed");
     };
 
@@ -108,86 +113,6 @@ class HomeGrid extends React.Component {
                             readyQuestion={this.readyQuestion}
                             viewProfile={this.viewProfile}
                         />
-                        {/* <h1>{this.props.loggedInEmail}</h1>
-                        {this.state.route === "feed" ? (
-
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "question" ? (
-                            <FullQuestion
-                                userProfilePicture={
-                                    this.props.userProfilePicture
-                                }
-                                authorProfilePicture={
-                                    this.state.questionInfo.authorProfilePicture
-                                }
-                                viewProfile={this.viewProfile}
-                                key={this.state.key}
-                                userID={this.props.userID}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                                userData={this.props.userData}
-                                title={this.state.questionInfo.title}
-                                author={this.state.questionInfo.author}
-                                text={this.state.questionInfo.text}
-                                code={this.state.questionInfo.code}
-                                postID={this.state.questionInfo.postID}
-                                authorID={this.state.questionInfo.authorID}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "ask" ? (
-                            <AskQuestion
-                                changeFeed={this.changeFeed}
-                                userProfilePicture={
-                                    this.props.userProfilePicture
-                                }
-                                userData={this.props.userData}
-                                userID={this.props.userID}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "myProfile" ? (
-                            <Profile
-                                updateProfilePicture={
-                                    this.props.updateProfilePicture
-                                }
-                                key={this.state.key}
-                                changeKey={this.props.changeKey}
-                                userProfilePicture={
-                                    this.props.userProfilePicture
-                                }
-                                loggedInEmail={this.props.loggedInEmail}
-                                userData={this.props.userData}
-                                userID={this.props.userID}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {this.state.route === "profile" ? (
-                            <Profile
-                                updateProfilePicture={
-                                    this.props.updateProfilePicture
-                                }
-                                key={this.state.key}
-                                changeKey={this.props.changeKey}
-                                loggedInEmail={this.props.loggedInEmail}
-                                userData={this.props.userData}
-                                userID={this.state.viewProfile}
-                                userFirstName={this.props.userFirstName}
-                                userLastName={this.props.userLastName}
-                            />
-                        ) : (
-                            ""
-                        )}
-             */}
                     </Grid>
                 </Grid>
             </>

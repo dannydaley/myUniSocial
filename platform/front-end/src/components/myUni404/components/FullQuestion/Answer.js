@@ -18,8 +18,9 @@ export default class Answer extends React.Component {
     }
 
     votePost = async (vote) => {
+        // if voting isnt disabled
         if (this.state.votingOpen) {
-            //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+            // send vote request to server
             fetch(process.env.REACT_APP_SERVER + "/posts/voteQuestion", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -28,9 +29,10 @@ export default class Answer extends React.Component {
                     vote: vote,
                 }),
             })
-                //TURN THE RESPONSE INTO A JSON OBJECT
+                // turn response into a JSON object
                 .then((response) => response.json())
-                .then((data) => {
+                // apply vote to state and disable voting
+                .then(() => {
                     vote === "up"
                         ? this.setState({
                               score: this.state.score + 1,
@@ -42,6 +44,7 @@ export default class Answer extends React.Component {
                           });
                 });
         } else {
+            // otherwise just return
             return;
         }
     };

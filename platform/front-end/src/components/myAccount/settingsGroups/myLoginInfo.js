@@ -24,7 +24,9 @@ export default class MyLoginInfo extends React.Component {
         };
     }
 
+    // calls when user confirms changes to login info
     updateUserLoginInfo = () => {
+        // get variables from the state
         const {
             email,
             password,
@@ -32,6 +34,7 @@ export default class MyLoginInfo extends React.Component {
             changePassword,
             changePasswordConfirm,
         } = this.state;
+        // send variable to backend to be updated in the databse
         fetch(process.env.REACT_APP_SERVER + "/account/updateUserLoginInfo", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -44,22 +47,25 @@ export default class MyLoginInfo extends React.Component {
                 changePasswordConfirm: changePasswordConfirm,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn response into a JSON object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
-            .then((data) => {
+            // remount this component to refresh
+            .then(() => {
                 this.props.mountComponent();
             });
     };
 
+    // calls when email input is updated and applies to state
     onEmailChange = (event) => {
         this.setState({ email: event.target.value });
     };
 
+    // calls when password input is updated and applies to state
     onPasswordChange = (event) => {
         this.setState({ password: event.target.value });
     };
 
+    // calls when change file input is updated and applies to state
     onChangeEmailChange = (event) => {
         this.setState({ changeEmail: event.target.value });
     };
@@ -67,14 +73,19 @@ export default class MyLoginInfo extends React.Component {
     field1 = "";
     field2 = "";
 
+    // called when first change password field is updated
     onChangePasswordChange = (event) => {
+        // apply text from input field to 'field1' variable
         this.field1 = event.target.value;
+        // if field1 and field2 match to confirm right new password
         if (this.field1 === this.field2 && this.field1.length > 5) {
+            // update the state and show ticks to confrim
             this.setState({
                 changePassword: event.target.value,
                 passwordMatch: "visible",
             });
         } else {
+            // otherwise update the state but dont show ticks
             this.setState({
                 changePassword: event.target.value,
                 passwordMatch: "hidden",
@@ -82,14 +93,19 @@ export default class MyLoginInfo extends React.Component {
         }
     };
 
+    // called when second change password field is updated
     onPasswordChangeConfirm = (event) => {
+        // apply text from input field to 'field12 variable
         this.field2 = event.target.value;
+        // if field1 and field2 match to confirm right new password
         if (this.field1 === this.field2 && this.field1.length > 5) {
+            // update the state and show ticks to confrim
             this.setState({
                 changePasswordConfirm: event.target.value,
                 passwordMatch: "visible",
             });
         } else {
+            // otherwise update the state but dont show ticks
             this.setState({
                 changePasswordConfirm: event.target.value,
                 passwordMatch: "hidden",

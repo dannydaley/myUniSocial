@@ -20,16 +20,11 @@ export default class FullQuestion extends React.Component {
         };
     }
 
-    replyData = [];
-
-    delayFunction = async () => {
-        await this.delay(1000);
-    };
-
+    // calls when component mounts
     componentDidMount = async () => {
-        console.log(this.props);
+        // reset loading screen if is disabled when function runs
         this.setState({ contentLoaded: false });
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+        // fetch the questions replies from server
         fetch(process.env.REACT_APP_SERVER + "/feeds/getQuestionReplies", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -37,14 +32,16 @@ export default class FullQuestion extends React.Component {
                 postID: this.props.postID,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            // turn response into JSON object
             .then((response) => response.json())
+            // apply response data to state
             .then((data) => {
                 this.setState({ replyData: data });
                 this.setState({ contentLoaded: true });
             });
     };
 
+    // refresh the question by re-calling mount function
     refreshQuestion = () => {
         this.componentDidMount();
     };
