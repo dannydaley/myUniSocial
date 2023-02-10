@@ -14,6 +14,7 @@ app.use(
             // REMOVE THE * WILDCARD WHEN DONE TESTING
             "*",
             process.env.FRONTEND,
+		"http://192.168.168.6:3000",
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
