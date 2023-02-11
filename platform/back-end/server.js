@@ -33,11 +33,11 @@ var fallback = require("express-history-api-fallback");
 app.use(bodyParser.json());
 var path = require("path");
 app.use("/public", express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "../front-end/build")));
-const root = path.join(__dirname, "../front-end/build");
+app.use(express.static(path.join(__dirname, "build")));
+const root = path.join(__dirname, "build");
 app.use(fallback("index.html", { root: root }));
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../front-end/build", "index.html"));
+    res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 //#region IMAGES AND IMAGE UPLOAD HANDLING
