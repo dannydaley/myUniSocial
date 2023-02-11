@@ -1,20 +1,21 @@
 //#region SETUP
 var express = require("express");
 var app = express();
-const cors = require("cors");
+app.use(express.json());
+
 const http = require("http");
 const socket = require("./socket");
 const server = http.createServer(app);
-app.use(express.json());
 
+const cors = require("cors");
 // set up cors to allow for different cross origin requests and prevent security errors.
 app.use(
     cors({
         origin: [
-            // REMOVE THE * WILDCARD WHEN DONE TESTING
+            // remove the * wildcard when done testing
             "*",
             process.env.FRONTEND,
-		"http://192.168.168.6:3000",
+            "http://192.168.168.6:3000",
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
@@ -32,11 +33,11 @@ var fallback = require("express-history-api-fallback");
 app.use(bodyParser.json());
 var path = require("path");
 app.use("/public", express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "build")));
-const root = path.join(__dirname, "build");
+app.use(express.static(path.join(__dirname, "../front-end/build")));
+const root = path.join(__dirname, "../front-end/build");
 app.use(fallback("index.html", { root: root }));
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+    res.sendFile(path.join(__dirname, "../front-end/build", "index.html"));
 });
 
 //#region IMAGES AND IMAGE UPLOAD HANDLING
@@ -98,10 +99,6 @@ app.use("/messages", messageRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
-
-// app.use(fall);
-
-// app.listen(process.env.PORT);
 
 //set server to listen to port from .env
 server.listen(process.env.PORT, () => {

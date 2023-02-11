@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import myUniSocial from "../../assets/myUniSocial.png";
+import falUni from "../../assets/falLogo.png";
 
 class SignInForm extends React.Component {
     constructor(props) {
@@ -76,6 +78,22 @@ class SignInForm extends React.Component {
                 }}
             >
                 <Box
+                    sx={{
+                        display: { xs: "flex", md: "none", lg: "none" },
+                        paddingBottom: "30px",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                >
+                    <img alt="" src={falUni} style={{ width: "20vw" }} />
+                    <img
+                        alt=""
+                        src={myUniSocial}
+                        style={{ width: "25vw", marginBottom: "5px" }}
+                    />
+                </Box>
+                <Box
                     component="form"
                     sx={{ "& .MuiTextField-root": { m: 1, width: "30ch" } }}
                     noValidate
@@ -107,13 +125,13 @@ class SignInForm extends React.Component {
                         />
                         <Button
                             variant="contained"
-                            sx={{ width: "33ch" }}
+                            sx={{ width: "33ch", marginTop: "20px" }}
                             onSubmit={() => this.onSubmitSignIn()}
                             onClick={() => this.onSubmitSignIn()}
                         >
                             Sign In
                         </Button>
-                        <p>Forgotten Password?</p>
+                        {/* <p>Forgotten Password?</p> */}
                     </div>
                     <Divider
                         variant="middle"
