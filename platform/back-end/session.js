@@ -1,10 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+
 var session = require("cookie-session");
 // const session = require("express-session");
 const app = express();
-
+const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -16,9 +16,17 @@ app.use(
         key: "user_id",
         secret: process.env.SESSION_SECRET,
         resave: false,
+        originalMaxAge: 0,
+        maxAge: 0,
         saveUninitialized: true,
-        cookie: { maxAge: oneDay },
+        cookie: {
+            httpOnly: true,
+            secure: false,
+            maxAge: oneDay,
+        },
     })
 );
+
+// Session setup
 
 module.exports = app;
