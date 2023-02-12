@@ -240,8 +240,9 @@ export default class ProfileFeed extends React.Component {
                                                 /* RENDER THE COMPONENT WITH PROPS PASSED IN FROM THE SPECIFIC ITEM WERE CURRENTLY ON FOR EACH ITEM PASSED OVER BY THE .MAP */
                                                 <FeedPost
                                                     key={item.id}
-                                                    loggedInUserName={
-                                                        loggedInUsername
+                                                    loggedInUsername={
+                                                        this.props
+                                                            .loggedInUsername
                                                     }
                                                     authorUsername={item.author}
                                                     authorFirstName={

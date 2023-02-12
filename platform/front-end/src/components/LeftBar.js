@@ -16,6 +16,7 @@ export default class LeftBar extends React.Component {
         };
     }
 
+    //runs on component mount
     componentDidMount = () => {
         this.setState({ dataIsLoaded: false });
         fetch(process.env.REACT_APP_SERVER + "/getUsersCircles", {
@@ -25,7 +26,7 @@ export default class LeftBar extends React.Component {
                 user: this.props.loggedInUsername,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn the response into a JSON object
             .then((response) => response.json())
             // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
             .then((data) => {

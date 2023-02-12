@@ -18,6 +18,7 @@ export default class FeedPage extends React.Component {
             userProfilePicture,
             getNotifications,
         } = this.props;
+
         return (
             <div>
                 <Feed

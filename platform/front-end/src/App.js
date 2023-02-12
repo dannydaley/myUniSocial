@@ -13,6 +13,7 @@ import AccountPage from "./pages/AccountPage";
 import QuestionGate from "./components/myUni404/components/FullQuestion/QuestionGate";
 import AskQuestionPage from "./components/myUni404/pages/AskQuestionPage";
 import QuestionFeedGate from "./components/myUni404/components/home/QuestionFeedGate";
+import PostGate from "./pages/PostGate";
 import { io } from "socket.io-client";
 
 export default class App extends Component {
@@ -264,6 +265,30 @@ export default class App extends Component {
                                                 this.state.userProfilePicture
                                             }
                                         />
+                                    }
+                                />
+                                <Route
+                                    path="/post/:id"
+                                    element={
+                                        <PostGate
+                                            SwitchPlatform={this.SwitchPlatform}
+                                            userProfilePicture={
+                                                this.state.userProfilePicture
+                                            }
+                                            getNotifications={
+                                                this.getNotifications
+                                            }
+                                            userFirstName={
+                                                this.state.userFirstName
+                                            }
+                                            userLastName={
+                                                this.state.userLastName
+                                            }
+                                            state={{ from: "the-page-id" }}
+                                            loggedInUsername={
+                                                this.state.loggedInUsername
+                                            }
+                                        ></PostGate>
                                     }
                                 />
                                 <Route

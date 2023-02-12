@@ -17,6 +17,7 @@ export default class Answer extends React.Component {
         };
     }
 
+    // calls when user votes on an answer
     votePost = async (vote) => {
         // if voting isnt disabled
         if (this.state.votingOpen) {
@@ -48,6 +49,7 @@ export default class Answer extends React.Component {
             return;
         }
     };
+
     render() {
         return (
             <div style={{ marginBottom: "10px" }}>

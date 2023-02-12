@@ -94,7 +94,6 @@ router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
         images[0] = images[0].replace("undefined", "");
     }
     let strictSwitch = 0;
-    console.log(postStrict);
     // OLD STYLE FUNCTION AT THE END FOR this.lastID SUPPORT (not supported by ES6 yet)
     // add post to posts table with corresponding username, circle, content, recipient, 0 likes, 0 dislikes, and strict status
     if (postStrict === false) {
@@ -273,6 +272,7 @@ router.post("/postQuestion", (req, res) => {
             //respond with success
             res.json({
                 status: "success",
+                id: rows.insertId,
             });
         }
     );

@@ -10,7 +10,9 @@ export default class SearchResults extends React.Component {
         };
     }
 
+    // calls when component mounts
     componentDidMount = () => {
+        // send search query to server
         fetch(process.env.REACT_APP_SERVER + "/search", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -18,8 +20,10 @@ export default class SearchResults extends React.Component {
                 search: this.props.searchInput,
             }),
         })
+            // turn response into a JSON object
             .then((response) => response.json())
             .then((data) => {
+                // if response returns success, update state with search results and set dataIsLoaded to true to reveal
                 if (data.status === "success") {
                     this.setState({
                         results: data.results,
@@ -29,6 +33,8 @@ export default class SearchResults extends React.Component {
             });
     };
 
+    // calls when user  selects question from search results.
+    // prepare question data to launch the question page.
     goToQuestion = (
         authorProfilePicture,
         title,
@@ -39,6 +45,7 @@ export default class SearchResults extends React.Component {
         language,
         authorID
     ) => {
+        // pass data into ready question
         this.props.readyQuestion(
             authorProfilePicture,
             title,
@@ -49,6 +56,7 @@ export default class SearchResults extends React.Component {
             language,
             authorID
         );
+        // reroute to question
         this.props.changeRoute("question");
     };
 

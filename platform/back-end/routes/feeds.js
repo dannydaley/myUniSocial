@@ -178,11 +178,84 @@ router.post("/getFeedFriendsOnly", (req, res) => {
     });
 });
 
+router.post("/getPost", (req, res, next) => {
+    // grab all user data
+    //dont include 'reply' as title to not pull replies
+    let { loggedInUsername, postID } = req.body;
+    // get post data from databse by post id
+    db.query(
+        "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE `posts`.`id` = ?",
+        [postID],
+        (err, postData) => {
+            // if error
+            if (err) {
+                // respond with error status and error message
+                res.status(500).send(err.message);
+                return;
+            }
+            // check that a friendship exists between the logged in user and the author of the post
+
+            db.query(
+                "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)",
+                [
+                    loggedInUsername,
+                    loggedInUsername,
+                    postData[0].author,
+                    postData[0].author,
+                ],
+                (err, friendships) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        res.status(500).send(err.message);
+                        return;
+                    }
+                    // not friends by default
+                    let isFriendsWithLoggedInUser = false;
+                    // if a friendship was returned, or the profile in question is the users profile, set is friends to true to reveal the profile
+                    // otherwise prevent userData from showing
+                    friendships.length > 0 ||
+                    loggedInUsername === postData[0].author
+                        ? (isFriendsWithLoggedInUser = true)
+                        : (isFriendsWithLoggedInUser = false);
+
+                    //respond with userData on success
+                    postData[0].images = [];
+                    // get all images from the database from the images table relating to any of the postId's in the above list
+                    db.query(
+                        "SELECT images.imageLocation, images.postId FROM `images` WHERE postId = ?",
+                        postID,
+                        (err, images) => {
+                            // if error
+                            if (err) {
+                                // respond with error status and error message
+                                res.status(500).send(err.message);
+                                return;
+                            }
+                            // for each image in the images list, loop through the posts and add the image to the post if postId and relativePostId's match
+                            if (images !== undefined) {
+                                images.forEach((image) => {
+                                    postData[0].images.push(
+                                        image.imageLocation
+                                    );
+                                });
+                            }
+                            res.json({
+                                isFriendsWithLoggedInUser:
+                                    isFriendsWithLoggedInUser,
+                                postData: postData[0],
+                            });
+                        }
+                    );
+                }
+            );
+        }
+    );
+});
+
 router.post("/getQuestion", (req, res, next) => {
     // grab all user data
-
     //dont include 'reply' as title to not pull replies
-
     postID = req.body.postID;
     db.query(
         "SELECT * FROM questions WHERE postID = ?",

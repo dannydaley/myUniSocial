@@ -14,6 +14,8 @@ export default class SearchBar extends React.Component {
         };
         this.handleChildUnmount = this.handleChildUnmount.bind(this);
     }
+
+    // when child component unmounts, set renderChild state to false
     handleChildUnmount() {
         this.setState({ renderChild: false });
     }
@@ -59,6 +61,7 @@ export default class SearchBar extends React.Component {
         justifyContent: "center",
     }));
 
+    // calls when seach input field is changed, applies field value to search input state and refreshes the view
     onInputChange = (event) => {
         this.setState({ searchInput: event.target.value, newInput: false });
         this.setState({ newInput: true, renderChild: true });

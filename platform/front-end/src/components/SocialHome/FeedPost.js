@@ -93,13 +93,18 @@ export default function FeedPost(props) {
                               ))
                             : ""}
                     </div>
-                    <PostActions
-                        postId={postId}
-                        likes={likes}
-                        dislikes={dislikes}
-                        loggedInUsername={loggedInUsername}
-                        authorUsername={authorUsername}
-                    />
+                    {content ===
+                    "You do not have access to this post, add the author as a friend to view." ? (
+                        ""
+                    ) : (
+                        <PostActions
+                            postId={postId}
+                            likes={likes}
+                            dislikes={dislikes}
+                            loggedInUsername={loggedInUsername}
+                            authorUsername={authorUsername}
+                        />
+                    )}
                 </div>
             </CardContent>
             <Divider variant="middle" />

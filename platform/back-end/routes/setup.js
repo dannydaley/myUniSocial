@@ -14,6 +14,7 @@ let circlesDataJSON = require("../database/circles.json");
 let questionsDataJSON = require("../database/questions.json");
 
 const GET_ALL_QUESTIONS = "SELECT * FROM `questions` ORDER BY postID DESC";
+const GET_ALL_POSTS = "SELECT * FROM `posts` ORDER BY id DESC";
 
 //#region SQL SETUP ENDPOINTS
 

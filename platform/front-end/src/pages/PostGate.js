@@ -1,17 +1,17 @@
-import ProfilePage from "./ProfilePage";
 import * as React from "react";
 import { useLocation } from "react-router-dom";
+import PostPage from "./PostPage";
 
-export default function ProfileGate(props) {
+export default function PostGate(props) {
     const params = useLocation();
     let pathname = params.pathname;
-    var userProfileToGet = pathname.substring(1);
+    var postToGet = pathname.substring(6);
 
     return (
         <>
-            <ProfilePage
+            <PostPage
                 SwitchPlatform={props.SwitchPlatform}
-                userProfileToGet={userProfileToGet}
+                postToGet={postToGet}
                 loggedInUsername={props.loggedInUsername}
                 userFirstName={props.userFirstName}
                 userLastName={props.userLastName}

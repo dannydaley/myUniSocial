@@ -21,14 +21,26 @@ export default class AskQuestion extends React.Component {
         };
     }
 
+    // calls when title text field and applies to state
     onTitleChange = (event) => this.setState({ title: event.target.value });
+
+    // calls when text field and applies to state
     onTextChange = (event) => this.setState({ text: event.target.value });
+
+    // calls when code text field and applies to state
     onCodeChange = (event) => this.setState({ code: event.target.value });
+
+    // calls when language field and applies to state
     onLanguageChange = (event) =>
         this.setState({ language: event.target.value });
+
+    // calls when category field and applies to state
     onCatChange = (event) => this.setState({ category: event.target.value });
+
     //Function controls logging in and updates the session on success.
     submitQuestion = () => {
+        // if question doesnt is less than 20 character, no category selected or no title
+        // activate short submit state prompting user to add more information
         if (
             this.state.text.length < 20 ||
             this.state.category === "none" ||
@@ -36,6 +48,7 @@ export default class AskQuestion extends React.Component {
         ) {
             this.setState({ shortSubmit: true });
         } else {
+            // send question data to server
             fetch(process.env.REACT_APP_SERVER + "/posts/postQuestion", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -52,10 +65,13 @@ export default class AskQuestion extends React.Component {
                         this.props.userData.userProfilePicture,
                 }),
             })
+                // turn response into a JSON object
                 .then((response) => response.json())
                 .then((data) => {
+                    // if response returns success,
                     if (data.status === "success") {
-                        this.props.changeFeed(10, this.state.category);
+                        // redirect to question page
+                        window.location.replace("/question/" + data.id);
                     }
                 });
         }

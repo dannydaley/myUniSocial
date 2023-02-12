@@ -21,10 +21,11 @@ export default class ProfilePage extends React.Component {
         };
     }
 
+    // calls when component mounts
     componentDidMount = () => {
+        // change nav bar logo to social
         this.props.SwitchPlatform("myUniSocial");
-
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+        // request user profile data from server
         fetch(process.env.REACT_APP_SERVER + "/profile/getUserProfile", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -33,9 +34,9 @@ export default class ProfilePage extends React.Component {
                 userProfileToGet: this.props.userProfileToGet,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn the response into a json object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // apply user profile data to state and set content loaded to true to disable loading screen
             .then((data) => {
                 this.setState({
                     isFriendsWithLoggedInUser: data.isFriendsWithLoggedInUser,
@@ -46,11 +47,14 @@ export default class ProfilePage extends React.Component {
                     coverPicture: data.profileData.coverPicture,
                     contentIsLoaded: true,
                 });
+                // check for notifications
                 this.props.getNotifications();
             });
     };
 
+    // calls when logged in user sends a friend request to profile
     sendFriendRequest = () => {
+        // send friend request to server
         fetch(process.env.REACT_APP_SERVER + "/friends/friendRequest", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -58,6 +62,7 @@ export default class ProfilePage extends React.Component {
                 sender: this.props.loggedInUsername,
                 recipient: this.props.userProfileToGet,
             }),
+            // turn response into a JSON object
         }).then((response) => response.json());
     };
 

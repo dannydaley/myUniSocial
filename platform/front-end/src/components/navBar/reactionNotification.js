@@ -11,24 +11,26 @@ export default class ReactionNotification extends React.Component {
     }
 
     setNotificationAsSeen = () => {
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
-        fetch(
-            process.env.REACT_APP_SERVER +
-                "/notifications/setNotificationAsSeen",
-            {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    actionId: this.props.actionId,
-                }),
-            }
-        )
-            //TURN THE RESPONSE INTO A JSON OBJECT
-            .then((response) => response.json())
-            .then((data) =>
-                
-                data === "success" ? this.setState({ seen: true }) : ""
-            );
+        // send request to server and set notification to seen at database
+        if (!this.state.seen) {
+            fetch(
+                process.env.REACT_APP_SERVER +
+                    "/notifications/setNotificationAsSeen",
+                {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        actionId: this.props.actionId,
+                    }),
+                }
+            )
+                //turn the response into a json object
+                .then((response) => response.json())
+                // if response returns success, update seen state to true to update view
+                .then((data) =>
+                    data === "success" ? this.setState({ seen: true }) : ""
+                );
+        }
     };
 
     render() {
@@ -46,8 +48,6 @@ export default class ReactionNotification extends React.Component {
                     style={{
                         width: "100%",
                         fontSize: "14px",
-                        //  display: 'flex',
-                        //  flexDirection: 'row', alignItems: 'center',
                         lineBreak: "strict",
                     }}
                     onClick={() => this.setNotificationAsSeen()}
@@ -64,15 +64,17 @@ export default class ReactionNotification extends React.Component {
                     >
                         {firstName} {lastName}
                     </Link>
-                    <p
-                        style={{
-                            width: "60%",
-                            lineBreak: "strict",
-                            marginLeft: "0",
-                        }}
-                    >
-                        {message}
-                    </p>
+                    <Link to={`/post/${this.props.relativePost}`}>
+                        <p
+                            style={{
+                                width: "60%",
+                                lineBreak: "strict",
+                                marginLeft: "0",
+                            }}
+                        >
+                            {message}
+                        </p>
+                    </Link>
                 </Button>
             );
         } else {
@@ -90,13 +92,16 @@ export default class ReactionNotification extends React.Component {
                     >
                         <h4 style={{ color: "#217cd8" }}>{firstName}</h4>
                     </Link>
-                    <h4
-                        style={{ color: "#217cd8", marginLeft: "5px" }}
-                        onClick={() => this.setNotificationAsSeen()}
-                    >
-                        {message}
-                    </h4>
 
+                    <Link to={`/post/${this.props.relativePost}`}>
+                        {" "}
+                        <h4
+                            style={{ color: "#217cd8", marginLeft: "5px" }}
+                            onClick={() => this.setNotificationAsSeen()}
+                        >
+                            {message}
+                        </h4>
+                    </Link>
                     <Button
                         variant="outlined"
                         style={{

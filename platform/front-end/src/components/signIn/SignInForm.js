@@ -14,13 +14,18 @@ class SignInForm extends React.Component {
             signInPassword: "",
         };
     }
+
+    // calls when email input field is changed and assigns value to state
     onEmailChange = (event) => {
         this.setState({ signInEmail: event.target.value });
     };
+
+    // calls when password input field is changed and assigns value to state
     onPasswordChange = (event) => {
         this.setState({ signInPassword: event.target.value });
     };
 
+    // applies basic user info to serverside session, and then reroutes user to home
     applySession = (firstName, lastName, username, profilePicture) => {
         this.props.updateSession(firstName, lastName, username, profilePicture);
         this.props.onRouteChange("home");
@@ -43,7 +48,9 @@ class SignInForm extends React.Component {
         //     );
     }
 
+    // calls when user submits sign in form
     onSubmitSignIn = () => {
+        // send login input data to server
         fetch(process.env.REACT_APP_SERVER + "/auth/signin", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -52,7 +59,9 @@ class SignInForm extends React.Component {
                 password: this.state.signInPassword,
             }),
         })
+            // turn response into JSON object
             .then((response) => response.json())
+            // if response returns success, apply user data to session updater
             .then((data) => {
                 if (data.status === "success") {
                     this.props.updateSession(
@@ -62,6 +71,7 @@ class SignInForm extends React.Component {
                         data.profilePicture,
                         data.coverPicture
                     );
+                    // then route user to home
                     this.props.onRouteChange("home");
                 }
             });
