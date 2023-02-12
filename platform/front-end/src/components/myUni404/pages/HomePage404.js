@@ -22,11 +22,21 @@ class HomePage404 extends React.Component {
         };
     }
 
+    // calls when component first mounts
+    componentDidMount() {
+        // change nav bar logo to 404
+        this.props.SwitchPlatform("myUni404");
+    }
+
+    // runs when user clicks on link to view profile
     viewProfile = (num) =>
+        // set viewprofile state to user ID input (num) and change route to profile
         this.setState({ viewProfile: num, route: "profile" });
 
+    // change route to profile
     changeRoute = (route) => this.setState({ route: route });
 
+    // gets question data ready to render
     readyQuestion = (
         authorProfilePicture,
         title,
@@ -37,6 +47,7 @@ class HomePage404 extends React.Component {
         language,
         authorID
     ) => {
+        // apply readied data to state to render
         this.setState({
             questionInfo: {
                 authorProfilePicture: authorProfilePicture,
@@ -50,13 +61,14 @@ class HomePage404 extends React.Component {
             },
         });
     };
+
+    // calls when user clicks on different feed to view from side bar
     changeFeed = (key, feed) => {
+        // apply feed to view and component key to state
         this.setState({ key: key, viewFeed: feed });
+        // change route to feed to switch view
         this.changeRoute("feed");
     };
-    componentDidMount() {
-        this.props.SwitchPlatform("myUni404");
-    }
 
     render() {
         return (

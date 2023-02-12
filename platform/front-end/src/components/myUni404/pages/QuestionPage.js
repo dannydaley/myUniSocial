@@ -21,14 +21,13 @@ class QuestionPage extends React.Component {
         };
     }
 
-    delayFunction = async () => {
-        await this.delay(1000);
-    };
-
+    //calls when component mounts
     componentDidMount = async () => {
+        // change nav bar logo to 404
         this.props.SwitchPlatform("myUni404");
+        // change content loaded to false to inititate loading screen
         this.setState({ contentLoaded: false });
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+        // request question data from server
         fetch(process.env.REACT_APP_SERVER + "/feeds/getQuestion", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -36,20 +35,31 @@ class QuestionPage extends React.Component {
                 postID: this.props.questionToGet,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn the response into a json object
             .then((response) => response.json())
+            // apply response data to state and switch content loading screen off
             .then((data) => {
                 this.setState({ questionInfo: data[0] });
                 this.setState({ contentLoaded: true });
             });
     };
 
+    // delays for 1second when called
+    delayFunction = async () => {
+        await this.delay(1000);
+    };
+
+    // remounts component to refresh question data
     refreshQuestion = () => {
         this.componentDidMount();
     };
 
+    // calls when user clicks on different feed to view from side bar
     changeFeed = (key, feed) => {
+        // apply feed to view and component key to state
         this.setState({ key: key, viewFeed: feed });
+        // change route to feed to switch view
+        this.changeRoute("feed");
     };
 
     render() {
