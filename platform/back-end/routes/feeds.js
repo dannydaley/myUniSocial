@@ -13,6 +13,7 @@ const GET_QUESTION_REPLIES =
     "SELECT * FROM questions WHERE relativePostID = ? ORDER BY score DESC";
 
 router.post("/getFeedFriendsOnly", (req, res) => {
+    console.log(req.session);
     //set up variables from the request body
     let user = req.body.user;
     // ready friends array to populate

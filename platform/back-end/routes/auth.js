@@ -115,7 +115,7 @@ router.post("/signin", (req, res) => {
             req.session.userData.loggedInUsername = user.username;
             req.session.userData.userProfilePicture = user.profilePicture;
             req.session.userData.userCoverPicture = user.coverPicture;
-
+            console.log(req.session);
             //respond with user data on succesful login
             res.json({
                 status: "success",
