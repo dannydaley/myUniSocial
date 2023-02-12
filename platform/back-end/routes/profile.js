@@ -99,7 +99,6 @@ router.post("/getFeedByUser", (req, res) => {
         ],
         (err, friendships) => {
             if (err) {
-                console.log("error at database with friendships");
                 res.json("error at database with friendships");
                 return;
             }

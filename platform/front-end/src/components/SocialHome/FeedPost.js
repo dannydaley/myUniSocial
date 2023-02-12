@@ -98,7 +98,7 @@ export default function FeedPost(props) {
                         ""
                     ) : (
                         <PostActions
-                            postId={postId}
+                            postId={props.postId}
                             likes={likes}
                             dislikes={dislikes}
                             loggedInUsername={loggedInUsername}

@@ -17,19 +17,19 @@ export default class PostActions extends React.Component {
 
     likeAction = () => {
         if (!this.state.voted) {
+            this.applyVote(1, 0);
             this.setState({ likes: this.state.likes + 1, voted: true });
         }
-        this.applyVote();
     };
 
     dislikeAction = () => {
         if (!this.state.voted) {
+            this.applyVote(0, 1);
             this.setState({ dislikes: this.state.dislikes + 1, voted: true });
         }
-        this.applyVote();
     };
 
-    applyVote = () => {
+    applyVote = (addLike, addDislike) => {
         //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
         fetch(process.env.REACT_APP_SERVER + "/posts/votePost", {
             method: "post",
@@ -37,9 +37,9 @@ export default class PostActions extends React.Component {
             body: JSON.stringify({
                 sender: this.props.loggedInUsername,
                 recipient: this.props.authorUsername,
-                postId: this.state.postId,
-                like: this.state.likes,
-                dislike: this.state.dislikes,
+                postId: this.props.postId,
+                like: this.state.likes + addLike,
+                dislike: this.state.dislikes + addDislike,
             }),
         })
             //TURN THE RESPONSE INTO A JSON OBJECT

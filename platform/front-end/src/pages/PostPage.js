@@ -10,7 +10,7 @@ export default class PostPage extends React.Component {
         super(props);
         this.state = {
             isFriendsWithLoggedInUser: false,
-            postId: 0,
+            postId: this.props.postToGet,
             firstName: "",
             lastName: "",
             authorUsername: this.props.username,
@@ -27,7 +27,6 @@ export default class PostPage extends React.Component {
     componentDidMount = () => {
         // switches nav logo to social
         this.props.SwitchPlatform("myUniSocial");
-
         // fetch the post data from the server
         fetch(process.env.REACT_APP_SERVER + "/feeds/getPost", {
             method: "post",
@@ -43,7 +42,6 @@ export default class PostPage extends React.Component {
             .then((data) => {
                 this.setState({
                     isFriendsWithLoggedInUser: data.isFriendsWithLoggedInUser,
-                    postId: this.props.postToGet,
                     firstName: data.postData.firstName,
                     lastName: data.postData.lastName,
                     authorUsername: data.postData.author,
@@ -116,7 +114,7 @@ export default class PostPage extends React.Component {
                             content={this.state.content}
                             profilePicture={this.state.profilePicture}
                             images={this.state.images}
-                            postId={this.state.postIdd}
+                            postId={this.props.postToGet}
                             likes={this.state.likes}
                             dislikes={this.state.dislikes}
                             onRouteChange={onRouteChange}
@@ -188,7 +186,7 @@ export default class PostPage extends React.Component {
                             }
                             profilePicture={this.state.profilePicture}
                             images={[]}
-                            postId={this.state.postId}
+                            postId={this.props.postToGet}
                             likes={0}
                             dislikes={0}
                             onRouteChange={onRouteChange}
