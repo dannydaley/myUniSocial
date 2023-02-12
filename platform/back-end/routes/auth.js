@@ -3,6 +3,7 @@ var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
 const { passwordHash, generatePepper } = require("../security");
+var randomstring = require("randomstring");
 
 //#region SIGN UP & SIGN IN
 
@@ -106,6 +107,7 @@ router.post("/signin", (req, res) => {
         ) {
             // create empty session data to be populated
             req.session.userData = {};
+            req.session.key = user.username + randomstring.generate();
             // apply user data to session variables
             req.session.userData.isSignedIn = true;
             req.session.userData.userFirstName = user.firstName;
@@ -137,14 +139,15 @@ router.post("/signin", (req, res) => {
 
 router.post("/signout", (req, res) => {
     // delete session
-    req.session = null;
+    req.session.destroy(function (err) {
+        console.log(err);
+    });
     // respond with success
     res.json("success");
 });
 
 router.post("/refreshSessionStatus", (req, res) => {
     // if userData exists in session
-
     if (req.session.userData !== undefined) {
         // respond with session exists status and session data
         res.json({

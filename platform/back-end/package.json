@@ -24,8 +24,10 @@
         "http": "^0.0.1-security",
         "multer": "^1.4.4",
         "mysql": "^2.18.1",
+        "nodemailer": "^6.9.1",
         "nodemon": "^2.0.15",
         "path": "^0.12.7",
+        "randomstring": "^1.2.3",
         "socket.io": "^4.6.0",
         "sqlite3": "^5.1.4",
         "uuid": "^3.4.0"

@@ -69,7 +69,7 @@ let upload = multer({ storage: storage });
 //#endregion IMAGES AND IMAGE UPLOAD HANDLING
 //import session file
 const session = require("./session");
-app.use(session); //Session config
+app.use(session);
 
 const GET_ALL_USERS_FRIENDS =
     "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";

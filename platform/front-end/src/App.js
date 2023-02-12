@@ -128,14 +128,21 @@ export default class App extends Component {
                     socket: this.socket,
                 });
             });
-            this.setState({ isSignedIn: false });
+
             fetch(process.env.REACT_APP_SERVER + "/auth/signout", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     sender: this.props.loggedInUsername,
                 }),
-            });
+            }) //TURN THE RESPONSE INTO A JSON OBJECT
+                .then((response) => response.json())
+                // WHAT WE DO WITH THE DATA WE RECEIVE (data => (data)) SHOULD SHOW WHAT WE GET
+                .then((data) => {
+                    if (data === "success") {
+                        this.setState({ isSignedIn: false });
+                    }
+                });
         } else if (route === "home") {
             if (!this.state.socketId) {
                 // const socket = io.connect(process.env.REACT_APP_SERVER);

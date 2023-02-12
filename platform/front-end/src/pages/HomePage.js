@@ -47,6 +47,7 @@ export default class HomePage extends React.Component {
                     posts: data.posts,
                     dataIsLoaded: true,
                 });
+
                 this.props.getNotifications();
             });
     };

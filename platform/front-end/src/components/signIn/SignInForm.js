@@ -32,20 +32,24 @@ class SignInForm extends React.Component {
     };
 
     componentDidMount() {
-        // fetch(process.env.REACT_APP_SERVER + "/auth/refreshSessionStatus", {
-        //     status: "session-exists",
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) =>
-        //         data.status === "session-exists"
-        //             ? this.applySession(
-        //                   data.firstName,
-        //                   data.lastName,
-        //                   data.username,
-        //                   data.profilePicture
-        //               )
-        //             : ""
-        //     );
+        fetch(process.env.REACT_APP_SERVER + "/auth/refreshSessionStatus", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                status: "session-exists",
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) =>
+                data.status === "session-exists"
+                    ? this.applySession(
+                          data.firstName,
+                          data.lastName,
+                          data.username,
+                          data.profilePicture
+                      )
+                    : ""
+            );
     }
 
     // calls when user submits sign in form

@@ -2,7 +2,18 @@ var express = require("express");
 var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
+var nodemailer = require("nodemailer");
+var randomstring = require("randomstring");
 
+const { passwordHash, generatePepper } = require("../security");
+
+var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAILPASS,
+    },
+});
 // default profile picture applied to all users profilePicture field in the users table of the db on account creation
 let defaultProfilePicture = "images/defaultUser.png";
 
@@ -209,7 +220,6 @@ router.post("/changeProfilePicture", upload.single("image"), (req, res) => {
                 res.status(500).send(err.message);
                 return;
             }
-
             // grab users first name and lastname from database by username from request
             db.query(
                 "SELECT users.firstName, users.lastName FROM users WHERE username = ? LIMIT 1",
@@ -486,6 +496,48 @@ router.post("/getUserGeneralInfo", (req, res) => {
         }
         res.json(userData[0]);
     });
+});
+
+router.get("/resetPassword", (req, res) => {
+    let emailToSend = "dd252935@falmouth.ac.uk";
+    let password = randomstring.generate();
+    let passwordSalt = generatePepper;
+    //generate a new password hash to store using the hashing function, passing in the new password entry and the newly generated salt
+    let storePassword = passwordHash(password, passwordSalt);
+    // apply the password to the database where the email matches the users
+    db.query(
+        UPDATE_PASSWORD_BY_EMAIL,
+        [storePassword, passwordSalt, emailToSend],
+        (err) => {
+            // if error
+            if (err) {
+                console.log(err);
+                // respond with error status and error message
+                res.status(500).send(err.message);
+                return;
+            }
+            // console log success for our confirmation
+            console.log("success with changing password");
+            var mailOptions = {
+                from: "noreply.myunisocial@gmail.com",
+                // this doesnt seem to work with falmouth emails, must fix
+                // to: emailToSend,
+                to: "dannydaley@outlook.com",
+                subject: "myUniSocial password reset",
+                text:
+                    "Please log in with this temporary password and reset it in account settings. \n Password: " +
+                    password,
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+            res.json({ status: "success" });
+        }
+    );
 });
 
 module.exports = router;
