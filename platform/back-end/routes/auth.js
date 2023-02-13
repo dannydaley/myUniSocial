@@ -107,7 +107,7 @@ router.post("/signin", (req, res) => {
         ) {
             // create empty session data to be populated
             req.session.userData = {};
-            req.session.key = user.username + randomstring.generate();
+            req.session.keys[0] = user.username + randomstring.generate();
             // apply user data to session variables
             req.session.userData.isSignedIn = true;
             req.session.userData.userFirstName = user.firstName;
