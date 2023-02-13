@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(
     session({
         name: "session",
-        keys: ["user_id"],
+        keys: ["user_id", ""],
         secret: process.env.SESSION_SECRET,
         resave: false,
         originalMaxAge: 0,
