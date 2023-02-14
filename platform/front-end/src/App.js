@@ -37,9 +37,7 @@ export default class App extends Component {
             socketId: "",
             socket: {},
         };
-        this.socket = io.connect(process.env.REACT_APP_SERVER, {
-            transports: ["websocket"],
-        });
+        this.socket = io.connect(process.env.REACT_APP_SERVER);
     }
 
     delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -147,9 +145,7 @@ export default class App extends Component {
                 });
         } else if (route === "home") {
             if (!this.state.socketId) {
-                const socket = io.connect(process.env.REACT_APP_SERVER, {
-                    transports: ["websocket"],
-                });
+                this.socket = io.connect(process.env.REACT_APP_SERVER);
                 this.socket.on("connect", () => {
                     this.setState({
                         socketId: this.socket.id,
@@ -161,7 +157,7 @@ export default class App extends Component {
                 });
                 this.socket.on("connect_error", () => {
                     console.log("error");
-                    setTimeout(() => this.socket.connect(), 3001);
+                    setTimeout(() => this.socket.connect(), 9030);
                 });
             }
             this.setState({ isSignedIn: true });
