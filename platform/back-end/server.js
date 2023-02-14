@@ -2,7 +2,7 @@
 var express = require("express");
 var app = express();
 app.use(express.json());
-const https = require("https");
+// const https = require("https");
 // const http = require("http");
 const socket = require("./socket");
 //const server = https.createServer(app);
@@ -38,7 +38,10 @@ var fallback = require("express-history-api-fallback");
 
 app.use(bodyParser.json());
 var path = require("path");
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(
+    "/public",
+    express.static(path.join(__dirname, "public"), { dotfiles: "allow" })
+);
 app.use(express.static(path.join(__dirname, "build")));
 const root = path.join(__dirname, "build");
 app.use(fallback("index.html", { root: root }));
