@@ -37,7 +37,9 @@ export default class App extends Component {
             socketId: "",
             socket: {},
         };
-        this.socket = io.connect(process.env.REACT_APP_SERVER);
+        this.socket = io.connect(process.env.REACT_APP_SERVER, {
+            transports: ["websocket"],
+        });
     }
 
     delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -145,7 +147,9 @@ export default class App extends Component {
                 });
         } else if (route === "home") {
             if (!this.state.socketId) {
-                const socket = io.connect(process.env.REACT_APP_SERVER);
+                const socket = io.connect(process.env.REACT_APP_SERVER, {
+                    transports: ["websocket"],
+                });
                 this.socket.on("connect", () => {
                     this.setState({
                         socketId: this.socket.id,

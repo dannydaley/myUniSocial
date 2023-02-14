@@ -139,9 +139,7 @@ router.post("/signin", (req, res) => {
 
 router.post("/signout", (req, res) => {
     // delete session
-    req.session.destroy(function (err) {
-        console.log(err);
-    });
+    req.session = null;
     // respond with success
     res.json("success");
 });
