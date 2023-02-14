@@ -2,10 +2,11 @@
 var express = require("express");
 var app = express();
 app.use(express.json());
-
-const http = require("http");
+const https = require("https");
+// const http = require("http");
 const socket = require("./socket");
-const server = http.createServer(app);
+const server = https.createServer(app);
+// const server = http.createServer(app);
 
 const cors = require("cors");
 // set up cors to allow for different cross origin requests and prevent security errors.
@@ -19,6 +20,8 @@ app.use(
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
+            "https://dd252935.kemeneth.net:9030",
+            "https://myunisocial.kemeneth.net",
         ],
         methods: ["GET", "POST"],
         credentials: true,
