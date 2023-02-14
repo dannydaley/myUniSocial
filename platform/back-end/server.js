@@ -2,10 +2,12 @@
 var express = require("express");
 var app = express();
 app.use(express.json());
-
-const https = require("https");
+// const https = require("https");
+const http = require("http");
 const socket = require("./socket");
-const server = https.createServer(app);
+//const server = https.createServer(app);
+
+const server = http.createServer(app);
 
 const cors = require("cors");
 // set up cors to allow for different cross origin requests and prevent security errors.
@@ -19,6 +21,10 @@ app.use(
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
+            "127.0.0.1:9030",
+            "https://127.0.0.1:9030",
+            "https://dd252935.kemeneth.net:9030",
+            "https://myunisocial.kemeneth.net",
         ],
         methods: ["GET", "POST"],
         credentials: true,
@@ -32,7 +38,10 @@ var fallback = require("express-history-api-fallback");
 
 app.use(bodyParser.json());
 var path = require("path");
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(
+    "/public",
+    express.static(path.join(__dirname, "public"), { dotfiles: "allow" })
+);
 app.use(express.static(path.join(__dirname, "build")));
 const root = path.join(__dirname, "build");
 app.use(fallback("index.html", { root: root }));
@@ -99,6 +108,13 @@ app.use("/messages", messageRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
+
+//app.get("*", function (req, res) {
+//    res.redirect("https://" + req.headers.host + req.url);
+
+// Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+// res.redirect('https://example.com' + req.url);
+//});
 
 //set server to listen to port from .env
 server.listen(process.env.PORT, () => {
