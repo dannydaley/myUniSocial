@@ -224,11 +224,12 @@ router.post("/postQuestion", (req, res) => {
     // set up post data from request
 
     let postData = req.body;
+    console.log(postData);
     // if relative post is zero, its not a reply
     if (postData.relativePostID === 0) {
         //increment asked by one on account
         db.query(
-            "UPDATE users SET asked = asked + 1 WHERE id = ?",
+            "UPDATE users SET asked = asked + 1 WHERE username = ?",
             postData.authorID,
             (err) => {
                 if (err) {

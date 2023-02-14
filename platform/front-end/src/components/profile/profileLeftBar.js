@@ -21,6 +21,8 @@ export default class ProfileLeftBar extends React.Component {
             work: "",
             profilePicture: "",
             coverPicture: "",
+            asked: 0,
+            answered: 0,
             dataIsLoaded: false,
         };
     }
@@ -38,7 +40,7 @@ export default class ProfileLeftBar extends React.Component {
                 user: this.props.userProfileToGet,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn the response into a json object
             .then((response) => response.json())
             // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
             .then((data) => {
@@ -51,6 +53,8 @@ export default class ProfileLeftBar extends React.Component {
                     coverPicture: data.coverPicture,
                     work: data.work,
                     profilePicture: data.profilePicture,
+                    asked: data.asked,
+                    answered: data.answered,
                     dataIsLoaded: true,
                 });
             });
@@ -66,7 +70,7 @@ export default class ProfileLeftBar extends React.Component {
                     paddingTop: "110px",
                     display: "flex",
                     justifyContent: "flex-start",
-                    alignItems: "center",
+                    alignItems: "left",
                     flexDirection: "column",
                     backgroundColor: "#292929",
                     width: "220px",
@@ -125,7 +129,14 @@ export default class ProfileLeftBar extends React.Component {
                 >
                     About {this.state.firstName}
                 </Typography>
-                <PersonIcon sx={{ color: "white", mt: 2 }} />
+                <PersonIcon
+                    sx={{
+                        textAlign: "center",
+                        justifySelf: "center",
+                        color: "white",
+                        mt: 2,
+                    }}
+                />
                 <Typography
                     variant="h7"
                     component="div"
@@ -138,19 +149,36 @@ export default class ProfileLeftBar extends React.Component {
                     variant="h7"
                     component="div"
                     color="white"
-                    sx={{ textAlign: "center", mt: 4 }}
+                    sx={{ textAlign: "left", mt: 4 }}
                 >
-                    <WorkIcon sx={{ textAlign: "center", mr: 2 }} />
+                    <WorkIcon sx={{ textAlign: "left", mr: 2 }} />
                     {this.state.work}
                 </Typography>
                 <Typography
                     variant="h7"
                     component="div"
                     color="white"
-                    sx={{ textAlign: "center", mt: 2 }}
+                    sx={{ textAlign: "left", mt: 2 }}
                 >
-                    <LocationCityIcon sx={{ textAlign: "center", mr: 2 }} />
+                    <LocationCityIcon sx={{ textAlign: "left", mr: 2 }} />
                     {this.state.location}
+                </Typography>
+                <Typography
+                    variant="h7"
+                    component="div"
+                    color="white"
+                    sx={{ textAlign: "left", mt: 2 }}
+                >
+                    <SchoolIcon sx={{ textAlign: "left", mr: 0.4 }} />
+                    {this.state.education}
+                </Typography>
+                <Typography
+                    variant="h7"
+                    component="div"
+                    color="white"
+                    sx={{ textAlign: "canter", mt: 2 }}
+                >
+                    404 Asked: {this.state.asked}
                 </Typography>
                 <Typography
                     variant="h7"
@@ -158,8 +186,7 @@ export default class ProfileLeftBar extends React.Component {
                     color="white"
                     sx={{ textAlign: "center", mt: 2 }}
                 >
-                    <SchoolIcon sx={{ textAlign: "center", mr: 2 }} />
-                    {this.state.education}
+                    404 Answered: {this.state.answered}
                 </Typography>
             </Container>
         );

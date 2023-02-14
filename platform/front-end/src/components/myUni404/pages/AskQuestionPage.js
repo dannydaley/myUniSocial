@@ -122,6 +122,7 @@ class AskQuestionPage extends React.Component {
                             userID={this.props.userID}
                             userFirstName={this.props.userFirstName}
                             userLastName={this.props.userLastName}
+                            loggedInUsername={this.props.loggedInUsername}
                         />
                     </Grid>
                 </Grid>

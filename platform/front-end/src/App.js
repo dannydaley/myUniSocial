@@ -474,6 +474,9 @@ export default class App extends Component {
                                             userLastName={
                                                 this.state.userLastName
                                             }
+                                            loggedInUsername={
+                                                this.state.loggedInUsername
+                                            }
                                         />
                                     }
                                 ></Route>

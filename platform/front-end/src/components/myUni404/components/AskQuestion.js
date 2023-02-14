@@ -53,7 +53,7 @@ export default class AskQuestion extends React.Component {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    authorID: this.state.authorID,
+                    authorID: this.props.loggedInUsername,
                     author: this.state.author,
                     title: this.state.title,
                     text: this.state.text,

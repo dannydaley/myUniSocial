@@ -290,6 +290,25 @@ router.post("/getQuestionFeed", (req, res, next) => {
     });
 });
 
+router.post("/getUserQuestionFeed", (req, res) => {
+    // get userID from req
+    let userID = req.body.userID;
+    //get all posts by userID
+    db.query(
+        "SELECT * FROM `questions` WHERE `authorID` = ?",
+        userID,
+        (err, rows) => {
+            if (err) {
+                console.log(err.message);
+            }
+            res.json({
+                status: "success",
+                postData: rows,
+            });
+        }
+    );
+});
+
 router.post("/getQuestionReplies", (req, res, next) => {
     // grab all user data
 

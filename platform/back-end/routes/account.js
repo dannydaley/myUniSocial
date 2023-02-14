@@ -45,7 +45,7 @@ let upload = multer({ storage: storage });
 const CHECK_THAT_USERS_ARE_FRIENDS =
     "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)";
 const GET_USER_GENERAL_INFO_BY_USERNAME =
-    "SELECT firstName, lastName, aboutMe, location, education, work, profilePicture, coverPicture FROM users WHERE username = ?";
+    "SELECT firstName, lastName, aboutMe, location, education, work, profilePicture, coverPicture, asked, answered FROM users WHERE username = ?";
 const UPDATE_PASSWORD_BY_EMAIL =
     "UPDATE users SET password = ?, passwordSalt = ? WHERE email = ?";
 const LOOK_UP_EMAIL_BY_EMAIL = "SELECT email FROM users WHERE email = ?";
