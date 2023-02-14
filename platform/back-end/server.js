@@ -3,7 +3,7 @@ var express = require("express");
 var app = express();
 app.use(express.json());
 const https = require("https");
-// const http = require("http");
+const http = require("http");
 const socket = require("./socket");
 const server = https.createServer(app);
 // const server = http.createServer(app);
@@ -20,6 +20,7 @@ app.use(
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
+            "http://127.0.0.1:9030",
             "https://dd252935.kemeneth.net:9030",
             "https://myunisocial.kemeneth.net",
         ],
@@ -102,6 +103,13 @@ app.use("/messages", messageRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
+
+app.get("*", function (req, res) {
+    res.redirect("https://" + req.headers.host + req.url);
+
+    // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+    // res.redirect('https://example.com' + req.url);
+});
 
 //set server to listen to port from .env
 server.listen(process.env.PORT, () => {

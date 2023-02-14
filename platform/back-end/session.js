@@ -34,7 +34,7 @@ app.use(
         maxAge: 0,
         saveUninitialized: true,
         cookie: {
-            httpOnly: true,
+            httpOnly: fase,
             secure: false,
             maxAge: oneDay,
         },
