@@ -145,7 +145,7 @@ export default class App extends Component {
                 });
         } else if (route === "home") {
             if (!this.state.socketId) {
-                // const socket = io.connect(process.env.REACT_APP_SERVER);
+                const socket = io.connect(process.env.REACT_APP_SERVER);
                 this.socket.on("connect", () => {
                     this.setState({
                         socketId: this.socket.id,
