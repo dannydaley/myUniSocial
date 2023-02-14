@@ -61,7 +61,13 @@ export default class ProfileLeftBar extends React.Component {
     };
 
     render() {
-        const { isFriendsWithLoggedInUser, sendFriendRequest } = this.props;
+        const {
+            isFriendsWithLoggedInUser,
+            sendFriendRequest,
+            friendRequestSent,
+            // requestSender,
+            loggedInUsername,
+        } = this.props;
         return (
             <Container
                 xs={0}
@@ -110,6 +116,18 @@ export default class ProfileLeftBar extends React.Component {
                     </Typography>
                     {isFriendsWithLoggedInUser ? (
                         ""
+                    ) : friendRequestSent && loggedInUsername ? (
+                        <Button
+                            variant="contained"
+                            startIcon={<PersonAddIcon />}
+                            sx={{
+                                textTransform: "none",
+                                mt: 2,
+                                backgroundColor: "gray",
+                            }}
+                        >
+                            Friend Requested
+                        </Button>
                     ) : (
                         <Button
                             variant="contained"

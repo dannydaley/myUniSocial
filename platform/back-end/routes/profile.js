@@ -46,6 +46,34 @@ router.post("/getUserProfile", (req, res) => {
                 ? (isFriendsWithLoggedInUser = true)
                 : (isFriendsWithLoggedInUser = false);
             // get the user data matching the profile in question by username
+            let friendRequestSent;
+            let requestSender;
+            if (isFriendsWithLoggedInUser === false) {
+                db.query(
+                    "SELECT * FROM userActions WHERE (sender = ? AND recipient = ? AND type = ?) OR (sender = ? AND recipient = ? AND type = ?)",
+                    [
+                        loggedInUsername,
+                        userProfileToGet,
+                        "friendRequest",
+                        userProfileToGet,
+                        loggedInUsername,
+                        "friendRequest",
+                    ],
+                    (err, rows) => {
+                        // if error
+                        if (err) {
+                            // respond with error status and error message
+                            console.log(err.message);
+                            return;
+                        }
+                        // respond with success on success
+                        if (rows.length > 0) {
+                            friendRequestSent = true;
+                            requestSender = rows[0].sender;
+                        }
+                    }
+                );
+            }
             db.query(
                 GET_USER_PROFILE_INFO_BY_USERNAME,
                 userProfileToGet,
@@ -60,6 +88,8 @@ router.post("/getUserProfile", (req, res) => {
                     res.json({
                         isFriendsWithLoggedInUser: isFriendsWithLoggedInUser,
                         profileData: userData[0],
+                        friendRequestSent: friendRequestSent,
+                        sender: requestSender,
                     });
                 }
             );

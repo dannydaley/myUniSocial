@@ -12,9 +12,7 @@ const socket = (server) => {
     });
 
     const users = {};
-    io.origins(
-        "https://myunisocial.kemeneth.net www.myunisocial.kemeneth.net http://192.168.168.6:3000 http://localhost:3000 http://dd252935.kemeneth.net:9030 http://myunisocial.kemeneth.net 127.0.0.1:9030 https://127.0.0.1:9030 https://dd252935.kemeneth.net:9030 https://myunisocial.kemeneth.net"
-    );
+
     //On connection
     io.on("connection", (socket) => {
         io.setMaxListeners(0);
