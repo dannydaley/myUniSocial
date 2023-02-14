@@ -3,11 +3,11 @@ var express = require("express");
 var app = express();
 app.use(express.json());
 // const https = require("https");
-// const http = require("http");
+const http = require("http");
 const socket = require("./socket");
 //const server = https.createServer(app);
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 const cors = require("cors");
 // set up cors to allow for different cross origin requests and prevent security errors.
