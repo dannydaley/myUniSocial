@@ -19,6 +19,7 @@ app.use(
             "http://localhost:3000",
             "http://dd252935.kemeneth.net:9030",
             "http://myunisocial.kemeneth.net",
+"https://myunisocial.kemeneth.net"
         ],
         methods: ["GET", "POST"],
         credentials: true,
