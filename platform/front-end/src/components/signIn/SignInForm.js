@@ -171,7 +171,7 @@ class SignInForm extends React.Component {
                     >
                         <Button
                             variant="contained"
-                            sx={{ width: "33ch" }}
+                            sx={{ width: "33ch", marginBottom: "15px" }}
                             onClick={() => onRouteChange("signup")}
                         >
                             Sign Up
