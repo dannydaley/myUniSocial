@@ -5,49 +5,36 @@ var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
 
-const GET_USERS_CHATS =
-    "SELECT chats.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM chats LEFT OUTER JOIN `users` ON (`chats`.`user1` != ? AND `chats`.`user1` = `users`.`username`) OR (`chats`.`user2` != ? AND `chats`.`user2` = `users`.`username`) WHERE `user1` = ? OR `user2` = ? ORDER BY lastActive DESC";
-const GET_MESSAGES_BY_CHAT_ID =
-    "SELECT * FROM `messages` WHERE chatId = ? ORDER BY date DESC";
-const GET_CHAT_DATA_BY_CHAT_ID =
-    "SELECT chats.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM chats LEFT OUTER JOIN `users` ON (`chats`.`user1` != ? AND `chats`.`user1` = `users`.`username`) OR (`chats`.`user2` != ? AND `chats`.`user2` = `users`.`username`) WHERE chatId = ?";
-const CHECK_THAT_USERS_ARE_FRIENDS =
-    "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)";
-const GET_USER_GENERAL_INFO_BY_USERNAME =
-    "SELECT firstName, lastName, aboutMe, location, education, work, profilePicture, coverPicture FROM users WHERE username = ?";
-const GET_USER_PROFILE_INFO_BY_USERNAME =
-    "SELECT firstName, lastName, aboutMe, profilePicture, coverPicture FROM users WHERE username = ?";
-const GET_POST_VOTES_BY_POST_ID =
-    "SELECT likes, dislikes FROM posts WHERE id = ?";
+//#region SQL QUERIES
+
 const UPDATE_POST_VOTES_BY_POST_ID =
     "UPDATE posts SET likes = ?, dislikes = ? WHERE id = ?";
-const UPDATE_PASSWORD_BY_EMAIL =
-    "UPDATE users SET password = ?, passwordSalt = ? WHERE email = ?";
-const LOOK_UP_EMAIL_BY_EMAIL = "SELECT email FROM users WHERE email = ?";
-const UPDATE_EMAIL = "UPDATE users SET email = ? WHERE email = ?";
-const UPDATE_USER_GENERAL_INFO =
-    "UPDATE users SET firstName = ?, lastName = ?, aboutMe = ?, location = ?, education = ?, work = ? WHERE username = ?";
-const FIND_USER = "SELECT * FROM users WHERE email = ?";
-const SIGN_UP_USER =
-    "INSERT INTO users (email, username, firstName,lastName, password, passwordSalt, profilePicture) VALUES(?,?,?,?,?,?,?)";
-const GET_ALL_POSTS = "SELECT * FROM `posts` ORDER BY id DESC";
-const GET_ALL_POSTS_BY_CIRCLE =
-    "SELECT * FROM `posts` WHERE circle = ? ORDER BY id DESC";
-const GET_ALL_IMAGES_BY_USER =
-    "SELECT * FROM images WHERE ownerUsername = ? ORDER BY postId DESC";
-const GET_ALL_USERS_FRIENDS =
-    "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
-const GET_NOTIFICATIONS =
-    "SELECT userActions.* , users.firstName, users.lastName FROM `userActions` LEFT OUTER JOIN `users` ON `userActions`.`sender` = `users`.`username` WHERE recipient = ? ORDER BY actionId DESC LIMIT 10";
-const GET_POSTS_BY_AUTHOR_OR_RECIPIENT =
-    "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE author = ? OR recipient = ? ORDER BY id DESC";
-const GET_POSTS_BY_AUTHOR_BY_CIRCLE =
-    "SELECT * FROM `posts` WHERE author = ? AND circle = ? ORDER BY id DESC";
+
 const ADD_POST_TO_POSTS = "INSERT INTO `posts` SET ?, date = NOW()";
-const GET_USERS_FOLLOWED_CIRCLES =
-    "SELECT `users`.`circles` FROM `users` WHERE `users`.`username` = ?";
+
 const POST_QUESTION =
     "INSERT INTO questions (authorID, author, relativePostID, date, title, text, code, language, category, authorProfilePicture, score) VALUES (?, ?, ?, CURDATE(), ?, ?, ?, ?, ?, ?, ?)";
+
+const VOTE_UP_BY_POST_ID =
+    "UPDATE questions SET score = score + 1 WHERE postID = ?";
+
+const VOTE_DOWN_BY_POST_ID =
+    "UPDATE questions SET score = score - 1 WHERE postID = ?";
+
+const INCREASE_ASKED_BY_USERNAME =
+    "UPDATE users SET asked = asked + 1 WHERE username = ?";
+
+const INCREASE_ANSWERED_BY_USERNAME =
+    "UPDATE users SET answered = answered + 1 WHERE username = ?";
+
+const ADD_USER_ACTION =
+    "INSERT INTO userActions (type, sender, recipient, message, seen, approved, date, relativePost) VALUES (?,?,?,?,?,?, NOW(),?)";
+const ADD_IMAGE =
+    "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)";
+
+//#endregion SQL QUERIES
+
+//#region IMAGE UPLOAD HANDLING
 
 //set up multer middleware for image uploads
 var multer = require("multer");
@@ -72,6 +59,10 @@ const storage = multer.diskStorage({
 });
 // set up multer function to be called on uploads
 let upload = multer({ storage: storage });
+
+//#endregion IMAGE UPLOAD HANDLING
+
+//#region ENDPOINTS
 
 router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
     // MULTER HAS RUN FIRST..
@@ -130,7 +121,7 @@ router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
                         ? // insert the image into the images table with the logged in user as the owner, image name as location and the post ID
                           //returned above as the relative post
                           db.query(
-                              "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)",
+                              ADD_IMAGE,
                               [username, image, postId],
                               (err) => {
                                   // if error
@@ -161,7 +152,7 @@ router.post("/votePost", (req, res) => {
     let message = " reacted to your post!";
     // put an entry into the userActions table with the information pulled out of the request above
     db.query(
-        "INSERT INTO userActions (type, sender, recipient, message, seen, approved, date, relativePost) VALUES (?,?,?,?,?,?, NOW(),?)",
+        ADD_USER_ACTION,
         ["reaction", sender, recipient, message, false, false, postId],
         (err) => {
             // if error
@@ -194,26 +185,18 @@ router.post("/voteQuestion", (req, res) => {
     let postID = req.body.postID;
     //vote up route
     if (vote === "up") {
-        db.query(
-            "UPDATE questions SET score = score + 1 WHERE postID = ?",
-            postID,
-            (err) => {
-                if (err) {
-                    console.log(err.message);
-                }
+        db.query(VOTE_UP_BY_POST_ID, postID, (err) => {
+            if (err) {
+                console.log(err.message);
             }
-        );
+        });
         // vote down route
     } else {
-        db.query(
-            "UPDATE questions SET score = score - 1 WHERE postID = ?",
-            postID,
-            (err) => {
-                if (err) {
-                    console.log(err.message);
-                }
+        db.query(VOTE_DOWN_BY_POST_ID, postID, (err) => {
+            if (err) {
+                console.log(err.message);
             }
-        );
+        });
     } //respond with success
     res.json({
         status: "success",
@@ -228,26 +211,17 @@ router.post("/postQuestion", (req, res) => {
     // if relative post is zero, its not a reply
     if (postData.relativePostID === 0) {
         //increment asked by one on account
-        db.query(
-            "UPDATE users SET asked = asked + 1 WHERE username = ?",
-            postData.authorID,
-            (err) => {
-                if (err) {
-                    console.log(err.message);
-                }
+        db.query(INCREASE_ASKED_BY_USERNAME, postData.authorID, (err) => {
+            if (err) {
+                console.log(err.message);
             }
-        );
+        });
     } else {
-        db.query(
-            // otherwise increment answered
-            "UPDATE users SET answered = answered + 1 WHERE username = ?",
-            postData.authorID,
-            (err) => {
-                if (err) {
-                    console.log(err.message);
-                }
+        db.query(INCREASE_ANSWERED_BY_USERNAME, postData.authorID, (err) => {
+            if (err) {
+                console.log(err.message);
             }
-        );
+        });
     }
     db.query(
         POST_QUESTION,
@@ -279,5 +253,6 @@ router.post("/postQuestion", (req, res) => {
     );
 });
 
-//#en
+//#endregion ENDPOINTS
+
 module.exports = router;

@@ -3,6 +3,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
 
+//#region SQL QUERIES
+
 const GET_ALL_USERS_FRIENDS =
     "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
 
@@ -11,6 +13,23 @@ const GET_QUESTION_FEED =
 
 const GET_QUESTION_REPLIES =
     "SELECT * FROM questions WHERE relativePostID = ? ORDER BY score DESC";
+
+const GET_USER_AND_POST_DATA_BY_POST_ID =
+    "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE `posts`.`id` = ?";
+
+const CHECK_FOR_FRIENDSHIP =
+    "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)";
+
+const SELECT_IMAGES_BY_POST_ID =
+    "SELECT images.imageLocation, images.postId FROM `images` WHERE postId = ?";
+
+const GET_QUESTION_BY_POST_ID = "SELECT * FROM questions WHERE postID = ?";
+
+const GET_QUESTIONS_BY_AUTHOR_ID =
+    "SELECT * FROM `questions` WHERE `authorID` = ?";
+//#endregion SQL QUERIES
+
+//#region ENDPOINTS
 
 router.post("/getFeedFriendsOnly", (req, res) => {
     //set up variables from the request body
@@ -183,94 +202,79 @@ router.post("/getPost", (req, res, next) => {
     //dont include 'reply' as title to not pull replies
     let { loggedInUsername, postID } = req.body;
     // get post data from databse by post id
-    db.query(
-        "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE `posts`.`id` = ?",
-        [postID],
-        (err, postData) => {
-            // if error
-            if (err) {
-                // respond with error status and error message
-                res.status(500).send(err.message);
-                return;
-            }
-            // check that a friendship exists between the logged in user and the author of the post
+    db.query(GET_USER_AND_POST_DATA_BY_POST_ID, [postID], (err, postData) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            res.status(500).send(err.message);
+            return;
+        }
+        // check that a friendship exists between the logged in user and the author of the post
 
-            db.query(
-                "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)",
-                [
-                    loggedInUsername,
-                    loggedInUsername,
-                    postData[0].author,
-                    postData[0].author,
-                ],
-                (err, friendships) => {
+        db.query(
+            CHECK_FOR_FRIENDSHIP,
+            [
+                loggedInUsername,
+                loggedInUsername,
+                postData[0].author,
+                postData[0].author,
+            ],
+            (err, friendships) => {
+                // if error
+                if (err) {
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
+                }
+                // not friends by default
+                let isFriendsWithLoggedInUser = false;
+                // if a friendship was returned, or the profile in question is the users profile, set is friends to true to reveal the profile
+                // otherwise prevent userData from showing
+                friendships.length > 0 ||
+                loggedInUsername === postData[0].author
+                    ? (isFriendsWithLoggedInUser = true)
+                    : (isFriendsWithLoggedInUser = false);
+
+                //respond with userData on success
+                postData[0].images = [];
+                // get all images from the database from the images table relating to any of the postId's in the above list
+                db.query(SELECT_IMAGES_BY_POST_ID, postID, (err, images) => {
                     // if error
                     if (err) {
                         // respond with error status and error message
                         res.status(500).send(err.message);
                         return;
                     }
-                    // not friends by default
-                    let isFriendsWithLoggedInUser = false;
-                    // if a friendship was returned, or the profile in question is the users profile, set is friends to true to reveal the profile
-                    // otherwise prevent userData from showing
-                    friendships.length > 0 ||
-                    loggedInUsername === postData[0].author
-                        ? (isFriendsWithLoggedInUser = true)
-                        : (isFriendsWithLoggedInUser = false);
-
-                    //respond with userData on success
-                    postData[0].images = [];
-                    // get all images from the database from the images table relating to any of the postId's in the above list
-                    db.query(
-                        "SELECT images.imageLocation, images.postId FROM `images` WHERE postId = ?",
-                        postID,
-                        (err, images) => {
-                            // if error
-                            if (err) {
-                                // respond with error status and error message
-                                res.status(500).send(err.message);
-                                return;
-                            }
-                            // for each image in the images list, loop through the posts and add the image to the post if postId and relativePostId's match
-                            if (images !== undefined) {
-                                images.forEach((image) => {
-                                    postData[0].images.push(
-                                        image.imageLocation
-                                    );
-                                });
-                            }
-                            res.json({
-                                isFriendsWithLoggedInUser:
-                                    isFriendsWithLoggedInUser,
-                                postData: postData[0],
-                            });
-                        }
-                    );
-                }
-            );
-        }
-    );
+                    // for each image in the images list, loop through the posts and add the image to the post if postId and relativePostId's match
+                    if (images !== undefined) {
+                        images.forEach((image) => {
+                            postData[0].images.push(image.imageLocation);
+                        });
+                    }
+                    res.json({
+                        isFriendsWithLoggedInUser: isFriendsWithLoggedInUser,
+                        postData: postData[0],
+                    });
+                });
+            }
+        );
+    });
 });
 
 router.post("/getQuestion", (req, res, next) => {
     // grab all user data
     //dont include 'reply' as title to not pull replies
     postID = req.body.postID;
-    db.query(
-        "SELECT * FROM questions WHERE postID = ?",
-        [postID],
-        (err, postData) => {
-            // if error
-            if (err) {
-                // respond with error status and error message
-                res.status(500).send(err.message);
-                return;
-            }
-            //respond with userData on success
-            res.json(postData);
+    db.query(GET_QUESTION_BY_POST_ID, [postID], (err, postData) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            res.status(500).send(err.message);
+            return;
         }
-    );
+        //respond with userData on success
+        res.json(postData);
+    });
 });
 
 router.post("/getQuestionFeed", (req, res, next) => {
@@ -294,19 +298,15 @@ router.post("/getUserQuestionFeed", (req, res) => {
     // get userID from req
     let userID = req.body.userID;
     //get all posts by userID
-    db.query(
-        "SELECT * FROM `questions` WHERE `authorID` = ?",
-        userID,
-        (err, rows) => {
-            if (err) {
-                console.log(err.message);
-            }
-            res.json({
-                status: "success",
-                postData: rows,
-            });
+    db.query(GET_QUESTIONS_BY_AUTHOR_ID, userID, (err, rows) => {
+        if (err) {
+            console.log(err.message);
         }
-    );
+        res.json({
+            status: "success",
+            postData: rows,
+        });
+    });
 });
 
 router.post("/getQuestionReplies", (req, res, next) => {
@@ -324,5 +324,7 @@ router.post("/getQuestionReplies", (req, res, next) => {
         res.json(postData);
     });
 });
+
+//#endregion ENDPOINTS
 
 module.exports = router;

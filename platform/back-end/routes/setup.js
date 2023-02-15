@@ -13,8 +13,96 @@ let messagesDataJSON = require("../database/messages.json");
 let circlesDataJSON = require("../database/circles.json");
 let questionsDataJSON = require("../database/questions.json");
 
+//#region SQL QUERIES
+
 const GET_ALL_QUESTIONS = "SELECT * FROM `questions` ORDER BY postID DESC";
+
 const GET_ALL_POSTS = "SELECT * FROM `posts` ORDER BY id DESC";
+
+const GET_ALL_USERS = "SELECT * FROM users";
+
+const GET_ALL_IMAGES = "SELECT * FROM images";
+
+const GET_ALL_FRIENDSHIPS = "SELECT * FROM friendships";
+
+const GET_ALL_USER_ACTIONS = "SELECT * FROM userActions";
+
+const GET_ALL_CHATS = "SELECT * FROM `chats`";
+
+const GET_ALL_MESSAGES = "SELECT * FROM messages";
+
+const DROP_USERS_TABLE = "DROP TABLE IF EXISTS `users`";
+
+const CREATE_USERS_TABLE =
+    "CREATE TABLE `users` (id INTEGER PRIMARY KEY AUTO_INCREMENT, username varchar(255) UNIQUE, firstName varchar(255), lastName varchar(255), email varchar(255) UNIQUE, password varchar(255), passwordSalt varchar(512), aboutMe text, course varchar(255), year int, location varchar(255), education varchar(255), work varchar(255), profilePicture varchar(255), coverPicture varchar(255), circles text, asked int, answered int)";
+
+const INSERT_DUMMY_DATA_INTO_USERS_TABLE =
+    "INSERT INTO `users` (username, firstName, lastName, email, password, passwordSalt, aboutMe, course, year, location, education, work, profilePicture, coverPicture, circles, asked, answered) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)";
+
+const DROP_POSTS_TABLE = "DROP TABLE IF EXISTS `posts`";
+
+const CREATE_POSTS_TABLE =
+    "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool)";
+
+const INSERT_DUMMY_DATA_INTO_POSTS_TABLE =
+    "INSERT INTO `posts` (id, author, content, date, circle, recipient, likes, dislikes, postStrict) VALUES(?,?,?,?,?,?,?,?,?)";
+const DROP_CHATS_TABLE = "DROP TABLE IF EXISTS `chats`";
+
+const CREATE_CHATS_TABLE =
+    "CREATE TABLE `chats` ( chatId INTEGER PRIMARY KEY AUTO_INCREMENT, user1 varchar(255), user2 varchar(255), seenByUser1 bool, seenByUser2 bool, lastActive varchar(255))";
+
+const INSERT_DUMMY_DATA_INTO_CHATS_TABLE =
+    "INSERT INTO `chats` (chatId, user1, user2, seenByUser1, seenByUser2, lastActive) VALUES(?,?,?,?,?, NOW())";
+
+const DROP_FRIENDSHIPS_TABLE = "DROP TABLE IF EXISTS `friendships`";
+
+const CREATE_FRIENDSHIPS_TABLE =
+    "CREATE TABLE `friendships` ( user1 varchar(255), user2 varchar(255))";
+
+const INSERT_DUMMY_DATA_INTO_FRIENDSHIPS_TABLE =
+    "INSERT INTO `friendships` (user1, user2) VALUES(?,?)";
+
+const DROP_IMAGES_TABLE = "DROP TABLE IF EXISTS `images`";
+
+const CREATE_IMAGES_TABLE =
+    "CREATE TABLE `images` ( ownerUsername varchar(255), imageLocation varchar(255), postId int)";
+
+const INSERT_DUMMY_DATA_INTO_IMAGES_TABLE =
+    "INSERT INTO `images` (ownerUsername, imageLocation, postId) VALUES(?,?,?)";
+
+const DROP_USERACTIONS_TABLE = "DROP TABLE IF EXISTS `userActions`";
+
+const CREATE_USERACTIONS_TABLE =
+    "CREATE TABLE `userActions` ( actionId INTEGER PRIMARY KEY AUTO_INCREMENT, type varchar(255), sender varchar(255), recipient varchar(255), message varchar(255), seen int, approved int, date varchar(255), relativePost int)";
+
+const INSERT_DUMMY_DATA_INTO_USERACTIONS_TABLE =
+    "INSERT INTO `userActions` (actionId, type, sender, recipient, message, seen, approved, date, relativePost) VALUES (?,?,?,?,?,?,?,?,?)";
+
+const DROP_MESSAGES_TABLE = "DROP TABLE IF EXISTS `messages`";
+
+const CREATE_MESSAGES_TABLE =
+    "CREATE TABLE `messages` ( messageId INTEGER PRIMARY KEY AUTO_INCREMENT,chatId INTEGER,  sender varchar(255), recipient varchar(255), message text, date varchar(255), seen bool)";
+
+const INSERT_DUMMY_DATA_INTO_MESSAGES_TABLE =
+    "INSERT INTO `messages` (chatId, sender, recipient, message, date, seen) VALUES(?,?,?,?,NOW(),?)";
+
+const DROP_CIRCLES_TABLE = "DROP TABLE IF EXISTS `circles`";
+
+const CREATE_CIRCLES_TABLE =
+    "CREATE TABLE `circles` ( circleName varchar(255), users INT)";
+
+const INSERT_DUMMY_DATA_INTO_CIRCLES_TABLE =
+    "INSERT INTO `circles` (circleName, users) VALUES(?,?)";
+
+const DROP_QUESTIONS_TABLE = "DROP TABLE IF EXISTS `questions`";
+
+const CREATE_QUESTIONS_TABLE =
+    "CREATE TABLE `questions` (postID INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), authorID varchar(255), authorProfilePicture VARCHAR(255), date varchar(255), category varchar(255), score INTEGER, relativePostID INTEGER, title varchar(255), text TEXT, code TEXT, language varchar(255))";
+
+const INSERT_DUMMY_DATA_INTO_QUESTIONS_TABLE =
+    "INSERT INTO questions (author, authorID, authorProfilePicture, date, category, score, relativePostID, title, text, code, language) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+//#endregion SQL QUERIES
 
 //#region SQL SETUP ENDPOINTS
 
@@ -22,18 +110,16 @@ const GET_ALL_POSTS = "SELECT * FROM `posts` ORDER BY id DESC";
 router.get("/usersSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `users`");
+        db.query(DROP_USERS_TABLE);
         //recreate the users table
-        db.query(
-            "CREATE TABLE `users` (id INTEGER PRIMARY KEY AUTO_INCREMENT, username varchar(255) UNIQUE, firstName varchar(255), lastName varchar(255), email varchar(255) UNIQUE, password varchar(255), passwordSalt varchar(512), aboutMe text, course varchar(255), year int, location varchar(255), education varchar(255), work varchar(255), profilePicture varchar(255), coverPicture varchar(255), circles text, asked int, answered int)"
-        );
+        db.query(CREATE_USERS_TABLE);
         //create array of users from the dummy data JSON file
         let users = userDataJSON.users;
         // insert each element in the array of objects into the users table in the database
         users.forEach((user) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `users` (username, firstName, lastName, email, password, passwordSalt, aboutMe, course, year, location, education, work, profilePicture, coverPicture, circles, asked, answered) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)",
+                INSERT_DUMMY_DATA_INTO_USERS_TABLE,
                 // values passed in from current iteration of the users array
                 [
                     user.username,
@@ -66,18 +152,16 @@ router.get("/usersSetup", (req, res, next) => {
 router.get("/postsSetup", (req, res, next) => {
     db.query(() => {
         // delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `posts`");
+        db.query(DROP_POSTS_TABLE);
         // recreate the posts table
-        db.query(
-            "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool)"
-        );
+        db.query(CREATE_POSTS_TABLE);
         //create array of post objects from the dummy data JSON file
         let posts = postDataJSON.entries;
         // insert each element in the array of objects into the posts table in the database
         posts.forEach((post) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `posts` (id, author, content, date, circle, recipient, likes, dislikes, postStrict) VALUES(?,?,?,?,?,?,?,?,?)",
+                INSERT_DUMMY_DATA_INTO_POSTS_TABLE,
                 // values passed in from current iteration of the posts array
                 [
                     post.id,
@@ -102,18 +186,16 @@ router.get("/postsSetup", (req, res, next) => {
 router.get("/imagesSetup", (req, res, next) => {
     db.query(() => {
         // delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `images`");
+        db.query(DROP_IMAGES_TABLE);
         // recreate images table
-        db.query(
-            "CREATE TABLE `images` ( ownerUsername varchar(255), imageLocation varchar(255), postId int)"
-        );
+        db.query(CREATE_IMAGES_TABLE);
         //create array of image objects from the dummy data JSON file
         let images = imagesDataJSON.images;
         // insert each element in the array of objects into the images table in the database
         images.forEach((image) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `images` (ownerUsername, imageLocation, postId) VALUES(?,?,?)",
+                INSERT_DUMMY_DATA_INTO_IMAGES_TABLE,
                 // values passed in from current iteration of the images array
                 [image.ownerUsername, image.imageLocation, image.postId]
             );
@@ -128,18 +210,16 @@ router.get("/imagesSetup", (req, res, next) => {
 router.get("/friendshipsSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `friendships`");
+        db.query(DROP_FRIENDSHIPS_TABLE);
         // recreate friendships table
-        db.query(
-            "CREATE TABLE `friendships` ( user1 varchar(255), user2 varchar(255))"
-        );
+        db.query(CREATE_FRIENDSHIPS_TABLE);
         //create array of friendship objects from the dummy data JSON file
         let friendships = friendshipsDataJSON.friendships;
         // insert each element in the array of objects into the friendships table in the database
         friendships.forEach((friendship) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `friendships` (user1, user2) VALUES(?,?)",
+                INSERT_DUMMY_DATA_INTO_FRIENDSHIPS_TABLE,
                 // values passed in from current iteration of the friendships array
                 [friendship.user1, friendship.user2]
             );
@@ -154,18 +234,16 @@ router.get("/friendshipsSetup", (req, res, next) => {
 router.get("/userActionsSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `userActions`");
+        db.query(DROP_USERACTIONS_TABLE);
         // recreate userActions table
-        db.query(
-            "CREATE TABLE `userActions` ( actionId INTEGER PRIMARY KEY AUTO_INCREMENT, type varchar(255), sender varchar(255), recipient varchar(255), message varchar(255), seen int, approved int, date varchar(255), relativePost int)"
-        );
+        db.query(CREATE_USERACTIONS_TABLE);
         //create array of userActions from the dummy data JSON file
         let rows = userActionsDataJSON.userActions;
         // insert each element in the array of object into the userActions table in the database
         rows.forEach((row) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `userActions` (actionId, type, sender, recipient, message, seen, approved, date, relativePost) VALUES (?,?,?,?,?,?,?,?,?)",
+                INSERT_DUMMY_DATA_INTO_USERACTIONS_TABLE,
                 // values passed in from current iteration of the userActions array
                 [
                     row.id,
@@ -190,18 +268,16 @@ router.get("/userActionsSetup", (req, res, next) => {
 router.get("/chatsSetup", (req, res, next) => {
     db.query(() => {
         // delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `chats`");
+        db.query(DROP_CHATS_TABLE);
         // recreate chats table
-        db.query(
-            "CREATE TABLE `chats` ( chatId INTEGER PRIMARY KEY AUTO_INCREMENT, user1 varchar(255), user2 varchar(255), seenByUser1 bool, seenByUser2 bool, lastActive varchar(255))"
-        );
+        db.query(CREATE_CHATS_TABLE);
         //create array of chats from the dummy data JSON file
         let chats = chatsDataJSON.chats;
         // insert each element in the array of objects into the chats table in the database
         chats.forEach((chat) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `chats` (chatId, user1, user2, seenByUser1, seenByUser2, lastActive) VALUES(?,?,?,?,?, NOW())",
+                INSERT_DUMMY_DATA_INTO_CHATS_TABLE,
                 // values passed in from current iteration of the chats array
                 [
                     chat.chatId,
@@ -222,18 +298,16 @@ router.get("/chatsSetup", (req, res, next) => {
 router.get("/messagesSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `messages`");
+        db.query(DROP_MESSAGES_TABLE);
         // recreate messages table
-        db.query(
-            "CREATE TABLE `messages` ( messageId INTEGER PRIMARY KEY AUTO_INCREMENT,chatId INTEGER,  sender varchar(255), recipient varchar(255), message text, date varchar(255), seen bool)"
-        );
+        db.query(CREATE_MESSAGES_TABLE);
         //create array of messages from the dummy data JSON file
         let messages = messagesDataJSON.messages;
         // insert each element in the array of objects into the messages table in the database
         messages.forEach((message) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `messages` (chatId, sender, recipient, message, date, seen) VALUES(?,?,?,?,NOW(),?)",
+                INSERT_DUMMY_DATA_INTO_MESSAGES_TABLE,
                 // values passed in from current iteration of the messages array
                 [
                     message.chatId,
@@ -254,18 +328,16 @@ router.get("/messagesSetup", (req, res, next) => {
 router.get("/circlesSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
-        db.query("DROP TABLE IF EXISTS `circles`");
+        db.query(DROP_CIRCLES_TABLE);
         // recreate circles table
-        db.query(
-            "CREATE TABLE `circles` ( circleName varchar(255), users INT)"
-        );
+        db.query(CREATE_CIRCLES_TABLE);
         //create array of circle objects from the dummy data JSON file
         let circles = circlesDataJSON.circles;
         // insert each element in the array of objects into the circle table in the database
         circles.forEach((circle) => {
             // SQL query to run
             db.query(
-                "INSERT INTO `circles` (circleName, users) VALUES(?,?)",
+                INSERT_DUMMY_DATA_INTO_CIRCLES_TABLE,
                 // values passed in from current iteration of the circles array
                 [circle.circleName, circle.users]
             );
@@ -279,7 +351,7 @@ router.get("/circlesSetup", (req, res, next) => {
 router.get("/questionsSetup", (req, res) => {
     db.query(() => {
         // delete any existing user table
-        db.query("DROP TABLE IF EXISTS `questions`"),
+        db.query(DROP_QUESTIONS_TABLE),
             (err) => {
                 if (err) {
                     console.log(err.message);
@@ -287,7 +359,7 @@ router.get("/questionsSetup", (req, res) => {
             };
         //rebuild the users table
         db.query(
-            "CREATE TABLE `questions` (postID INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), authorID varchar(255), authorProfilePicture VARCHAR(255), date varchar(255), category varchar(255), score INTEGER, relativePostID INTEGER, title varchar(255), text TEXT, code TEXT, language varchar(255))",
+            CREATE_QUESTIONS_TABLE,
             // "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool)"
             (err) => {
                 if (err) {
@@ -298,7 +370,7 @@ router.get("/questionsSetup", (req, res) => {
         let questions = questionsDataJSON.entries;
         questions.forEach((question) => {
             db.query(
-                "INSERT INTO questions (author, authorID, authorProfilePicture, date, category, score, relativePostID, title, text, code, language) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                INSERT_DUMMY_DATA_INTO_QUESTIONS_TABLE,
                 // pass in values from the json objects
                 [
                     question.author,
@@ -331,7 +403,7 @@ router.get("/questionsSetup", (req, res) => {
 // get all users
 router.get("/getAllUsers", (req, res, next) => {
     // grab all user data
-    db.query("SELECT * FROM users", [], (err, userData) => {
+    db.query(GET_ALL_USERS, [], (err, userData) => {
         // if error
         if (err) {
             // respond with error status and error message
@@ -346,7 +418,7 @@ router.get("/getAllUsers", (req, res, next) => {
 // get all images
 router.get("/getAllImages", (req, res, next) => {
     // grab all image data
-    db.query("SELECT * FROM images", (err, imageData) => {
+    db.query(GET_ALL_IMAGES, (err, imageData) => {
         // if error
         if (err) {
             // respond with error status and error message
@@ -376,7 +448,7 @@ router.get("/getAllPosts", (req, res, next) => {
 // get all friendships
 router.get("/getAllFriendships", (req, res, next) => {
     // grab all friendships data
-    db.query("SELECT * FROM friendships", [], (err, friendshipData) => {
+    db.query(GET_ALL_FRIENDSHIPS, [], (err, friendshipData) => {
         // if error
         if (err) {
             // respond with error status and error message
@@ -391,7 +463,7 @@ router.get("/getAllFriendships", (req, res, next) => {
 // get all UserActions
 router.get("/getAllUserActions", (req, res, next) => {
     // grab all user actions data
-    db.query("SELECT * FROM userActions", [], (err, userActionsData) => {
+    db.query(GET_ALL_USER_ACTIONS, [], (err, userActionsData) => {
         // if error
         if (err) {
             // respond with error status and error message
@@ -406,7 +478,7 @@ router.get("/getAllUserActions", (req, res, next) => {
 // get all chats
 router.get("/getAllChats", (req, res) => {
     // grab all chat data
-    db.query("SELECT * FROM `chats`", (err, chatData) => {
+    db.query(GET_ALL_CHATS, (err, chatData) => {
         // if error
         if (err) {
             // respond with error status and error message
@@ -421,7 +493,7 @@ router.get("/getAllChats", (req, res) => {
 // get all messages
 router.get("/getAllMessages", (req, res, next) => {
     // grab all message data
-    db.query("SELECT * FROM messages", [], (err, messageData) => {
+    db.query(GET_ALL_MESSAGES, [], (err, messageData) => {
         // if error
         if (err) {
             // respond with error status and error message
@@ -450,5 +522,4 @@ router.get("/getAllQuestions", (req, res, next) => {
 
 //#endregion DATABASE TEST ENDPOINTS
 
-//#endregion SQL DATABASE SETUP AND QUERIES
 module.exports = router;

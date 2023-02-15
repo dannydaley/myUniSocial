@@ -2,10 +2,16 @@ var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
 
+//#region SQL QUERIES
+
 const QUESTION_SEARCH_TERM =
     "SELECT *  FROM `questions` WHERE `title` LIKE '%' ? '%' OR `text` LIKE '%' ? '%'";
 const USER_SEARCH_TERM =
     "SELECT `users`.`firstName`, `users`.`lastName`, `users`.`username`,`users`.`profilePicture` FROM `users` WHERE (CONCAT(users.firstName,' ',users.lastName) LIKE CONCAT('%',?,'%')) OR username LIKE CONCAT(?,'%')";
+
+//#endregion SQL QUERIES
+
+//#region ENDPOINTS
 
 router.post("/search-users", (req, res) => {
     //set up variables from the request body
@@ -51,5 +57,7 @@ router.post("/search-questions", (req, res) => {
         }
     );
 });
+
+//#endregion ENDPOINTS
 
 module.exports = router;

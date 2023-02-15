@@ -1,8 +1,6 @@
 // socket.js
 const { Server } = require("socket.io");
 
-// const db = require("./config/database");
-
 const socket = (server) => {
     const io = new Server(server, {
         cors: {
@@ -16,25 +14,21 @@ const socket = (server) => {
     //On connection
     io.on("connection", (socket) => {
         io.setMaxListeners(0);
-        socket.on("join", function (data) {
+        socket.on("join", (data) => {
             socket.join(data.username); // We are using room of socket io
-
             // COMMENTS LEFT HERE FOR REFERENCE WHEN DOING "ONLINE FRIENDS"
-
-            // console.log(data.username + " has joined with ID: " + socket.id);
-
+            console.log(data.username + " has joined with ID: " + socket.id);
             // users[socket.id] = data.username;
             // console.log(users);
         });
 
         socket.on("join_room", (room) => {
+            // join chat room
             socket.join(room);
-
-            console.log("joined room: " + room);
         });
         socket.on("leave_room", (room) => {
+            // leave chat room
             socket.leave(room);
-            console.log("leaving room: " + room);
         });
         //On message send
         socket.on("send_message", (data) => {

@@ -5,7 +5,9 @@ const db = require("../config/database");
 var nodemailer = require("nodemailer");
 var randomstring = require("randomstring");
 
-const { passwordHash, generatePepper } = require("../security");
+const { passwordHash, generateSalt } = require("../security");
+
+//#region EMAILER SETUP
 
 var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -14,6 +16,11 @@ var transporter = nodemailer.createTransport({
         pass: process.env.EMAILPASS,
     },
 });
+
+//#endregion EMAILER SETUP
+
+//#regin IMAGES AND IMAGE UPLOAD HANDLING
+
 // default profile picture applied to all users profilePicture field in the users table of the db on account creation
 let defaultProfilePicture = "images/defaultUser.png";
 
@@ -42,6 +49,8 @@ const storage = multer.diskStorage({
 let upload = multer({ storage: storage });
 
 //#endregion IMAGES AND IMAGE UPLOAD HANDLING
+
+//#region SQL QUERIES
 const CHECK_THAT_USERS_ARE_FRIENDS =
     "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)";
 const GET_USER_GENERAL_INFO_BY_USERNAME =
@@ -58,7 +67,19 @@ const GET_POSTS_BY_AUTHOR_OR_RECIPIENT =
 const GET_POSTS_BY_AUTHOR_BY_CIRCLE =
     "SELECT * FROM `posts` WHERE author = ? AND circle = ? ORDER BY id DESC";
 const ADD_POST_TO_POSTS = "INSERT INTO `posts` SET ?, date = NOW()";
+const APPLY_PROFILE_PICTURE_AT_USERNAME =
+    "UPDATE users SET profilePicture = ? WHERE username = ?";
+const GET_NAMES_BY_USERNAME =
+    "SELECT users.firstName, users.lastName FROM users WHERE username = ? LIMIT 1";
+const GET_IMAGES_BY_POST_ID =
+    "SELECT images.imageLocation, images.postId FROM `images` WHERE postId IN  (";
+const ADD_IMAGE =
+    "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)";
+const APPLY_COVER_PICTURE_AT_USERNAME =
+    "UPDATE users SET coverPicture = ? WHERE username = ?";
+//#endregion SQL QUERIES
 
+//#region ENDPOINTS
 router.post("/refreshData", (req, res) => {
     //set up variables from the request body
     let user = req.body.loggedInUsername;
@@ -78,6 +99,7 @@ router.post("/refreshData", (req, res) => {
         }
     );
 });
+
 router.post("/updateUserGeneralInfo", (req, res) => {
     //pull variables from request body for better readability
     const {
@@ -135,7 +157,7 @@ router.post("/updateUserLoginInfo", (req, res) => {
                 // if password and confirm fields match..
                 if (changePassword === changePasswordConfirm) {
                     //generate a new salt to store
-                    let passwordSalt = generatePepper;
+                    let passwordSalt = generateSalt;
                     //generate a new password hash to store using the hashing function, passing in the new password entry and the newly generated salt
                     let storePassword = passwordHash(
                         changePassword,
@@ -210,7 +232,7 @@ router.post("/changeProfilePicture", upload.single("image"), (req, res) => {
     let image = req.body.imageLocations.replace(",", "");
     // update the profilePicture attached to the user where username matches the logged in users from the request
     db.query(
-        "UPDATE users SET profilePicture = ? WHERE username = ?",
+        APPLY_PROFILE_PICTURE_AT_USERNAME,
         [image, req.body.username],
         (err, result) => {
             // if error
@@ -221,63 +243,58 @@ router.post("/changeProfilePicture", upload.single("image"), (req, res) => {
                 return;
             }
             // grab users first name and lastname from database by username from request
-            db.query(
-                "SELECT users.firstName, users.lastName FROM users WHERE username = ? LIMIT 1",
-                req.body.username,
-                (err, rows) => {
-                    // if error
-                    if (err) {
-                        console.log(err);
-                        // respond with error status and error message
-                        res.status(500).send(err.message);
-                        return;
-                    }
-
-                    //USE A REGULAR FUNCTION DECLARATION AT THE END OF THIS LINE AS this.LastID FOR GETTING THE LATEST ENTRY DOESNT SUPPORT ES6
-                    // create a post passing in first and last name with the content about the picture change
-                    db.query(
-                        ADD_POST_TO_POSTS,
-                        {
-                            author: req.body.username,
-                            circle: "general",
-                            content: `${rows[0].firstName} ${rows[0].lastName} has changed their profile picture!`,
-                            recipient: "none",
-                            likes: 0,
-                            dislikes: 0,
-                            postStrict: false,
-                        },
-                        function (err, results) {
-                            // if error
-                            if (err) {
-                                console.log(err);
-                                // respond with error status and error message
-                                res.status(500).send(err.message);
-                                return;
-                            }
-                            // set post Id to the id from the post just created
-                            let postId = results.insertId;
-                            // insert image into the images database with the post Id above as the relative post Id
-                            db.query(
-                                "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)",
-                                [req.body.username, image, postId],
-                                (err, rows) => {
-                                    // if error
-                                    if (err) {
-                                        console.log(err);
-                                        // respond with error status and error message
-                                        res.status(500).send(err.message);
-                                        return;
-                                    }
-                                    // respond with new image on success
-                                    res.json({
-                                        profilePicture: req.body.image,
-                                    });
-                                }
-                            );
-                        }
-                    );
+            db.query(GET_NAMES_BY_USERNAME, req.body.username, (err, rows) => {
+                // if error
+                if (err) {
+                    console.log(err);
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
                 }
-            );
+                //USE A REGULAR FUNCTION DECLARATION AT THE END OF THIS LINE AS this.LastID FOR GETTING THE LATEST ENTRY DOESNT SUPPORT ES6
+                // create a post passing in first and last name with the content about the picture change
+                db.query(
+                    ADD_POST_TO_POSTS,
+                    {
+                        author: req.body.username,
+                        circle: "general",
+                        content: `${rows[0].firstName} ${rows[0].lastName} has changed their profile picture!`,
+                        recipient: "none",
+                        likes: 0,
+                        dislikes: 0,
+                        postStrict: false,
+                    },
+                    function (err, results) {
+                        // if error
+                        if (err) {
+                            console.log(err);
+                            // respond with error status and error message
+                            res.status(500).send(err.message);
+                            return;
+                        }
+                        // set post Id to the id from the post just created
+                        let postId = results.insertId;
+                        // insert image into the images database with the post Id above as the relative post Id
+                        db.query(
+                            ADD_IMAGE,
+                            [req.body.username, image, postId],
+                            (err, rows) => {
+                                // if error
+                                if (err) {
+                                    console.log(err);
+                                    // respond with error status and error message
+                                    res.status(500).send(err.message);
+                                    return;
+                                }
+                                // respond with new image on success
+                                res.json({
+                                    profilePicture: req.body.image,
+                                });
+                            }
+                        );
+                    }
+                );
+            });
         }
     );
 });
@@ -290,7 +307,7 @@ router.post("/changeCoverPicture", upload.single("image"), (req, res) => {
     let image = req.body.imageLocations.replace(",", "");
     // update the coverPicture attached to the user where username matches the logged in users from the request
     db.query(
-        "UPDATE users SET coverPicture = ? WHERE username = ?",
+        APPLY_COVER_PICTURE_AT_USERNAME,
         [image, req.body.username],
         (err) => {
             // if error
@@ -300,56 +317,52 @@ router.post("/changeCoverPicture", upload.single("image"), (req, res) => {
                 return;
             }
             // grab users first name and lastname from database by username from request
-            db.query(
-                "SELECT users.firstName, users.lastName FROM users WHERE username = ? LIMIT 1",
-                req.body.username,
-                (err, rows) => {
-                    // if error
-                    if (err) {
-                        // respond with error status and error message
-                        res.status(500).send(err.message);
-                        return;
-                    }
-                    //USE A REGULAR FUNCTION DECLARATION AT THE END OF THIS LINE AS this.LastID FOR GETTING THE LATEST ENTRY DOESNT SUPPORT ES6
-                    // create a post passing in first and last name with the content about the picture change
-                    db.query(
-                        ADD_POST_TO_POSTS,
-                        {
-                            author: req.body.username,
-                            circle: "general",
-                            content: `${rows[0].firstName} ${rows[0].lastName} has changed their profile cover picture!`,
-                            recipient: "none",
-                            likes: 0,
-                            dislikes: 0,
-                            postStrict: false,
-                        },
-                        function (err, results) {
-                            // if error
-                            if (err) {
-                                // respond with error status and error message
-                                res.status(500).send(err.message);
-                                return;
-                            }
-                            // set post Id to the id from the post just created
-                            let postId = results.insertId;
-                            // insert image into the images database with the post Id above as the relative post Id
-                            db.query(
-                                "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)",
-                                [req.body.username, image, postId],
-                                (err, rows) => {
-                                    // if error
-                                    if (err) {
-                                        // respond with error status and error message
-                                        res.status(500).send(err.message);
-                                        return;
-                                    }
-                                    res.json({ coverPicture: req.body.image });
-                                }
-                            );
-                        }
-                    );
+            db.query(GET_NAMES_BY_USERNAME, req.body.username, (err, rows) => {
+                // if error
+                if (err) {
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
                 }
-            );
+                //USE A REGULAR FUNCTION DECLARATION AT THE END OF THIS LINE AS this.LastID FOR GETTING THE LATEST ENTRY DOESNT SUPPORT ES6
+                // create a post passing in first and last name with the content about the picture change
+                db.query(
+                    ADD_POST_TO_POSTS,
+                    {
+                        author: req.body.username,
+                        circle: "general",
+                        content: `${rows[0].firstName} ${rows[0].lastName} has changed their profile cover picture!`,
+                        recipient: "none",
+                        likes: 0,
+                        dislikes: 0,
+                        postStrict: false,
+                    },
+                    function (err, results) {
+                        // if error
+                        if (err) {
+                            // respond with error status and error message
+                            res.status(500).send(err.message);
+                            return;
+                        }
+                        // set post Id to the id from the post just created
+                        let postId = results.insertId;
+                        // insert image into the images database with the post Id above as the relative post Id
+                        db.query(
+                            "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)",
+                            [req.body.username, image, postId],
+                            (err, rows) => {
+                                // if error
+                                if (err) {
+                                    // respond with error status and error message
+                                    res.status(500).send(err.message);
+                                    return;
+                                }
+                                res.json({ coverPicture: req.body.image });
+                            }
+                        );
+                    }
+                );
+            });
         }
     );
 });
@@ -403,9 +416,7 @@ router.post("/getFeedByUser", (req, res) => {
                         });
                         // get image data where relative post matches the current iteration of post ids
                         db.query(
-                            "SELECT images.imageLocation, images.postId FROM `images` WHERE postId IN  (" +
-                                postIds.join(",") +
-                                ")",
+                            GET_IMAGES_BY_POST_ID + postIds.join(",") + ")",
                             (err, images) => {
                                 if (images !== undefined) {
                                     images.forEach((image) =>
@@ -451,9 +462,7 @@ router.post("/getFeedByUser", (req, res) => {
                         });
                         // get image data where relative post matches the current iteration of post ids
                         db.query(
-                            "SELECT images.imageLocation, images.postId FROM `images` WHERE postId IN  (" +
-                                postIds.join(",") +
-                                ")",
+                            GET_IMAGES_BY_POST_ID + postIds.join(",") + ")",
                             (err, images) => {
                                 if (images !== undefined) {
                                     images.forEach((image) =>
@@ -466,7 +475,6 @@ router.post("/getFeedByUser", (req, res) => {
                                         })
                                     );
                                 }
-
                                 res.json({
                                     // respond with friendship status and posts
                                     isFriendsWithLoggedInUser:
@@ -499,9 +507,12 @@ router.post("/getUserGeneralInfo", (req, res) => {
 });
 
 router.get("/resetPassword", (req, res) => {
+    // user email to send to and locate profile
     let emailToSend = "dd252935@falmouth.ac.uk";
+    // generate new temporary password
     let password = randomstring.generate();
-    let passwordSalt = generatePepper;
+    // generate a salt from the pepper-gen
+    let passwordSalt = generateSalt;
     //generate a new password hash to store using the hashing function, passing in the new password entry and the newly generated salt
     let storePassword = passwordHash(password, passwordSalt);
     // apply the password to the database where the email matches the users
@@ -539,5 +550,7 @@ router.get("/resetPassword", (req, res) => {
         }
     );
 });
+
+//#endregion ENDPOINTS
 
 module.exports = router;
