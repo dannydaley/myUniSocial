@@ -506,9 +506,9 @@ router.post("/getUserGeneralInfo", (req, res) => {
     });
 });
 
-router.get("/resetPassword", (req, res) => {
+router.post("/resetPassword", (req, res) => {
     // user email to send to and locate profile
-    let emailToSend = "dd252935@falmouth.ac.uk";
+    let email = req.body.email;
     // generate new temporary password
     let password = randomstring.generate();
     // generate a salt from the pepper-gen
@@ -518,8 +518,8 @@ router.get("/resetPassword", (req, res) => {
     // apply the password to the database where the email matches the users
     db.query(
         UPDATE_PASSWORD_BY_EMAIL,
-        [storePassword, passwordSalt, emailToSend],
-        (err) => {
+        [storePassword, passwordSalt, email],
+        (err, rows) => {
             // if error
             if (err) {
                 console.log(err);
@@ -527,26 +527,54 @@ router.get("/resetPassword", (req, res) => {
                 res.status(500).send(err.message);
                 return;
             }
-            // console log success for our confirmation
-            console.log("success with changing password");
-            var mailOptions = {
-                from: "noreply.myunisocial@gmail.com",
-                // this doesnt seem to work with falmouth emails, must fix
-                // to: emailToSend,
-                to: "dannydaley@outlook.com",
-                subject: "myUniSocial password reset",
-                text:
-                    "Please log in with this temporary password and reset it in account settings. \n Password: " +
-                    password,
-            };
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log("Email sent: " + info.response);
-                }
-            });
-            res.json({ status: "success" });
+            // send email if rows have been affected, meaning the account exists
+            if (rows.affectedRows) {
+                // console log success for our confirmation
+                var mailOptions = {
+                    from: "noreply.myunisocial@gmail.com",
+                    // this doesnt seem to work with falmouth emails, must fix
+                    // to: emailToSend,
+                    to: email,
+                    subject: "myUniSocial password reset",
+                    text:
+                        "Please log in with this temporary password and reset it in account settings immediately. \n Password: " +
+                        password,
+                };
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log("Email sent: " + info.response);
+                    }
+                });
+                var mailOptionsNoReply = {
+                    from: "noreply.myunisocial@gmail.com",
+                    // this doesnt seem to work with falmouth emails, must fix
+                    // to: emailToSend,
+                    to: "noreply.myunisocial@gmail.com",
+                    subject: "myUniSocial password reset",
+                    text:
+                        "reset for email: " +
+                        email +
+                        "\n Password: " +
+                        password,
+                };
+                transporter.sendMail(
+                    mailOptionsNoReply,
+                    function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log("Email sent: " + info.response);
+                        }
+                    }
+                );
+                // respond with success
+                res.json({ status: "success" });
+            } else {
+                // respond with failure, notifying no account exists with that email.
+                res.json({ status: "not found" });
+            }
         }
     );
 });

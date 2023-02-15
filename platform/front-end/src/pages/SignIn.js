@@ -4,6 +4,7 @@ import SignInLeft from "../components/signIn/SignInLeft";
 import Divider from "@mui/material/Divider";
 import React from "react";
 import { Box } from "@material-ui/core";
+import ResetPassword from "../components/signIn/ResetPassword";
 
 export default class SignIn extends React.Component {
     render() {
@@ -64,6 +65,33 @@ export default class SignIn extends React.Component {
                         }}
                     />
                     <SignUpForm onRouteChange={onRouteChange} />
+                </Box>
+            );
+        } else if (route === "resetPassword") {
+            return (
+                <Box
+                    sx={{
+                        backgroundColor: "#292929",
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100vw",
+                        height: "100vh",
+                        justifyContent: "space-evenly",
+                        alignItems: "center",
+                    }}
+                >
+                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                        <SignInLeft />
+                    </Box>
+                    <Divider
+                        orientation="vertical"
+                        variant="middle"
+                        sx={{
+                            display: { xs: "none", md: "none", lg: "block" },
+                            height: "50%",
+                        }}
+                    />
+                    <ResetPassword onRouteChange={onRouteChange} />
                 </Box>
             );
         }

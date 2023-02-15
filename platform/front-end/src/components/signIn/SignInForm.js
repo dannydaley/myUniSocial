@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import myUniSocial from "../../assets/myUniSocial.png";
 import falUni from "../../assets/falLogo.png";
+import { Typography } from "@mui/material";
 
 class SignInForm extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class SignInForm extends React.Component {
         this.state = {
             signInEmail: "",
             signInPassword: "",
+            status: "",
         };
     }
 
@@ -67,6 +69,7 @@ class SignInForm extends React.Component {
             .then((response) => response.json())
             // if response returns success, apply user data to session updater
             .then((data) => {
+                this.setState({ status: data.status });
                 if (data.status === "success") {
                     this.props.updateSession(
                         data.firstName,
@@ -137,6 +140,14 @@ class SignInForm extends React.Component {
                             autoComplete="current-password"
                             onChange={this.onPasswordChange}
                         />
+                        {this.state.status === "failed" ? (
+                            <Typography sx={{ color: "red" }}>
+                                Incorrent email or password
+                            </Typography>
+                        ) : (
+                            ""
+                        )}
+
                         <Button
                             variant="contained"
                             sx={{ width: "33ch", marginTop: "20px" }}
@@ -145,7 +156,6 @@ class SignInForm extends React.Component {
                         >
                             Sign In
                         </Button>
-                        {/* <p>Forgotten Password?</p> */}
                     </div>
                     <Divider
                         variant="middle"
@@ -165,6 +175,13 @@ class SignInForm extends React.Component {
                             onClick={() => onRouteChange("signup")}
                         >
                             Sign Up
+                        </Button>
+                        <Button
+                            variant="contained"
+                            sx={{ width: "33ch" }}
+                            onClick={() => onRouteChange("resetPassword")}
+                        >
+                            Forgotten Password
                         </Button>
                     </div>
                 </Box>

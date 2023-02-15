@@ -12,7 +12,7 @@ const hashSize = 64;
 const hashAlgorithm = "sha256";
 
 // create a hash salt/pepper
-const generatePepper = crypto.randomBytes(256).toString("hex");
+const generateSalt = crypto.randomBytes(256).toString("hex");
 
 //this function returns a hash of the password, combined with the pepper and the salt.
 function passwordHash(thePassword, theSalt) {
@@ -30,4 +30,4 @@ function passwordHash(thePassword, theSalt) {
 
 //#endregion SECURITY
 
-module.exports = { passwordHash, generatePepper };
+module.exports = { passwordHash, generateSalt };

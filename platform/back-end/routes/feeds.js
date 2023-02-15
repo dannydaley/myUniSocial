@@ -310,8 +310,7 @@ router.post("/getUserQuestionFeed", (req, res) => {
 });
 
 router.post("/getQuestionReplies", (req, res, next) => {
-    // grab all user data
-
+    // postID were getting replies for
     let relativePostID = req.body.postID;
     db.query(GET_QUESTION_REPLIES, relativePostID, (err, postData) => {
         // if error

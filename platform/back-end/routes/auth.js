@@ -2,7 +2,7 @@ var express = require("express");
 var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
-const { passwordHash, generatePepper } = require("../security");
+const { passwordHash, generateSalt } = require("../security");
 var randomstring = require("randomstring");
 
 //#region SQL QUERIES
@@ -28,7 +28,7 @@ router.post("/signUp", (req, res) => {
     //if both password fields match
     if (signUpPassword === confirmSignUpPassword) {
         //generate salt to store
-        let passwordSalt = generatePepper;
+        let passwordSalt = generateSalt;
         //generate password to store, using password from the confirm field, and the generated salt
         let storePassword = passwordHash(confirmSignUpPassword, passwordSalt);
         //assign default profile picture

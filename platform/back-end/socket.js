@@ -1,8 +1,10 @@
 // socket.js
 const { Server } = require("socket.io");
 
+// set up socket server
 const socket = (server) => {
     const io = new Server(server, {
+        // accepting all origins
         cors: {
             origin: "*",
             methods: ["GET", "POST"],
