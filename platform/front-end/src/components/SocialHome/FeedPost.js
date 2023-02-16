@@ -23,6 +23,7 @@ export default function FeedPost(props) {
         loggedInUsername,
         comments,
         changeCircle,
+        circle,
     } = props;
 
     return (
@@ -31,7 +32,7 @@ export default function FeedPost(props) {
                 borderRadius: "10px",
                 margin: "10px 0 10px",
                 backgroundColor: "#292929",
-                // padding: "10px",
+                paddingRight: "10px",
             }}
         >
             <CardContent
@@ -49,7 +50,6 @@ export default function FeedPost(props) {
                                 "/public/" +
                                 profilePicture +
                                 ")",
-                            backgroundPosition: "center",
                             backgroundSize: "cover",
                             minWidth: "10px",
                             minHeight: "10px",
@@ -125,7 +125,7 @@ export default function FeedPost(props) {
                         ""
                     ) : (
                         <PostActions
-                            circle={props.circle}
+                            circle={circle}
                             postId={postId}
                             likes={likes}
                             dislikes={dislikes}
@@ -136,18 +136,6 @@ export default function FeedPost(props) {
                         />
                     )}
                 </div>
-                <Divider variant="middle" />
-                <Divider variant="middle" />
-                {/* <div style={{ border: "3px solid green" }}>
-                    {props.comments
-                        ? comments.map((comment) => (
-                              <div>
-                                  <h1>{comment.author}</h1>
-                                  <h4>{comment.content}</h4>
-                              </div>
-                          ))
-                        : ""}
-                </div> */}
             </CardContent>
             {!props.comments || props.comments.length === 0 ? (
                 ""
@@ -250,7 +238,6 @@ export default function FeedPost(props) {
                     ""
                 )}
             </div>
-            <Divider variant="middle" />
         </div>
     );
 }

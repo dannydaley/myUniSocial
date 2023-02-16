@@ -1,7 +1,6 @@
 import * as React from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 
 export default function Comment(props) {
@@ -22,8 +21,8 @@ export default function Comment(props) {
                     mb: 2,
                     width: "90%",
                     backgroundColor: "#333",
-                    margin: "0 auto 2 auto",
                     borderRadius: "10px",
+                    minHeight: "10px",
                 }}
             >
                 <Link to={`/${authorUsername}`}>
@@ -35,11 +34,9 @@ export default function Comment(props) {
                                 "/public/" +
                                 profilePicture +
                                 ")",
-                            backgroundPosition: "center",
                             backgroundSize: "cover",
                             minWidth: "10px",
                             minHeight: "10px",
-                            marginBottom: "50px",
                             border: "1px solid gray",
                             borderRadius: "50%",
                             width: "40px",
@@ -72,7 +69,6 @@ export default function Comment(props) {
                     </Link>
                     <Typography
                         sx={{
-                            mb: 1.5,
                             overflowX: "hidden",
                             color: "white",
                             fontSize: 12,
@@ -83,8 +79,6 @@ export default function Comment(props) {
                     </Typography>
                 </div>
             </CardContent>
-
-            <Divider variant="middle" />
         </div>
     );
 }

@@ -2,7 +2,6 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import ImageIcon from "@mui/icons-material/Image";
 import SendIcon from "@mui/icons-material/Send";
-import Divider from "@mui/material/Divider";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/system";
 import { switchUnstyledClasses } from "@mui/base/SwitchUnstyled";
@@ -200,19 +199,6 @@ export default class NewPost extends React.Component {
                 >
                     Post
                 </LoadingButton>
-                {/* <div style={{margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography
-                  sx={{fontWeight: 'bold', color: 'white'}}
-                  title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)">
-                    post strict
-                </Typography>
-                <SwitchUnstyled
-                  component={this.Root}
-                  {...this.label}
-                  onChange={this.onStrictChange}
-                  title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)" /></div>                      */}
-
-                <Divider variant="middle" sx={{ mt: 5 }} />
             </div>
         );
     }
