@@ -4,8 +4,12 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import PostActions from "../postActions";
 import { Link } from "react-router-dom";
+import Comment from "./Comment";
+import { useState } from "react";
 
 export default function FeedPost(props) {
+    const [expanded, expand] = useState("false");
+
     const {
         authorUsername,
         authorFirstName,
@@ -17,23 +21,46 @@ export default function FeedPost(props) {
         likes,
         dislikes,
         loggedInUsername,
+        comments,
+        changeCircle,
     } = props;
 
     return (
-        <div>
-            <CardContent sx={{ display: "flex", mb: 2 }}>
+        <div
+            style={{
+                borderRadius: "10px",
+                margin: "10px 0 10px",
+                backgroundColor: "#292929",
+                // padding: "10px",
+            }}
+        >
+            <CardContent
+                sx={{
+                    display: "flex",
+                    mb: 2,
+                }}
+            >
                 <Link to={`/${authorUsername}`}>
-                    <img
-                        alt=""
-                        src={
-                            process.env.REACT_APP_SERVER +
-                            "/public/" +
-                            profilePicture
-                        }
-                        width="50px"
-                        height="50px"
-                        style={{ boxShadow: "1px 3px 5px 0px black", mb: 3 }}
-                    />
+                    <div
+                        style={{
+                            backgroundImage:
+                                "url(" +
+                                process.env.REACT_APP_SERVER +
+                                "/public/" +
+                                profilePicture +
+                                ")",
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            minWidth: "10px",
+                            minHeight: "10px",
+                            marginBottom: "50px",
+                            border: "1px solid gray",
+                            borderRadius: "50%",
+                            width: "50px",
+                            height: "50px",
+                            ":hover": { cursor: "pointer" },
+                        }}
+                    ></div>
                 </Link>
                 <div
                     style={{ width: "80%", marginLeft: "5%" }}
@@ -98,15 +125,127 @@ export default function FeedPost(props) {
                         ""
                     ) : (
                         <PostActions
-                            postId={props.postId}
+                            circle={props.circle}
+                            postId={postId}
                             likes={likes}
                             dislikes={dislikes}
                             loggedInUsername={loggedInUsername}
                             authorUsername={authorUsername}
+                            commentCount={comments ? comments.length : 0}
+                            changeCircle={changeCircle}
                         />
                     )}
                 </div>
+                <Divider variant="middle" />
+                <Divider variant="middle" />
+                {/* <div style={{ border: "3px solid green" }}>
+                    {props.comments
+                        ? comments.map((comment) => (
+                              <div>
+                                  <h1>{comment.author}</h1>
+                                  <h4>{comment.content}</h4>
+                              </div>
+                          ))
+                        : ""}
+                </div> */}
             </CardContent>
+            {!props.comments || props.comments.length === 0 ? (
+                ""
+            ) : (
+                <div>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        color="gray"
+                        sx={{
+                            marginLeft: "15%",
+                            fontWeight: "bold",
+                            ":hover": { cursor: "pointer" },
+                            display: "inline-block",
+                        }}
+                        onClick={() => expand(!expanded)}
+                    >
+                        view/hide comments
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        color="gray"
+                        sx={{
+                            float: "right",
+
+                            fontWeight: "bold",
+                            ":hover": { cursor: "pointer" },
+                            display: "inline-block",
+                        }}
+                        onClick={() => expand(!expanded)}
+                    >
+                        {props.comments !== undefined && props.comments.length
+                            ? props.comments.length
+                            : 0}{" "}
+                        comments
+                    </Typography>
+                </div>
+            )}
+            <Divider variant="middle" sx={{ mb: 2 }} />
+            <div style={{ marginLeft: "7%" }}>
+                {!expanded ? (
+                    props.comments ? (
+                        comments.map((comment) => (
+                            <Comment
+                                key={comment.id}
+                                loggedInUsername={loggedInUsername}
+                                authorUsername={comment.author}
+                                authorFirstName={comment.firstName}
+                                authorLastName={comment.lastName}
+                                content={comment.content}
+                                profilePicture={comment.profilePicture}
+                                images={comment.images}
+                                postId={comment.id}
+                                likes={comment.likes}
+                                dislikes={comment.dislikes}
+                                onRouteChange={props.onRouteChange}
+                                comments={comment.comments}
+                            />
+                        ))
+                    ) : (
+                        ""
+                    )
+                ) : props.comments !== undefined && props.comments.length ? (
+                    <Comment
+                        key={props.comments[props.comments.length - 1].id}
+                        loggedInUsername={loggedInUsername}
+                        authorUsername={
+                            props.comments[props.comments.length - 1].author
+                        }
+                        authorFirstName={
+                            props.comments[props.comments.length - 1].firstName
+                        }
+                        authorLastName={
+                            props.comments[props.comments.length - 1].lastName
+                        }
+                        content={
+                            props.comments[props.comments.length - 1].content
+                        }
+                        profilePicture={
+                            props.comments[props.comments.length - 1]
+                                .profilePicture
+                        }
+                        images={
+                            props.comments[props.comments.length - 1].images
+                        }
+                        postId={props.comments[props.comments.length - 1].id}
+                        likes={props.comments[props.comments.length - 1].likes}
+                        dislikes={
+                            props.comments[props.comments.length - 1].dislikes
+                        }
+                        onRouteChange={props.onRouteChange}
+                        comments={comments[props.comments.length - 1].comments}
+                    />
+                ) : (
+                    ""
+                )}
+            </div>
             <Divider variant="middle" />
         </div>
     );

@@ -14,10 +14,36 @@ export default class Feed extends React.Component {
         this.state = {
             circle: props.circle,
             posts: [],
+            comments: [],
             dataIsLoaded: false,
             passedFirstLoad: false,
         };
     }
+    componentDidMount = async () => {
+        this.setState({ dataIsLoaded: false });
+        await new Promise((res) => setTimeout(res, 2000));
+        this.props.posts.forEach((post) => {
+            post.comments = [];
+            this.props.comments.forEach((comment) => {
+                if (comment.relativePostId === post.id) {
+                    post.comments.push(comment);
+                }
+            });
+        });
+
+        this.setState({ dataIsLoaded: true });
+    };
+
+    componentDidUpdate = () => {
+        this.props.posts.forEach((post) => {
+            post.comments = [];
+            this.props.comments.forEach((comment) => {
+                if (comment.relativePostId === post.id) {
+                    post.comments.push(comment);
+                }
+            });
+        });
+    };
 
     render() {
         const {
@@ -28,7 +54,8 @@ export default class Feed extends React.Component {
             userProfilePicture,
         } = this.props;
         //SETTING UP ACCESS TO THE STATE VARIABLES
-        const { circle, posts, dataIsLoaded } = this.props;
+        const { circle, posts } = this.props;
+        const { dataIsLoaded } = this.state;
 
         // IF THE DATA ISNT LOADED YET, LOAD AN ALTERNATIVE WHILE WE WAIT
         if (!dataIsLoaded) {
@@ -38,7 +65,7 @@ export default class Feed extends React.Component {
                     sx={{
                         padding: "20px",
                         zIndex: 2,
-                        backgroundColor: "#292929",
+                        // backgroundColor: "#292929",
                         borderRadius: "0px 0px 30px 30px",
                         width: "100%",
                         pb: 2,
@@ -80,15 +107,15 @@ export default class Feed extends React.Component {
                 <Container
                     maxWidth="lg"
                     sx={{
-                        padding: "20px",
+                        padding: "0 20px 20px 20px",
                         zIndex: 2,
-                        backgroundColor: "#292929",
+                        // backgroundColor: "#292929",
                         borderRadius: "0px 0px 30px 30px",
                         width: "100%",
                         pb: 2,
                         ml: 2,
                         mr: 2,
-                        mt: 5,
+                        mt: 1,
                     }}
                 >
                     <h1 style={{ color: "white" }}>{circle}</h1>
@@ -99,12 +126,13 @@ export default class Feed extends React.Component {
                         userLastName={userLastName}
                         loggedInUsername={loggedInUsername}
                     />
-                    <Box sx={{ padding: 2, bgcolor: "none" }}>
+                    <Divider variant="middle" sx={{ mt: 3, mb: 3 }} />
+                    <Box sx={{ padding: 0, bgcolor: "none" }}>
                         <Stack
                             spacing={2}
                             sx={{
                                 width: "100%",
-                                margin: "50px auto 0",
+                                margin: "0 auto",
                             }}
                         >
                             {/* .MAP IS OUR FOR EACH LOOP, 'ITEM' IS JUST WHAT WE CALL EACH ELEMENT IN THE LIST SO IS INTERCHANGEABLE */}
@@ -123,6 +151,13 @@ export default class Feed extends React.Component {
                                     likes={item.likes}
                                     dislikes={item.dislikes}
                                     onRouteChange={onRouteChange}
+                                    comments={
+                                        item.comments
+                                            ? item.comments.reverse()
+                                            : ""
+                                    }
+                                    changeCircle={this.props.changeCircle}
+                                    circle={this.props.circle}
                                 />
                             ))}
                         </Stack>

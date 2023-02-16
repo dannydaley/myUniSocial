@@ -134,6 +134,7 @@ export default class NewPost extends React.Component {
             .post(process.env.REACT_APP_SERVER + "/posts/newPost", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 body: JSON.stringify({
+                    relativePostId: 0,
                     username: this.props.loggedInUsername,
                     postData: this.state,
                     circle: this.props.circle,
@@ -148,11 +149,18 @@ export default class NewPost extends React.Component {
 
     render() {
         return (
-            <div style={{ marginTop: "20px" }}>
+            <div
+                style={{
+                    marginTop: "20px",
+                    backgroundColor: "#292929",
+                    padding: "20px",
+                    borderRadius: "10px",
+                }}
+            >
                 <label htmlFor="file-input">
                     <ImageIcon
                         fontSize="large"
-                        sx={{ mt: 3, fontSize: 70, color: "white", mr: 2 }}
+                        sx={{ mt: 2, fontSize: 35, color: "white", mr: 2 }}
                     />
                 </label>
                 <input
@@ -172,6 +180,7 @@ export default class NewPost extends React.Component {
                         padding: 0,
                     }}
                     sx={{ mt: 2, mr: 2, p: 0 }}
+                    size="small"
                     id="filled-textarea"
                     label="New Post"
                     placeholder="I've got something to say!"
@@ -183,6 +192,7 @@ export default class NewPost extends React.Component {
                     endIcon={<SendIcon />}
                     loadingPosition="end"
                     variant="contained"
+                    size="small"
                     sx={{
                         backgroundColor: "#f5c732",
                         mb: 3,

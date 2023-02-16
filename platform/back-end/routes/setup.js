@@ -42,10 +42,10 @@ const INSERT_DUMMY_DATA_INTO_USERS_TABLE =
 const DROP_POSTS_TABLE = "DROP TABLE IF EXISTS `posts`";
 
 const CREATE_POSTS_TABLE =
-    "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool)";
+    "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool, relativePostId int)";
 
 const INSERT_DUMMY_DATA_INTO_POSTS_TABLE =
-    "INSERT INTO `posts` (id, author, content, date, circle, recipient, likes, dislikes, postStrict) VALUES(?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO `posts` (id, author, content, date, circle, recipient, likes, dislikes, postStrict, relativePostId) VALUES(?,?,?,?,?,?,?,?,?,?)";
 const DROP_CHATS_TABLE = "DROP TABLE IF EXISTS `chats`";
 
 const CREATE_CHATS_TABLE =
@@ -173,6 +173,7 @@ router.get("/postsSetup", (req, res, next) => {
                     post.likes,
                     post.dislikes,
                     post.postStrict,
+                    post.relativePostId,
                 ]
             );
         });

@@ -39,12 +39,20 @@ export default class HomePage extends React.Component {
         })
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
-            .then(await this.delayFunction())
+            // .then(await this.delayFunction())
             // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
             .then((data) => {
+                let posts = [];
+                let comments = [];
+                data.posts.forEach((element) => {
+                    element.relativePostId > 0
+                        ? comments.push(element)
+                        : posts.push(element);
+                });
                 this.setState({
                     circle: newCircle,
-                    posts: data.posts,
+                    posts: posts,
+                    comments: comments,
                     dataIsLoaded: true,
                 });
 
@@ -111,6 +119,7 @@ export default class HomePage extends React.Component {
                 >
                     <Feed
                         posts={this.state.posts}
+                        comments={this.state.comments}
                         circle={this.state.circle}
                         changeCircle={this.changeCircle}
                         getNotifications={getNotifications}

@@ -63,7 +63,7 @@ router.post("/getFeedFriendsOnly", (req, res) => {
             db.query(
                 "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE author IN  (" +
                     friendsList.join(",") +
-                    ") AND (((postStrict = false OR postStrict = 'false') OR circle = 'general') AND recipient = ?) ORDER BY id DESC",
+                    ") OR (`posts`.`relativePostId` != 0) AND (((postStrict = false OR postStrict = 'false') OR circle = 'general') AND recipient = ?) ORDER BY id DESC",
                 "none",
                 (err, posts) => {
                     // if error
@@ -135,7 +135,7 @@ router.post("/getFeedFriendsOnly", (req, res) => {
             db.query(
                 "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE circle = ? AND author IN (" +
                     friendsList.join(",") +
-                    ") ORDER BY id DESC",
+                    ") OR (`posts`.`relativePostId` != 0) ORDER BY id DESC",
                 req.body.circle,
                 (err, posts) => {
                     // if error

@@ -74,6 +74,7 @@ router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
         postContent,
         postStrict,
         circle,
+        relativePostId,
     } = req.body;
     // if there are images in the request
     if (imageLocations) {
@@ -92,6 +93,7 @@ router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
     } else {
         strictSwitch = 1;
     }
+
     db.query(
         ADD_POST_TO_POSTS,
         {
@@ -101,7 +103,8 @@ router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
             recipient: recipient,
             likes: 0,
             dislikes: 0,
-            postStrict: strictSwitch,
+            postStrict: 0,
+            relativePostId: relativePostId,
         },
         function (err, results) {
             // if error
@@ -205,9 +208,8 @@ router.post("/voteQuestion", (req, res) => {
 
 router.post("/postQuestion", (req, res) => {
     // set up post data from request
-
     let postData = req.body;
-    console.log(postData);
+
     // if relative post is zero, its not a reply
     if (postData.relativePostID === 0) {
         //increment asked by one on account
