@@ -191,23 +191,27 @@ export default function FeedPost(props) {
             <div style={{ marginLeft: "7%" }}>
                 {!expanded ? (
                     props.comments ? (
-                        comments.map((comment) => (
-                            <Comment
-                                key={comment.id}
-                                loggedInUsername={loggedInUsername}
-                                authorUsername={comment.author}
-                                authorFirstName={comment.firstName}
-                                authorLastName={comment.lastName}
-                                content={comment.content}
-                                profilePicture={comment.profilePicture}
-                                images={comment.images}
-                                postId={comment.id}
-                                likes={comment.likes}
-                                dislikes={comment.dislikes}
-                                onRouteChange={props.onRouteChange}
-                                comments={comment.comments}
-                            />
-                        ))
+                        comments.map((comment) =>
+                            comment.content === content ? (
+                                ""
+                            ) : (
+                                <Comment
+                                    key={comment.id}
+                                    loggedInUsername={loggedInUsername}
+                                    authorUsername={comment.author}
+                                    authorFirstName={comment.firstName}
+                                    authorLastName={comment.lastName}
+                                    content={comment.content}
+                                    profilePicture={comment.profilePicture}
+                                    images={comment.images}
+                                    postId={comment.id}
+                                    likes={comment.likes}
+                                    dislikes={comment.dislikes}
+                                    onRouteChange={props.onRouteChange}
+                                    comments={comment.comments}
+                                />
+                            )
+                        )
                     ) : (
                         ""
                     )
