@@ -196,6 +196,7 @@ function NavBar({
                 <Box
                     sx={{
                         flexGrow: 1,
+                        // justifyItems: "spaceBetween",
                     }}
                 >
                     <AppBar
@@ -279,7 +280,7 @@ function NavBar({
                                 )}
                             </Typography>
 
-                            <Box sx={{ flexGrow: 0.6 }} />
+                            <Box sx={{ flexGrow: 0.8 }} />
                             <SearchBar platform={platform} />
                             <Box sx={{ flexGrow: 1 }} />
                             <Box sx={{ display: { xs: "none", md: "flex" } }}>
