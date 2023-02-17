@@ -102,6 +102,52 @@ export default class AccountLeft extends React.Component {
                         My login
                     </Button>
                 </Stack>
+
+                <a
+                    style={{ marginTop: "auto", textDecoration: "none" }}
+                    href={
+                        process.env.REACT_APP_SERVER +
+                        "/public/privacy-policy.html"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Privacy Policy
+                    </Button>
+                </a>
+
+                <a
+                    style={{ marginTop: "20px", textDecoration: "none" }}
+                    href={
+                        process.env.REACT_APP_SERVER +
+                        "/public/cookie-policy.html"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Cookie Policy
+                    </Button>
+                </a>
             </Container>
         );
     }

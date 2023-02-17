@@ -120,7 +120,7 @@ export default function FeedPost(props) {
                               ))
                             : ""}
                     </div>
-                    {content ===
+                    {/* {content ===
                     "You do not have access to this post, add the author as a friend to view." ? (
                         ""
                     ) : (
@@ -134,9 +134,24 @@ export default function FeedPost(props) {
                             commentCount={comments ? comments.length : 0}
                             changeCircle={changeCircle}
                         />
-                    )}
+                    )} */}
                 </div>
             </CardContent>
+            {content ===
+            "You do not have access to this post, add the author as a friend to view." ? (
+                ""
+            ) : (
+                <PostActions
+                    circle={circle}
+                    postId={postId}
+                    likes={likes}
+                    dislikes={dislikes}
+                    loggedInUsername={loggedInUsername}
+                    authorUsername={authorUsername}
+                    commentCount={comments ? comments.length : 0}
+                    changeCircle={changeCircle}
+                />
+            )}
             {!props.comments || props.comments.length === 0 ? (
                 ""
             ) : (
