@@ -44,8 +44,8 @@ function NavBar({
     ] = useState(false);
 
     const handleProfileMenuOpen = (event) => {
-        showMessagesToggle((showMessages = false));
-        showNotificationsToggle((showNotifications = false));
+        // showMessagesToggle((showMessages = false));
+        // showNotificationsToggle((showNotifications = false));
         setAnchorEl(event.currentTarget);
     };
 
@@ -146,6 +146,7 @@ function NavBar({
                 horizontal: "right",
             }}
             open={isMobileMenuOpen}
+            // onClick={handleProfileMenuOpen}
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
@@ -158,9 +159,20 @@ function NavBar({
                         <MailIcon />
                     </Badge>
                 </IconButton>
-                <p>Messages</p>
+                <Link
+                    to="/messages"
+                    onClick={handleMenuClose}
+                    style={{
+                        textDecoration: "none",
+                        color: "black",
+                        fontSize: 16,
+                        // fontWeight: "bold",
+                    }}
+                >
+                    Messages
+                </Link>
             </MenuItem>
-            Notifications
+
             <MenuItem>
                 <IconButton
                     size="large"
@@ -170,12 +182,37 @@ function NavBar({
                     color="inherit"
                 >
                     <AccountCircle />
+                    <Link
+                        to="/myProfile"
+                        onClick={handleMenuClose}
+                        style={{
+                            textDecoration: "none",
+                            color: "black",
+                            fontSize: 16,
+                            // fontWeight: "bold",
+                        }}
+                    >
+                        My Profile
+                    </Link>
                 </IconButton>
-                <p>
-                    <Link to="/myProfile">My Profile</Link>
-                </p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem>
+                <Link
+                    to="/myAccount"
+                    onClick={handleMenuClose}
+                    style={{
+                        textDecoration: "none",
+                        color: "black",
+                        fontWeight: "bold",
+                    }}
+                >
+                    My Account
+                </Link>
+            </MenuItem>
+            <MenuItem
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={() => onRouteChange("signout")}
+            >
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -185,7 +222,7 @@ function NavBar({
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Sign Out</p>
+                Sign Out
             </MenuItem>
         </Menu>
     );
@@ -356,6 +393,7 @@ function NavBar({
                             </Box>
                         </Toolbar>
                     </AppBar>
+
                     {renderMobileMenu}
                     {renderMenu}
                 </Box>
