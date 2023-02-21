@@ -2,6 +2,12 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 import HomeLeft from "../components/home/HomeLeft";
 import React from "react";
 import FullQuestion from "../components/FullQuestion/FullQuestion";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import MoreIcon from "@mui/icons-material/MoreVert";
 
 class QuestionPage extends React.Component {
     constructor(props) {
@@ -10,6 +16,7 @@ class QuestionPage extends React.Component {
             route: "feed",
             viewFeed: "Web",
             key: 1,
+            showSideBar: false,
             questionInfo: {
                 authorProfilePicture: "",
                 title: "",
@@ -105,6 +112,31 @@ class QuestionPage extends React.Component {
                             marginLeft: { md: "18%" },
                         }}
                     >
+                        {this.state.showSideBar ? (
+                            <div
+                                style={{
+                                    backgroundColor: "white",
+                                    position: "absolute",
+                                    marginTop: "300px",
+                                    zIndex: 100,
+                                    width: "300px",
+                                    bottom: 0,
+                                }}
+                            >
+                                <HomeLeft
+                                    userProfilePicture={
+                                        this.props.userProfilePicture
+                                    }
+                                    key={this.state.key}
+                                    userID={this.props.userID}
+                                    changeFeed={this.changeFeed}
+                                    changeRoute={this.changeRoute}
+                                    userData={this.props.userData}
+                                />
+                            </div>
+                        ) : (
+                            ""
+                        )}
                         <FullQuestion
                             loggedInUsername={this.props.loggedInUsername}
                             userProfilePicture={this.props.userProfilePicture}
@@ -124,6 +156,43 @@ class QuestionPage extends React.Component {
                             postID={this.props.questionToGet}
                             authorID={this.state.questionInfo.authorID}
                         />
+                        <AppBar
+                            position="fixed"
+                            color="primary"
+                            sx={{
+                                zIndex: 1000,
+                                backgroundColor: "#f5c732",
+                                top: "auto",
+                                bottom: 0,
+                                display: { xs: "block", md: "none" },
+                            }}
+                        >
+                            <Toolbar>
+                                <IconButton
+                                    color="inherit"
+                                    aria-label="open drawer"
+                                >
+                                    <MenuIcon
+                                        onClick={() =>
+                                            this.setState({
+                                                showSideBar:
+                                                    !this.state.showSideBar,
+                                            })
+                                        }
+                                    />
+                                </IconButton>
+                                {/* <StyledFab color="secondary" aria-label="add">
+                                <AddIcon />
+                            </StyledFab> */}
+                                <Box sx={{ flexGrow: 1 }} />
+                                {/* <IconButton color="inherit">
+                                <SearchIcon />
+                            </IconButton> */}
+                                <IconButton color="inherit">
+                                    <MoreIcon />
+                                </IconButton>
+                            </Toolbar>
+                        </AppBar>
                     </Grid>
                 </Grid>
             </>

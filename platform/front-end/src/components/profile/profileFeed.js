@@ -9,7 +9,6 @@ import NewPost from "../SocialHome/NewPost";
 import CircularProgress from "@mui/material/CircularProgress";
 import QuestionCard from "../myUni404/components/home/QuestionCard";
 import NoQuestions from "../myUni404/components/home/NoQuestions";
-
 import Divider from "@mui/material/Divider";
 import { Button } from "@mui/material";
 
@@ -24,18 +23,17 @@ export default class ProfileFeed extends React.Component {
         };
     }
 
-    delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
+    // function adds a 1 second delay
     delayFunction = async () => {
-        await this.delay(1000);
+        await new Promise((res) => setTimeout(res, 1000));
     };
 
-    //COMPONENT DID MOUNT IS BUILT IN AND RUNS WHEN THE COMPONENT MOUNTS
+    //component did mount is built in and runs when the component mounts
     componentDidMount = async (newCircle) => {
         if (!newCircle) {
             newCircle = "general";
             this.setState({ dataIsLoaded: false, circle: newCircle });
-            //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+            // get feed data from server
             fetch(process.env.REACT_APP_SERVER + "/profile/getFeedByUser", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -45,7 +43,7 @@ export default class ProfileFeed extends React.Component {
                     circle: newCircle,
                 }),
             })
-                //TURN THE RESPONSE INTO A JSON OBJECT
+                //turn the response into a json object
                 .then((response) => response.json())
                 .then(await this.delayFunction())
                 .then((data) => {
@@ -60,7 +58,7 @@ export default class ProfileFeed extends React.Component {
                 dataIsLoaded: false,
                 circle: newCircle,
             });
-            //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+            // get the users myUni404 question feed from the server
             fetch(process.env.REACT_APP_SERVER + "/feeds/getUserQuestionFeed", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -68,7 +66,7 @@ export default class ProfileFeed extends React.Component {
                     userID: this.props.userProfileToGet,
                 }),
             })
-                //TURN THE RESPONSE INTO A JSON OBJECT
+                //turn the response into a json object
                 .then((response) => response.json())
                 .then(await this.delayFunction())
                 .then((data) => {
@@ -80,15 +78,27 @@ export default class ProfileFeed extends React.Component {
         }
     };
 
+    // calls when user switched view tab
     changeCircle = (newCircle) => {
         this.componentDidMount(newCircle);
     };
 
     render() {
-        const { userProfileToGet, loggedInUsername } = this.props;
-        //SETTING UP ACCESS TO THE STATE VARIABLES
+        const {
+            userProfileToGet,
+            loggedInUsername,
+            userFirstName,
+            userLastName,
+            userProfilePicture,
+            userID,
+            userData,
+            readyQuestion,
+            viewProfile,
+            changeRoute,
+        } = this.props;
+        //setting up access to the state variables
         const { posts, dataIsLoaded, isFriendsWithLoggedInUser } = this.state;
-        // IF THE DATA ISNT LOADED YET, LOAD AN ALTERNATIVE WHILE WE WAIT
+        // if the data isnt loaded yet, load an alternative while we wait
         if (!dataIsLoaded) {
             return (
                 <div>
@@ -112,8 +122,6 @@ export default class ProfileFeed extends React.Component {
                                 maxWidth="lg"
                                 sx={{
                                     zIndex: 10,
-                                    backgroundColor: "#292929",
-                                    bgcolor: "#292929",
                                     borderRadius: "0px 0px 30px 30px",
                                     width: "100%",
                                     pb: 2,
@@ -125,11 +133,9 @@ export default class ProfileFeed extends React.Component {
                                 <NewPost
                                     recipient={userProfileToGet}
                                     loggedInUserName={loggedInUsername}
-                                    userFirstName={this.props.userFirstName}
-                                    userLastName={this.props.userLastName}
-                                    userProfilePicture={
-                                        this.props.userProfilePicture
-                                    }
+                                    userFirstName={userFirstName}
+                                    userLastName={userLastName}
+                                    userProfilePicture={userProfilePicture}
                                 />
                                 <Box
                                     sx={{
@@ -190,7 +196,6 @@ export default class ProfileFeed extends React.Component {
                                     maxWidth="lg"
                                     sx={{
                                         zIndex: 10,
-                                        bgcolor: "#292929",
                                         borderRadius: "0px 0px 30px 30px",
                                         width: "100%",
                                         pb: 2,
@@ -234,22 +239,18 @@ export default class ProfileFeed extends React.Component {
                                     maxWidth="lg"
                                     sx={{
                                         zIndex: 10,
-                                        bgcolor: "#292929",
+                                        backgroundColor: "#333",
                                         borderRadius: "0px 0px 30px 30px",
                                         width: "100%",
                                         pb: 2,
-
-                                        // mt: 12,
                                     }}
                                 >
                                     <NewPost
                                         recipient={userProfileToGet}
                                         loggedInUsername={loggedInUsername}
-                                        userFirstName={this.props.userFirstName}
-                                        userLastName={this.props.userLastName}
-                                        userProfilePicture={
-                                            this.props.userProfilePicture
-                                        }
+                                        userFirstName={userFirstName}
+                                        userLastName={userLastName}
+                                        userProfilePicture={userProfilePicture}
                                         changeCircle={this.changeCircle}
                                     />
                                     <Box sx={{ padding: 2, bgcolor: "none" }}>
@@ -302,8 +303,7 @@ export default class ProfileFeed extends React.Component {
                                                       <FeedPost
                                                           key={item.id}
                                                           loggedInUsername={
-                                                              this.props
-                                                                  .loggedInUsername
+                                                              loggedInUsername
                                                           }
                                                           authorUsername={
                                                               item.author
@@ -339,29 +339,19 @@ export default class ProfileFeed extends React.Component {
                                                                         item.postID
                                                                     }
                                                                     userID={
-                                                                        this
-                                                                            .props
-                                                                            .userID
+                                                                        userID
                                                                     }
                                                                     userData={
-                                                                        this
-                                                                            .props
-                                                                            .userData
+                                                                        userData
                                                                     }
                                                                     readyQuestion={
-                                                                        this
-                                                                            .props
-                                                                            .readyQuestion
+                                                                        readyQuestion
                                                                     }
                                                                     viewProfile={
-                                                                        this
-                                                                            .props
-                                                                            .viewProfile
+                                                                        viewProfile
                                                                     }
                                                                     changeRoute={
-                                                                        this
-                                                                            .props
-                                                                            .changeRoute
+                                                                        changeRoute
                                                                     }
                                                                     authorProfilePicture={
                                                                         item.authorProfilePicture
@@ -417,29 +407,19 @@ export default class ProfileFeed extends React.Component {
                                                                         item.postID
                                                                     }
                                                                     userID={
-                                                                        this
-                                                                            .props
-                                                                            .userID
+                                                                        userID
                                                                     }
                                                                     userData={
-                                                                        this
-                                                                            .props
-                                                                            .userData
+                                                                        userData
                                                                     }
                                                                     readyQuestion={
-                                                                        this
-                                                                            .props
-                                                                            .readyQuestion
+                                                                        readyQuestion
                                                                     }
                                                                     viewProfile={
-                                                                        this
-                                                                            .props
-                                                                            .viewProfile
+                                                                        viewProfile
                                                                     }
                                                                     changeRoute={
-                                                                        this
-                                                                            .props
-                                                                            .changeRoute
+                                                                        changeRoute
                                                                     }
                                                                     authorProfilePicture={
                                                                         item.authorProfilePicture

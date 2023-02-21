@@ -32,7 +32,7 @@ export default class ProfileLeftBar extends React.Component {
             newCircle = "general";
         }
         this.setState({ dataIsLoaded: false });
-        //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+        // get user general info from server
         fetch(process.env.REACT_APP_SERVER + "/account/getUserGeneralInfo", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -42,7 +42,7 @@ export default class ProfileLeftBar extends React.Component {
         })
             //turn the response into a json object
             .then((response) => response.json())
-            // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
+            // app.y returned data to state and switch data is loaded to true
             .then((data) => {
                 this.setState({
                     firstName: data.firstName,
@@ -68,6 +68,18 @@ export default class ProfileLeftBar extends React.Component {
             // requestSender,
             loggedInUsername,
         } = this.props;
+
+        const {
+            firstName,
+            lastName,
+            profilePicture,
+            asked,
+            answered,
+            work,
+            location,
+            education,
+            aboutMe,
+        } = this.state;
         return (
             <Container
                 xs={0}
@@ -92,7 +104,7 @@ export default class ProfileLeftBar extends React.Component {
                                 "url(" +
                                 process.env.REACT_APP_SERVER +
                                 "/public/" +
-                                this.state.profilePicture +
+                                profilePicture +
                                 ")",
                             backgroundSize: "cover",
                             minWidth: "120px",
@@ -112,7 +124,7 @@ export default class ProfileLeftBar extends React.Component {
                         color="white"
                         sx={{ textAlign: "center", mt: 2 }}
                     >
-                        {this.state.firstName} {this.state.lastName}
+                        {firstName} {lastName}
                     </Typography>
                     {isFriendsWithLoggedInUser ? (
                         ""
@@ -145,7 +157,7 @@ export default class ProfileLeftBar extends React.Component {
                     color="white"
                     sx={{ mt: 2 }}
                 >
-                    About {this.state.firstName}
+                    About {firstName}
                 </Typography>
                 <PersonIcon
                     sx={{
@@ -161,7 +173,7 @@ export default class ProfileLeftBar extends React.Component {
                     color="white"
                     sx={{ textAlign: "center" }}
                 >
-                    "{this.state.aboutMe}"
+                    "{aboutMe}"
                 </Typography>
                 <Typography
                     variant="h7"
@@ -170,7 +182,7 @@ export default class ProfileLeftBar extends React.Component {
                     sx={{ textAlign: "left", mt: 4 }}
                 >
                     <WorkIcon sx={{ textAlign: "left", mr: 2 }} />
-                    {this.state.work}
+                    {work}
                 </Typography>
                 <Typography
                     variant="h7"
@@ -179,7 +191,7 @@ export default class ProfileLeftBar extends React.Component {
                     sx={{ textAlign: "left", mt: 2 }}
                 >
                     <LocationCityIcon sx={{ textAlign: "left", mr: 2 }} />
-                    {this.state.location}
+                    {location}
                 </Typography>
                 <Typography
                     variant="h7"
@@ -188,7 +200,7 @@ export default class ProfileLeftBar extends React.Component {
                     sx={{ textAlign: "left", mt: 2 }}
                 >
                     <SchoolIcon sx={{ textAlign: "left", mr: 0.4 }} />
-                    {this.state.education}
+                    {education}
                 </Typography>
                 <Typography
                     variant="h7"
@@ -196,7 +208,7 @@ export default class ProfileLeftBar extends React.Component {
                     color="white"
                     sx={{ textAlign: "canter", mt: 2 }}
                 >
-                    404 Asked: {this.state.asked}
+                    404 Asked: {asked}
                 </Typography>
                 <Typography
                     variant="h7"
@@ -204,7 +216,7 @@ export default class ProfileLeftBar extends React.Component {
                     color="white"
                     sx={{ textAlign: "center", mt: 2 }}
                 >
-                    404 Answered: {this.state.answered}
+                    404 Answered: {answered}
                 </Typography>
             </Container>
         );

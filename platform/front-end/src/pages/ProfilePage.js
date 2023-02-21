@@ -129,7 +129,7 @@ export default class ProfilePage extends React.Component {
                         md={6}
                         sx={{
                             backgroundColor: "#292929",
-                            paddingRight: { xs: "30px" },
+                            paddingRight: { xs: "0px", md: "25px" },
                             margin: "0 auto",
                             marginTop: { xs: "-20px" },
                             paddingBottom: "50px",

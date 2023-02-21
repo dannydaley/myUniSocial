@@ -11,13 +11,14 @@ export default function HomeLeft(props) {
         <Container
             xs={0}
             sx={{
-                padding: { md: "110px 0 0 0", lg: "110 20px 20px 20px" },
+                padding: "20px",
+                paddingTop: "110px",
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 flexDirection: "column",
                 backgroundColor: "#292929",
-                width: { md: "150px", lg: "224px" },
+                width: "220px",
                 height: "100vh",
                 position: "fixed",
                 top: 0,

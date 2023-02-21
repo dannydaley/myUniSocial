@@ -131,18 +131,23 @@ export default class HomePage extends React.Component {
                                 position: "absolute",
                                 marginTop: "300px",
                                 zIndex: 100,
-                                width: "200px",
-                                height: "500px",
+
                                 bottom: 0,
                             }}
                         >
-                            <h1>helloooooo</h1>
+                            <HomeLeft
+                                changeCircle={this.changeCircle}
+                                onRouteChange={onRouteChange}
+                                userProfilePicture={userProfilePicture}
+                                loggedInUsername={loggedInUsername}
+                            />
                         </div>
                     ) : (
                         ""
                     )}
 
                     <Feed
+                        onClick={() => this.setState({ showCircles: false })}
                         style={{ zIndex: 10 }}
                         posts={this.state.posts}
                         comments={this.state.comments}
@@ -161,6 +166,7 @@ export default class HomePage extends React.Component {
                         position="fixed"
                         color="primary"
                         sx={{
+                            zIndex: 1000,
                             backgroundColor: "#f5c732",
                             top: "auto",
                             bottom: 0,
