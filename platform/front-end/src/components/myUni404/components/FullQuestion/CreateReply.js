@@ -61,7 +61,7 @@ export default class CreateReply extends React.Component {
                     title: this.state.title,
                     text: this.state.text,
                     code: this.state.code,
-                    relativePostID: this.state.relativePostID,
+                    relativePostID: this.props.relativePostID,
                     language: this.state.language,
                     category: this.state.category,
                     authorProfilePicture: this.props.userProfilePicture,

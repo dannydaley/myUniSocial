@@ -242,7 +242,7 @@ router.post("/postQuestion", (req, res) => {
                 message,
                 false,
                 false,
-                relativePostID,
+                postData.relativePostID,
             ],
             (err) => {
                 // if error
