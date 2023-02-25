@@ -55,7 +55,8 @@ export default class CreateReply extends React.Component {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    authorID: this.props.loggedInUsername,
+                    loggedInUsername: this.props.loggedInUsername,
+                    authorID: this.props.authorID,
                     author: this.state.author,
                     title: this.state.title,
                     text: this.state.text,

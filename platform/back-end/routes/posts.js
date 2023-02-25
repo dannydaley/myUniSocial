@@ -213,22 +213,52 @@ router.post("/postQuestion", (req, res) => {
     // if relative post is zero, its not a reply
     if (postData.relativePostID === 0) {
         //increment asked by one on account
-        db.query(INCREASE_ASKED_BY_USERNAME, postData.authorID, (err) => {
-            if (err) {
-                console.log(err.message);
+        db.query(
+            INCREASE_ASKED_BY_USERNAME,
+            postData.loggedInUsername,
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
             }
-        });
+        );
     } else {
-        db.query(INCREASE_ANSWERED_BY_USERNAME, postData.authorID, (err) => {
-            if (err) {
-                console.log(err.message);
+        db.query(
+            INCREASE_ANSWERED_BY_USERNAME,
+            postData.loggedInUsername,
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
             }
-        });
+        );
+        let message = "replied to your question!";
+        db.query(
+            ADD_USER_ACTION,
+            [
+                "reaction",
+                postData.loggedInUsername,
+                postData.authorID,
+                message,
+                false,
+                false,
+                relativePostID,
+            ],
+            (err) => {
+                // if error
+                if (err) {
+                    console.log(err);
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
+                }
+            }
+        );
     }
     db.query(
         POST_QUESTION,
         [
-            postData.authorID,
+            postData.loggedInUsername,
             postData.author,
             postData.relativePostID,
             postData.title,
