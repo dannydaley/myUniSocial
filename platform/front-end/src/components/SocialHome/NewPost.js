@@ -124,6 +124,7 @@ export default class NewPost extends React.Component {
         if (this.props.recipient === undefined) {
             recipient = "none";
         }
+        document.getElementById("filled-textarea").value = "";
         formData.append("username", this.props.loggedInUsername);
         formData.append("postContent", this.state.postContent);
         formData.append("postStrict", this.state.postStrict);

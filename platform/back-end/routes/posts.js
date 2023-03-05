@@ -148,6 +148,75 @@ router.post("/newPost", upload.array("imagesArray", 4), (req, res) => {
     );
 });
 
+router.post("/deletePost", (req, res, next) => {
+    // delete comment from post
+    let deleteData = req.body;
+    if (deleteData.item === "comment") {
+        db.query(
+            "DELETE FROM posts WHERE id = ?",
+            [deleteData.postId],
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
+                }
+                // respond with success message on success
+                res.json("comment removed");
+            }
+        );
+    } else if (deleteData.item === "post") {
+        // delete whole post and comments
+        db.query(
+            "DELETE FROM posts WHERE id = ? OR relativePostId = ?",
+            [deleteData.postId, deleteData.postId],
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
+                }
+                // respond with success message on success
+                res.json("post removed");
+            }
+        );
+    } else if (deleteData.item === "question") {
+        // delete whole post and comments
+        db.query(
+            "DELETE FROM questions WHERE postID = ? OR relativePostID = ?",
+            [deleteData.postId, deleteData.postId],
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
+                }
+                // respond with success message on success
+                res.json("question removed");
+            }
+        );
+    } else if (deleteData.item === "answer") {
+        // delete whole post and comments
+        db.query(
+            "DELETE FROM questions WHERE postID = ?",
+            [deleteData.postId],
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                    // respond with error status and error message
+                    res.status(500).send(err.message);
+                    return;
+                }
+                // respond with success message on success
+                res.json("answer removed");
+            }
+        );
+    }
+});
+
 router.post("/votePost", (req, res) => {
     //set up variables from the request body
     let { like, dislike, postId, sender, recipient } = req.body;
@@ -209,29 +278,49 @@ router.post("/voteQuestion", (req, res) => {
 router.post("/postQuestion", (req, res) => {
     // set up post data from request
     let postData = req.body;
-
+    console.log(postData);
     // if relative post is zero, its not a reply
     if (postData.relativePostID === 0) {
         //increment asked by one on account
+        db.query(INCREASE_ASKED_BY_USERNAME, postData.authorID, (err) => {
+            if (err) {
+                console.log(err.message);
+            }
+        });
         db.query(
-            INCREASE_ASKED_BY_USERNAME,
-            postData.loggedInUsername,
-            (err) => {
+            POST_QUESTION,
+            [
+                postData.authorID,
+                postData.author,
+                postData.relativePostID,
+                postData.title,
+                postData.text,
+                postData.code,
+                postData.language,
+                postData.category,
+                postData.authorProfilePicture,
+                0,
+            ],
+            (err, rows) => {
                 if (err) {
+                    console.log("failed to add post to database");
                     console.log(err.message);
+                    res.status(500).send(err.message);
+                    return;
                 }
+                //respond with success
+                res.json({
+                    status: "success",
+                    id: rows.insertId,
+                });
             }
         );
     } else {
-        db.query(
-            INCREASE_ANSWERED_BY_USERNAME,
-            postData.loggedInUsername,
-            (err) => {
-                if (err) {
-                    console.log(err.message);
-                }
+        db.query(INCREASE_ANSWERED_BY_USERNAME, postData.authorID, (err) => {
+            if (err) {
+                console.log(err.message);
             }
-        );
+        });
         let message = "replied to your question!";
         db.query(
             ADD_USER_ACTION,
@@ -247,42 +336,42 @@ router.post("/postQuestion", (req, res) => {
             (err) => {
                 // if error
                 if (err) {
-                    console.log(err);
+                    console.log(err.message);
                     // respond with error status and error message
                     res.status(500).send(err.message);
                     return;
                 }
             }
         );
-    }
-    db.query(
-        POST_QUESTION,
-        [
-            postData.loggedInUsername,
-            postData.author,
-            postData.relativePostID,
-            postData.title,
-            postData.text,
-            postData.code,
-            postData.language,
-            postData.category,
-            postData.authorProfilePicture,
-            0,
-        ],
-        (err, rows) => {
-            if (err) {
-                console.log("failed to add post to database");
-                console.log(err.message);
-                res.status(500).send(err.message);
-                return;
+        db.query(
+            POST_QUESTION,
+            [
+                postData.loggedInUsername,
+                postData.author,
+                postData.relativePostID,
+                postData.title,
+                postData.text,
+                postData.code,
+                postData.language,
+                postData.category,
+                postData.authorProfilePicture,
+                0,
+            ],
+            (err, rows) => {
+                if (err) {
+                    console.log("failed to add post to database");
+                    console.log(err.message);
+                    res.status(500).send(err.message);
+                    return;
+                }
+                //respond with success
+                res.json({
+                    status: "success",
+                    id: rows.insertId,
+                });
             }
-            //respond with success
-            res.json({
-                status: "success",
-                id: rows.insertId,
-            });
-        }
-    );
+        );
+    }
 });
 
 //#endregion ENDPOINTS

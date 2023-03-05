@@ -127,6 +127,12 @@ function NavBar({
             >
                 Sign Out
             </MenuItem>
+            <MenuItem
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={() => onRouteChange("signoutAndDelete")}
+            >
+                Sign Out & Delete Data
+            </MenuItem>
         </Menu>
     );
 
@@ -223,6 +229,21 @@ function NavBar({
                     <AccountCircle />
                 </IconButton>
                 Sign Out
+            </MenuItem>
+            <MenuItem
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={() => onRouteChange("signoutAndDelete")}
+            >
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <AccountCircle />
+                </IconButton>
+                Sign Out & Delete Data
             </MenuItem>
         </Menu>
     );

@@ -7,6 +7,10 @@ import CodeBlock from "../CodeBlock";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default class Answer extends React.Component {
     constructor(props) {
@@ -14,8 +18,38 @@ export default class Answer extends React.Component {
         this.state = {
             score: this.props.score,
             votingOpen: true,
+            deleted: false,
+            anchorEl: false,
         };
     }
+
+    options = ["delete answer"];
+    ITEM_HEIGHT = 48;
+    open = () => this.setState({ anchorEl: !this.state.anchorEl });
+    handleClick = (event) => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+    handleClose = (option) => {
+        this.setState({ anchorEl: null });
+        if (option === "delete answer") {
+            //FETCH IS A GET REQUEST BY DEFAULT, POINT IT TO THE ENDPOINT ON THE BACKEND
+            fetch(process.env.REACT_APP_SERVER + "/posts/deletePost", {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    item: "answer",
+                    postId: this.props.postID,
+                }),
+            })
+                //TURN THE RESPONSE INTO A JSON OBJECT
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data === "answer removed") {
+                        this.setState({ deleted: true });
+                    }
+                });
+        }
+    };
 
     // calls when user votes on an answer
     votePost = async (vote) => {
@@ -53,6 +87,48 @@ export default class Answer extends React.Component {
     render() {
         return (
             <div style={{ marginBottom: "10px" }}>
+                {this.props.loggedInUsername === this.props.authorID ? (
+                    <>
+                        <IconButton
+                            aria-label="more"
+                            id="long-button"
+                            aria-controls={this.open ? "long-menu" : undefined}
+                            aria-expanded={this.open ? "true" : undefined}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                            sx={{ marginLeft: "95%" }}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                                "aria-labelledby": "long-button",
+                            }}
+                            anchorEl={this.state.anchorEl}
+                            open={this.state.anchorEl}
+                            onClose={this.handleClose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: this.ITEM_HEIGHT * 4.5,
+                                    width: "20ch",
+                                },
+                            }}
+                        >
+                            {this.options.map((option) => (
+                                <MenuItem
+                                    key={option}
+                                    selected={option}
+                                    onClick={() => this.handleClose(option)}
+                                >
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </>
+                ) : (
+                    ""
+                )}
                 <Box sx={{ minWidth: 275 }}>
                     <CardContent>
                         <div
@@ -96,16 +172,35 @@ export default class Answer extends React.Component {
                             </Link>
                         </div>
                         <div>
-                            <Typography
-                                variant="body2"
-                                sx={{ textAlign: "left", marginTop: "30px" }}
-                            >
-                                {this.props.text}
-                                <CodeBlock
-                                    codeString={this.props.code}
-                                    language={this.props.language}
-                                />
-                            </Typography>
+                            {this.state.deleted ? (
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        textAlign: "left",
+                                        marginTop: "30px",
+                                    }}
+                                >
+                                    {"Answer removed"}
+                                    <CodeBlock
+                                        codeString={"Answer removed"}
+                                        language={this.props.language}
+                                    />
+                                </Typography>
+                            ) : (
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        textAlign: "left",
+                                        marginTop: "30px",
+                                    }}
+                                >
+                                    {this.props.text}
+                                    <CodeBlock
+                                        codeString={this.props.code}
+                                        language={this.props.language}
+                                    />
+                                </Typography>
+                            )}
                         </div>
                     </CardContent>
                     <CardActions>

@@ -65,8 +65,6 @@ class QuestionPage extends React.Component {
     changeFeed = (key, feed) => {
         // apply feed to view and component key to state
         this.setState({ key: key, viewFeed: feed });
-        // change route to feed to switch view
-        this.changeRoute("feed");
     };
 
     render() {

@@ -73,7 +73,7 @@ export default class SignIn extends React.Component {
                             }}
                             href={
                                 process.env.REACT_APP_SERVER +
-                                "/public/privacy-policy.html"
+                                "/public/cookie-policy.html"
                             }
                             rel="noreferrer"
                             target="_blank"
@@ -143,7 +143,7 @@ export default class SignIn extends React.Component {
                             }}
                             href={
                                 process.env.REACT_APP_SERVER +
-                                "/public/privacy-policy.html"
+                                "/public/cookie-policy.html"
                             }
                             rel="noreferrer"
                             target="_blank"
@@ -213,7 +213,7 @@ export default class SignIn extends React.Component {
                             }}
                             href={
                                 process.env.REACT_APP_SERVER +
-                                "/public/privacy-policy.html"
+                                "/public/cookie-policy.html"
                             }
                             rel="noreferrer"
                             target="_blank"

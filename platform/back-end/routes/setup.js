@@ -107,6 +107,19 @@ const INSERT_DUMMY_DATA_INTO_QUESTIONS_TABLE =
 //#region SQL SETUP ENDPOINTS
 
 // users table setup endpoint
+router.get("/emptyUsersSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_USERS_TABLE);
+        //recreate the users table
+        db.query(CREATE_USERS_TABLE);
+    });
+    // respond with success page
+    console.log("empty users table set up");
+    res.send("empty-user-db-done");
+});
+
+// users table setup endpoint
 router.get("/usersSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
@@ -149,6 +162,19 @@ router.get("/usersSetup", (req, res, next) => {
 });
 
 // posts table setup endpoint
+router.get("/emptyPostsSetup", (req, res, next) => {
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_POSTS_TABLE);
+        // recreate the posts table
+        db.query(CREATE_POSTS_TABLE);
+    });
+    // respond with success page
+    console.log("empty posts table set up");
+    res.send("empty-posts-db-done");
+});
+
+// posts table setup endpoint
 router.get("/postsSetup", (req, res, next) => {
     db.query(() => {
         // delete the table if it exists..
@@ -184,6 +210,19 @@ router.get("/postsSetup", (req, res, next) => {
 });
 
 // images table setup endpoint
+router.get("/emptyImagesSetup", (req, res, next) => {
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_IMAGES_TABLE);
+        // recreate images table
+        db.query(CREATE_IMAGES_TABLE);
+    });
+    // respond success page
+    console.log("empty images table set up");
+    res.send("empty-image-db-done");
+});
+
+// images table setup endpoint
 router.get("/imagesSetup", (req, res, next) => {
     db.query(() => {
         // delete the table if it exists..
@@ -208,6 +247,19 @@ router.get("/imagesSetup", (req, res, next) => {
 });
 
 // friendships table setup endpoint
+router.get("/emptyFriendshipsSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_FRIENDSHIPS_TABLE);
+        // recreate friendships table
+        db.query(CREATE_FRIENDSHIPS_TABLE);
+    });
+    // respond with success page
+    console.log("empty friendships table set up");
+    res.send("empty-friendships-db-done");
+});
+
+// friendships table setup endpoint
 router.get("/friendshipsSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
@@ -229,6 +281,19 @@ router.get("/friendshipsSetup", (req, res, next) => {
     // respond with success page
     console.log("friendships table set up");
     res.send("friendships-db-done");
+});
+
+// user actions setup endpoint
+router.get("/emptyUserActionsSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_USERACTIONS_TABLE);
+        // recreate userActions table
+        db.query(CREATE_USERACTIONS_TABLE);
+    });
+    // respond with success page
+    console.log("empty userActions table set up");
+    res.send("empty-userActions-db-done");
 });
 
 // user actions setup endpoint
@@ -266,6 +331,19 @@ router.get("/userActionsSetup", (req, res, next) => {
 });
 
 // chats setup endpoint
+router.get("/emptyChatsSetup", (req, res, next) => {
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_CHATS_TABLE);
+        // recreate chats table
+        db.query(CREATE_CHATS_TABLE);
+    });
+    // respond with succes page
+    console.log("empty chats table set up");
+    res.send("empty-chats-db-done");
+});
+
+// chats setup endpoint
 router.get("/chatsSetup", (req, res, next) => {
     db.query(() => {
         // delete the table if it exists..
@@ -293,6 +371,19 @@ router.get("/chatsSetup", (req, res, next) => {
     // respond with succes page
     console.log("chats table set up");
     res.send("chats-db-done");
+});
+
+// messages setup endpoint
+router.get("/emptyMessagesSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_MESSAGES_TABLE);
+        // recreate messages table
+        db.query(CREATE_MESSAGES_TABLE);
+    });
+    // respond with success page
+    console.log("empty messages table built");
+    res.send("empty-messages-db-done");
 });
 
 // messages setup endpoint
@@ -326,6 +417,19 @@ router.get("/messagesSetup", (req, res, next) => {
 });
 
 // circles table setup endpoint
+router.get("/emptyCirclesSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_CIRCLES_TABLE);
+        // recreate circles table
+        db.query(CREATE_CIRCLES_TABLE);
+    });
+    // respond with success page
+    console.log("empty circles table set up");
+    res.send("empty-circles-db-done");
+});
+
+// circles table setup endpoint
 router.get("/circlesSetup", (req, res, next) => {
     db.query(() => {
         //delete the table if it exists..
@@ -347,6 +451,26 @@ router.get("/circlesSetup", (req, res, next) => {
     // respond with success page
     console.log("circles table set up");
     res.send("circles-db-done");
+});
+
+router.get("/emptyQuestionsSetup", (req, res) => {
+    db.query(() => {
+        // delete any existing user table
+        db.query(DROP_QUESTIONS_TABLE),
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            };
+        //rebuild the users table
+        db.query(CREATE_QUESTIONS_TABLE, (err) => {
+            if (err) {
+                console.log(err.message);
+            }
+        });
+    });
+    console.log("empty questions table set up complete");
+    res.send("empty Questions table setup complete");
 });
 
 router.get("/questionsSetup", (req, res) => {
@@ -396,6 +520,321 @@ router.get("/questionsSetup", (req, res) => {
     });
     console.log("questions table set up complete");
     res.send("Questions table setup complete");
+});
+
+router.get("/emptyTablesSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_USERS_TABLE);
+        //recreate the users table
+        db.query(CREATE_USERS_TABLE);
+    });
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_POSTS_TABLE);
+        // recreate the posts table
+        db.query(CREATE_POSTS_TABLE);
+    });
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_IMAGES_TABLE);
+        // recreate images table
+        db.query(CREATE_IMAGES_TABLE);
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_FRIENDSHIPS_TABLE);
+        // recreate friendships table
+        db.query(CREATE_FRIENDSHIPS_TABLE);
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_USERACTIONS_TABLE);
+        // recreate userActions table
+        db.query(CREATE_USERACTIONS_TABLE);
+    });
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_CHATS_TABLE);
+        // recreate chats table
+        db.query(CREATE_CHATS_TABLE);
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_MESSAGES_TABLE);
+        // recreate messages table
+        db.query(CREATE_MESSAGES_TABLE);
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_CIRCLES_TABLE);
+        // recreate circles table
+        db.query(CREATE_CIRCLES_TABLE);
+        //create array of circle objects from the dummy data JSON file
+        let circles = circlesDataJSON.circles;
+        // insert each element in the array of objects into the circle table in the database
+        circles.forEach((circle) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_CIRCLES_TABLE,
+                // values passed in from current iteration of the circles array
+                [circle.circleName, circle.users]
+            );
+        });
+    });
+    db.query(() => {
+        // delete any existing user table
+        db.query(DROP_QUESTIONS_TABLE),
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            };
+        //rebuild the users table
+        db.query(CREATE_QUESTIONS_TABLE, (err) => {
+            if (err) {
+                console.log(err.message);
+            }
+        });
+    });
+    console.log("all emptytables set up complete");
+    res.send("all empty tables setup complete");
+});
+
+router.get("/dummyTablesSetup", (req, res, next) => {
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_USERS_TABLE);
+        //recreate the users table
+        db.query(CREATE_USERS_TABLE);
+        //create array of users from the dummy data JSON file
+        let users = userDataJSON.users;
+        // insert each element in the array of objects into the users table in the database
+        users.forEach((user) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_USERS_TABLE,
+                // values passed in from current iteration of the users array
+                [
+                    user.username,
+                    user.firstName,
+                    user.lastName,
+                    user.email,
+                    user.password,
+                    user.passwordSalt,
+                    user.aboutMe,
+                    user.course,
+                    user.year,
+                    user.location,
+                    user.education,
+                    user.work,
+                    user.profilePicture,
+                    user.coverPicture,
+                    user.circles,
+                    user.asked,
+                    user.answered,
+                ]
+            );
+        });
+    });
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_POSTS_TABLE);
+        // recreate the posts table
+        db.query(CREATE_POSTS_TABLE);
+        //create array of post objects from the dummy data JSON file
+        let posts = postDataJSON.entries;
+        // insert each element in the array of objects into the posts table in the database
+        posts.forEach((post) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_POSTS_TABLE,
+                // values passed in from current iteration of the posts array
+                [
+                    post.id,
+                    post.author,
+                    post.content,
+                    post.date,
+                    post.circle,
+                    post.recipient,
+                    post.likes,
+                    post.dislikes,
+                    post.postStrict,
+                    post.relativePostId,
+                ]
+            );
+        });
+    });
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_IMAGES_TABLE);
+        // recreate images table
+        db.query(CREATE_IMAGES_TABLE);
+        //create array of image objects from the dummy data JSON file
+        let images = imagesDataJSON.images;
+        // insert each element in the array of objects into the images table in the database
+        images.forEach((image) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_IMAGES_TABLE,
+                // values passed in from current iteration of the images array
+                [image.ownerUsername, image.imageLocation, image.postId]
+            );
+        });
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_FRIENDSHIPS_TABLE);
+        // recreate friendships table
+        db.query(CREATE_FRIENDSHIPS_TABLE);
+        //create array of friendship objects from the dummy data JSON file
+        let friendships = friendshipsDataJSON.friendships;
+        // insert each element in the array of objects into the friendships table in the database
+        friendships.forEach((friendship) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_FRIENDSHIPS_TABLE,
+                // values passed in from current iteration of the friendships array
+                [friendship.user1, friendship.user2]
+            );
+        });
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_USERACTIONS_TABLE);
+        // recreate userActions table
+        db.query(CREATE_USERACTIONS_TABLE);
+        //create array of userActions from the dummy data JSON file
+        let rows = userActionsDataJSON.userActions;
+        // insert each element in the array of object into the userActions table in the database
+        rows.forEach((row) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_USERACTIONS_TABLE,
+                // values passed in from current iteration of the userActions array
+                [
+                    row.id,
+                    row.type,
+                    row.sender,
+                    row.recipient,
+                    row.message,
+                    row.seen,
+                    row.approved,
+                    row.date,
+                    row.relativePost,
+                ]
+            );
+        });
+    });
+    db.query(() => {
+        // delete the table if it exists..
+        db.query(DROP_CHATS_TABLE);
+        // recreate chats table
+        db.query(CREATE_CHATS_TABLE);
+        //create array of chats from the dummy data JSON file
+        let chats = chatsDataJSON.chats;
+        // insert each element in the array of objects into the chats table in the database
+        chats.forEach((chat) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_CHATS_TABLE,
+                // values passed in from current iteration of the chats array
+                [
+                    chat.chatId,
+                    chat.user1,
+                    chat.user2,
+                    chat.seenByUser1,
+                    chat.seenByUser2,
+                ]
+            );
+        });
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_MESSAGES_TABLE);
+        // recreate messages table
+        db.query(CREATE_MESSAGES_TABLE);
+        //create array of messages from the dummy data JSON file
+        let messages = messagesDataJSON.messages;
+        // insert each element in the array of objects into the messages table in the database
+        messages.forEach((message) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_MESSAGES_TABLE,
+                // values passed in from current iteration of the messages array
+                [
+                    message.chatId,
+                    message.sender,
+                    message.recipient,
+                    message.message,
+                    message.seen,
+                ]
+            );
+        });
+    });
+    db.query(() => {
+        //delete the table if it exists..
+        db.query(DROP_CIRCLES_TABLE);
+        // recreate circles table
+        db.query(CREATE_CIRCLES_TABLE);
+        //create array of circle objects from the dummy data JSON file
+        let circles = circlesDataJSON.circles;
+        // insert each element in the array of objects into the circle table in the database
+        circles.forEach((circle) => {
+            // SQL query to run
+            db.query(
+                INSERT_DUMMY_DATA_INTO_CIRCLES_TABLE,
+                // values passed in from current iteration of the circles array
+                [circle.circleName, circle.users]
+            );
+        });
+    });
+    db.query(() => {
+        // delete any existing user table
+        db.query(DROP_QUESTIONS_TABLE),
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            };
+        //rebuild the users table
+        db.query(
+            CREATE_QUESTIONS_TABLE,
+            // "CREATE TABLE `posts` ( id INTEGER PRIMARY KEY AUTO_INCREMENT, author varchar(255), content text,  date varchar(255), circle varchar(255), recipient varchar(255), likes int, dislikes int, postStrict bool)"
+            (err) => {
+                if (err) {
+                    console.log(err.message);
+                }
+            }
+        );
+        let questions = questionsDataJSON.entries;
+        questions.forEach((question) => {
+            db.query(
+                INSERT_DUMMY_DATA_INTO_QUESTIONS_TABLE,
+                // pass in values from the json objects
+                [
+                    question.author,
+                    question.authorID,
+                    question.authorProfilePicture,
+                    question.date,
+                    question.category,
+                    question.score,
+                    question.relativePostID,
+                    question.title,
+                    question.text,
+                    question.code,
+                    question.language,
+                ],
+                (err) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                }
+            );
+        });
+    });
+    console.log("all tables with dummy data set up complete");
+    res.send("all tables with dummy data setup complete");
 });
 //#endregion SQL SETUP ENDPOINTS
 

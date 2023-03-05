@@ -161,6 +161,38 @@ export default class App extends Component {
                 });
             }
             this.setState({ isSignedIn: true });
+        } else if (route === "signoutAndDelete") {
+            if (window.confirm("this will delete your data")) {
+                this.socket.on("disconnect", () => {
+                    this.setState({
+                        socketId: this.socket.id,
+                        socket: this.socket,
+                    });
+                });
+
+                fetch(
+                    process.env.REACT_APP_SERVER + "/account/signoutAndDelete",
+                    {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            userId: this.state.loggedInUsername,
+                        }),
+                    }
+                ) //TURN THE RESPONSE INTO A JSON OBJECT
+                    .then((response) => response.json())
+                    // WHAT WE DO WITH THE DATA WE RECEIVE (data => (data)) SHOULD SHOW WHAT WE GET
+                    .then((data) => {
+                        if (data === "success deleting user data") {
+                            this.setState({ isSignedIn: false });
+                            window.location.replace("/signIn");
+                        }
+                    });
+            } else {
+                alert("no");
+            }
         }
         this.setState({ route: route });
     };

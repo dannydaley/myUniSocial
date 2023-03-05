@@ -77,6 +77,91 @@ const ADD_IMAGE =
     "INSERT INTO images (ownerUsername, imageLocation, postId) VALUES (?,?,?)";
 const APPLY_COVER_PICTURE_AT_USERNAME =
     "UPDATE users SET coverPicture = ? WHERE username = ?";
+
+const DELETE_USER_FROM_USERS = "DELETE FROM users WHERE username = ?";
+const DELETE_USERS_POSTS = "DELETE FROM posts WHERE author = ?";
+const DELETE_USERS_IMAGES = "DELETE FROM images WHERE ownerUsername = ?";
+const DELETE_USERS_FRIENDSHIPS =
+    "DELETE FROM friendships WHERE user1 = ? OR user2 = ?";
+const DELETE_USERS_USER_ACTIONS =
+    "DELETE FROM userActions WHERE sender = ? OR recipient = ?";
+const DELETE_USERS_CHATS = "DELETE FROM chats WHERE user1 = ? OR user2 = ?";
+const DELETE_USERS_MESSAGES =
+    "DELETE FROM messages WHERE sender = ? OR recipient = ?";
+const DELETE_USERS_QUESTIONS = "DELETE FROM questions WHERE authorID = ?";
+
+router.post("/signoutAndDelete", (req, res, next) => {
+    let userId = req.body.userId;
+    db.query(DELETE_USERS_POSTS, userId, (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USERS_IMAGES, userId, (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USERS_FRIENDSHIPS, [userId, userId], (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USERS_USER_ACTIONS, [userId, userId], (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USERS_CHATS, [userId, userId], (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USERS_MESSAGES, [userId, userId], (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USERS_QUESTIONS, userId, (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    db.query(DELETE_USER_FROM_USERS, userId, (err) => {
+        // if error
+        if (err) {
+            // respond with error status and error message
+            console.log(err.message);
+            return;
+        }
+    });
+    // delete session
+    req.session = null;
+    // respond with success
+    res.json("success deleting user data");
+});
+
 //#endregion SQL QUERIES
 
 //#region ENDPOINTS
