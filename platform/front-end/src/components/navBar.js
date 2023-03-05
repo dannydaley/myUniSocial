@@ -14,7 +14,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import FalF from "./../assets/FalF.png";
+// import FalF from "./../assets/FalF.png";
 import SearchBar from "./SearchBar";
 import ShowNotifications from "./navBar/showNotifications";
 import { Link } from "react-router-dom";
@@ -299,11 +299,11 @@ function NavBar({
                                             );
                                         }}
                                     >
-                                        <img
+                                        {/* <img
                                             alt=""
                                             src={FalF}
                                             style={{ width: "45px" }}
-                                        />
+                                        /> */}
                                         <img
                                             alt=""
                                             src={myUniSocial}
@@ -323,11 +323,11 @@ function NavBar({
                                             );
                                         }}
                                     >
-                                        <img
+                                        {/* <img
                                             alt=""
                                             src={FalF}
                                             style={{ width: "45px" }}
-                                        />
+                                        /> */}
                                         <img
                                             alt=""
                                             src={myUni404}

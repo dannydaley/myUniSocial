@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import myUniSocial from "../../assets/myUniSocial.png";
-import falUni from "../../assets/falLogo.png";
+// import falUni from "../../assets/falLogo.png";
 import { Typography } from "@mui/material";
 
 class ResetPassword extends React.Component {
@@ -59,11 +59,11 @@ class ResetPassword extends React.Component {
                             alignItems: "center",
                         }}
                     >
-                        <img alt="" src={falUni} style={{ width: "20vw" }} />
+                        {/* <img alt="" src={falUni} style={{ width: "20vw" }} /> */}
                         <img
                             alt=""
                             src={myUniSocial}
-                            style={{ width: "25vw", marginBottom: "5px" }}
+                            style={{ width: "250px", marginBottom: "5px" }}
                         />
                     </Box>
                     <Box
@@ -150,11 +150,11 @@ class ResetPassword extends React.Component {
                             alignItems: "center",
                         }}
                     >
-                        <img alt="" src={falUni} style={{ width: "20vw" }} />
+                        {/* <img alt="" src={falUni} style={{ width: "20vw" }} /> */}
                         <img
                             alt=""
                             src={myUniSocial}
-                            style={{ width: "25vw", marginBottom: "5px" }}
+                            style={{ width: "250px", marginBottom: "5px" }}
                         />
                     </Box>
                     <Box
@@ -238,11 +238,11 @@ class ResetPassword extends React.Component {
                             alignItems: "center",
                         }}
                     >
-                        <img alt="" src={falUni} style={{ width: "20vw" }} />
+                        {/* <img alt="" src={falUni} style={{ width: "20vw" }} /> */}
                         <img
                             alt=""
                             src={myUniSocial}
-                            style={{ width: "25vw", marginBottom: "5px" }}
+                            style={{ width: "250px", marginBottom: "5px" }}
                         />
                     </Box>
                     <Box
