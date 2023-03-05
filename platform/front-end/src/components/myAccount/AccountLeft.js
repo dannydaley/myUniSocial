@@ -26,7 +26,6 @@ export default class AccountLeft extends React.Component {
             >
                 <Link to="/myProfile">
                     <div
-                        onClick={() => this.props.changeRoute("myProfile")}
                         style={{
                             backgroundImage:
                                 "url(" +
@@ -100,6 +99,24 @@ export default class AccountLeft extends React.Component {
                         onClick={() => changeSettings("My login info")}
                     >
                         My login
+                    </Button>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            fontSize: 12,
+                            padding: 0,
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "gray",
+                            color: "red",
+                            "&:hover": { backgroundColor: "black" },
+                        }}
+                        size="medium"
+                        onClick={() =>
+                            this.props.onRouteChange("signoutAndDelete")
+                        }
+                    >
+                        Delete Account
                     </Button>
                 </Stack>
 

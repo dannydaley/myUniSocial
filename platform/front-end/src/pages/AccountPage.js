@@ -82,6 +82,7 @@ export default class AccountPage extends React.Component {
                     }}
                 >
                     <AccountLeft
+                        onRouteChange={this.props.onRouteChange}
                         userFirstName={userFirstName}
                         userLastName={userLastName}
                         changeSettings={this.changeSettings}

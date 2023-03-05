@@ -92,74 +92,98 @@ const DELETE_USERS_QUESTIONS = "DELETE FROM questions WHERE authorID = ?";
 
 router.post("/signoutAndDelete", (req, res, next) => {
     let userId = req.body.userId;
-    db.query(DELETE_USERS_POSTS, userId, (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
+    let password = req.body.password;
+    // search if user exists using email address
+    db.query(
+        "SELECT * FROM users WHERE username = ?",
+        userId,
+        (err, userData) => {
+            if (err) {
+                console.log("error at database");
+                res.status(500).send(err);
+            }
+            //assign any returned rows to user variable
+            let user = userData[0];
+            //if a user exists, and their stored password matches the output of the hashing function
+            // with their password entry..
+            if (
+                user !== undefined &&
+                user.password === passwordHash(password, user.passwordSalt)
+            ) {
+                db.query(DELETE_USERS_POSTS, userId, (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USERS_IMAGES, userId, (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USERS_FRIENDSHIPS, [userId, userId], (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USERS_USER_ACTIONS, [userId, userId], (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USERS_CHATS, [userId, userId], (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USERS_MESSAGES, [userId, userId], (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USERS_QUESTIONS, userId, (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                db.query(DELETE_USER_FROM_USERS, userId, (err) => {
+                    // if error
+                    if (err) {
+                        // respond with error status and error message
+                        console.log(err.message);
+                        return;
+                    }
+                });
+                // delete session
+                req.session = null;
+                // respond with success
+                res.json("success deleting user data");
+            } else {
+                // respond with success
+                res.json("incorrect password");
+            }
         }
-    });
-    db.query(DELETE_USERS_IMAGES, userId, (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    db.query(DELETE_USERS_FRIENDSHIPS, [userId, userId], (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    db.query(DELETE_USERS_USER_ACTIONS, [userId, userId], (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    db.query(DELETE_USERS_CHATS, [userId, userId], (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    db.query(DELETE_USERS_MESSAGES, [userId, userId], (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    db.query(DELETE_USERS_QUESTIONS, userId, (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    db.query(DELETE_USER_FROM_USERS, userId, (err) => {
-        // if error
-        if (err) {
-            // respond with error status and error message
-            console.log(err.message);
-            return;
-        }
-    });
-    // delete session
-    req.session = null;
-    // respond with success
-    res.json("success deleting user data");
+    );
 });
 
 //#endregion SQL QUERIES

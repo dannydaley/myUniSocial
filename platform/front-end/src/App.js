@@ -156,20 +156,13 @@ export default class App extends Component {
                     username: this.state.loggedInUsername,
                 });
                 this.socket.on("connect_error", () => {
-                    console.log("error");
                     setTimeout(() => this.socket.connect(), 9030);
                 });
             }
             this.setState({ isSignedIn: true });
         } else if (route === "signoutAndDelete") {
             if (window.confirm("this will delete your data")) {
-                this.socket.on("disconnect", () => {
-                    this.setState({
-                        socketId: this.socket.id,
-                        socket: this.socket,
-                    });
-                });
-
+                let password = prompt("Enter password to confirm");
                 fetch(
                     process.env.REACT_APP_SERVER + "/account/signoutAndDelete",
                     {
@@ -178,6 +171,7 @@ export default class App extends Component {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
+                            password: password,
                             userId: this.state.loggedInUsername,
                         }),
                     }
@@ -186,12 +180,11 @@ export default class App extends Component {
                     // WHAT WE DO WITH THE DATA WE RECEIVE (data => (data)) SHOULD SHOW WHAT WE GET
                     .then((data) => {
                         if (data === "success deleting user data") {
-                            this.setState({ isSignedIn: false });
-                            window.location.replace("/signIn");
+                            this.onRouteChange("signout");
+                        } else if (data === "incorrent password") {
+                            alert("Incorrect password");
                         }
                     });
-            } else {
-                alert("no");
             }
         }
         this.setState({ route: route });
@@ -407,6 +400,7 @@ export default class App extends Component {
                                             userCoverPicture={
                                                 this.state.userCoverPicture
                                             }
+                                            onRouteChange={this.onRouteChange}
                                         />
                                     }
                                 />
