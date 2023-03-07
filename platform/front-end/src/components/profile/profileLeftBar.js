@@ -115,6 +115,7 @@ export default class ProfileLeftBar extends React.Component {
                             width: "200px",
                             height: "200px",
                             ":hover": { cursor: "pointer" },
+                            zIndex: 100000000,
                         }}
                     ></div>
 

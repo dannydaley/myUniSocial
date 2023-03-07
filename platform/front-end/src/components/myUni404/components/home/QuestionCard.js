@@ -43,6 +43,7 @@ export default class Question extends React.Component {
                     <CardContent>
                         <div
                             style={{
+                                width: "1000px",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "top",

@@ -9,11 +9,13 @@ import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import CloseIcon from "@mui/icons-material/Close";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function FeedPost(props) {
     const [expanded, expand] = useState("false");
     const [deleted, setDeleted] = React.useState(false);
+    const [showImage, setShowImage] = React.useState(false);
     const {
         authorUsername,
         authorFirstName,
@@ -31,9 +33,13 @@ export default function FeedPost(props) {
     } = props;
 
     const options = ["delete post"];
-
+    const currentImage = React.useRef();
     const ITEM_HEIGHT = 48;
 
+    const openImage = (image) => {
+        currentImage.current = image;
+        setShowImage(true);
+    };
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -211,29 +217,52 @@ export default function FeedPost(props) {
                                           "/public/" +
                                           image
                                       }
+                                      onClick={() => openImage(image)}
                                       width={"200px"}
                                   />
                               ))
                             : ""}
                     </div>
-                    {/* {content ===
-                    "You do not have access to this post, add the author as a friend to view." ? (
-                        ""
-                    ) : (
-                        <PostActions
-                            circle={circle}
-                            postId={postId}
-                            likes={likes}
-                            dislikes={dislikes}
-                            loggedInUsername={loggedInUsername}
-                            authorUsername={authorUsername}
-                            commentCount={comments ? comments.length : 0}
-                            changeCircle={changeCircle}
-                        />
-                    )} */}
                 </div>
             </CardContent>
-
+            {showImage ? (
+                <div
+                    style={{
+                        paddingTop: "50px",
+                        position: "fixed",
+                        top: 0,
+                        left: 220,
+                        height: "100vh",
+                        width: "80vw",
+                        backgroundColor: "rgba(0,0,0,0.8)",
+                    }}
+                    onClick={() => setShowImage(false)}
+                >
+                    <img
+                        alt=""
+                        key={authorLastName + postId + currentImage.current}
+                        src={
+                            process.env.REACT_APP_SERVER +
+                            "/public/" +
+                            currentImage.current
+                        }
+                        style={{ marginTop: "200px" }}
+                        height={"600px"}
+                    />
+                    <CloseIcon
+                        sx={{
+                            color: "white",
+                            size: "200px",
+                            position: "fixed",
+                            marginTop: "2%",
+                            right: 300,
+                            "&:hover": { cursor: "pointer" },
+                        }}
+                    />
+                </div>
+            ) : (
+                ""
+            )}
             {content ===
             "You do not have access to this post, add the author as a friend to view." ? (
                 ""

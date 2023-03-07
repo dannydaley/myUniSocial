@@ -121,7 +121,7 @@ export default class ProfileFeed extends React.Component {
                             <Container
                                 maxWidth="lg"
                                 sx={{
-                                    zIndex: 10,
+                                    zIndex: 0,
                                     borderRadius: "0px 0px 30px 30px",
                                     width: "100%",
                                     pb: 2,
@@ -195,7 +195,7 @@ export default class ProfileFeed extends React.Component {
                                 <Container
                                     maxWidth="lg"
                                     sx={{
-                                        zIndex: 10,
+                                        zIndex: 0,
                                         borderRadius: "0px 0px 30px 30px",
                                         width: "100%",
                                         pb: 2,
@@ -238,7 +238,7 @@ export default class ProfileFeed extends React.Component {
                                 <Container
                                     maxWidth="lg"
                                     sx={{
-                                        zIndex: 10,
+                                        zIndex: 0,
                                         backgroundColor: "#333",
                                         borderRadius: "0px 0px 30px 30px",
                                         width: "100%",
