@@ -123,7 +123,7 @@ export default class AccountLeft extends React.Component {
                 <a
                     style={{ marginTop: "auto", textDecoration: "none" }}
                     href={
-                        "https://eu.jotform.com/sign/230397721279059/invite/01grwg6ddb8f65709aaeffe4ff"
+                        "https://eu.jotform.com/sign/230583571284055/invite/01gtc87ce613aaf304a8d0d908"
                     }
                     rel="noreferrer"
                     target="_blank"

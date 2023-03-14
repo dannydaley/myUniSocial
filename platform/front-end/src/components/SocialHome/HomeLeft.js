@@ -75,7 +75,7 @@ export default class HomeLeft extends React.Component {
                         spacing={2}
                         direction="column"
                         sx={{
-                            width: "80%",
+                            width: "90%",
                             margin: "0 auto",
                             overflowY: "scroll",
                             marginBottom: "30px",
@@ -94,27 +94,53 @@ export default class HomeLeft extends React.Component {
                         >
                             GENERAL
                         </Button>
-                        {this.state.circles.map((circle) =>
-                            circle.length >= 2 ? (
-                                <Button
-                                    key={Math.random() * 1000}
-                                    variant="contained"
-                                    sx={{
-                                        width: "100%",
-                                        height: "30px",
-                                        backgroundColor: "#f5c732",
-                                        "&:hover": { backgroundColor: "gray" },
-                                    }}
-                                    size="medium"
-                                    onClick={() =>
-                                        this.props.changeCircle(`${circle}`)
-                                    }
-                                >
-                                    {circle}
-                                </Button>
-                            ) : (
-                                ""
+                        {this.state.circles.length >= 2 ? (
+                            this.state.circles.map((circle) =>
+                                circle.length >= 2 ? (
+                                    <Button
+                                        key={Math.random() * 1000}
+                                        variant="contained"
+                                        sx={{
+                                            width: "100%",
+                                            height: "30px",
+                                            backgroundColor: "#f5c732",
+                                            "&:hover": {
+                                                backgroundColor: "gray",
+                                            },
+                                        }}
+                                        size="medium"
+                                        onClick={() =>
+                                            this.props.changeCircle(`${circle}`)
+                                        }
+                                    >
+                                        {circle}
+                                    </Button>
+                                ) : (
+                                    ""
+                                )
                             )
+                        ) : (
+                            <div>
+                                <p style={{ color: "white" }}>
+                                    Follow modules in{" "}
+                                    <span
+                                        style={{
+                                            color: "#f5c732",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        <Link
+                                            to="/myAccount"
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#f5c732",
+                                            }}
+                                        >
+                                            account settings
+                                        </Link>
+                                    </span>
+                                </p>
+                            </div>
                         )}
                     </Stack>
                 ) : (
