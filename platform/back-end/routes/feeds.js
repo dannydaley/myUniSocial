@@ -135,8 +135,8 @@ router.post("/getFeedFriendsOnly", (req, res) => {
             db.query(
                 "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE circle = ? AND author IN (" +
                     friendsList.join(",") +
-                    ") OR (`posts`.`relativePostId` != 0) ORDER BY id DESC",
-                req.body.circle,
+                    ") OR (`posts`.`relativePostId` != 0) OR (`posts`.`author` = ?) ORDER BY id DESC",
+                [req.body.circle, req.body.circle],
                 (err, posts) => {
                     // if error
                     if (err) {

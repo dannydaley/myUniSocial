@@ -74,7 +74,12 @@ export default class HomeLeft extends React.Component {
                         key={1}
                         spacing={2}
                         direction="column"
-                        sx={{ width: "80%", margin: "0 auto" }}
+                        sx={{
+                            width: "80%",
+                            margin: "0 auto",
+                            overflowY: "scroll",
+                            marginBottom: "30px",
+                        }}
                     >
                         <Button
                             variant="contained"

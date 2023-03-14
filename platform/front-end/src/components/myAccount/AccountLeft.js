@@ -123,6 +123,48 @@ export default class AccountLeft extends React.Component {
                 <a
                     style={{ marginTop: "auto", textDecoration: "none" }}
                     href={
+                        "https://eu.jotform.com/sign/230397721279059/invite/01grwg6ddb8f65709aaeffe4ff"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Consent Form
+                    </Button>
+                </a>
+                <a
+                    style={{ marginTop: "10px", textDecoration: "none" }}
+                    href={
+                        "https://forms.office.com/Pages/ResponsePage.aspx?id=s-4LVT1qRkahEfidAXd5LnDKbBdyf5JGo-fKf-5dPR9URUMzRFE5RkQ4QjZRTVBaRzUzMlBFNFYxOC4u"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Research Form
+                    </Button>
+                </a>
+                <a
+                    style={{ marginTop: "auto", textDecoration: "none" }}
+                    href={
                         process.env.REACT_APP_SERVER +
                         "/public/privacy-policy.html"
                     }
