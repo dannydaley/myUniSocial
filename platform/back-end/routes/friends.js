@@ -89,7 +89,27 @@ router.post("/friendRequest", (req, res) => {
                 return;
             }
             // if nothing is found..
-            if (!rows || rows.length < 1) {
+            if (
+                recipient.includes("COMP") ||
+                recipient.includes("WEB") ||
+                recipient.includes("GAM")
+            ) {
+                // create a new entry into friendships containing the logged in user and the sender
+                db.query(
+                    "INSERT INTO friendships (user1, user2) VALUES (?,?)",
+                    [sender, recipient],
+                    (err) => {
+                        // if error
+                        if (err) {
+                            // respond with error status and error message
+                            res.status(500).send(err.message);
+                            return;
+                        }
+                        //respond with success on completion
+                        res.json("success");
+                    }
+                );
+            } else if (!rows || rows.length < 1) {
                 // insert a new user action into the database witht he above readied data
                 db.query(
                     "INSERT INTO userActions set ?,date = NOW()",

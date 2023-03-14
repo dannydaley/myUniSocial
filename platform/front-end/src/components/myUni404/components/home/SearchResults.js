@@ -46,18 +46,18 @@ export default class SearchResults extends React.Component {
         authorID
     ) => {
         // pass data into ready question
-        this.props.readyQuestion(
-            authorProfilePicture,
-            title,
-            author,
-            question,
-            code,
-            postID,
-            language,
-            authorID
-        );
+        // this.props.readyQuestion(
+        //     authorProfilePicture,
+        //     title,
+        //     author,
+        //     question,
+        //     code,
+        //     postID,
+        //     language,
+        //     authorID
+        // );
         // reroute to question
-        this.props.changeRoute("question");
+        // this.props.changeRoute("question");
     };
 
     render() {
@@ -129,7 +129,7 @@ export default class SearchResults extends React.Component {
                                         fontWeight: "bold",
                                     }}
                                     onClick={() =>
-                                        this.goToQuestion(
+                                        this.props.readyQuestion(
                                             item.authorProfilePicture,
                                             item.title,
                                             item.poster,

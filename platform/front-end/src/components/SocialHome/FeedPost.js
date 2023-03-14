@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import CloseIcon from "@mui/icons-material/Close";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box } from "@mui/material";
 
 export default function FeedPost(props) {
     const [expanded, expand] = useState("false");
@@ -226,40 +227,89 @@ export default function FeedPost(props) {
                 </div>
             </CardContent>
             {showImage ? (
-                <div
-                    style={{
-                        paddingTop: "50px",
-                        position: "fixed",
-                        top: 0,
-                        left: 220,
-                        height: "100vh",
-                        width: "80vw",
-                        backgroundColor: "rgba(0,0,0,0.8)",
-                    }}
-                    onClick={() => setShowImage(false)}
-                >
-                    <img
-                        alt=""
-                        key={authorLastName + postId + currentImage.current}
-                        src={
-                            process.env.REACT_APP_SERVER +
-                            "/public/" +
-                            currentImage.current
-                        }
-                        style={{ marginTop: "200px" }}
-                        height={"600px"}
-                    />
-                    <CloseIcon
+                <>
+                    <Box
                         sx={{
-                            color: "white",
-                            size: "200px",
+                            paddingTop: "50px",
                             position: "fixed",
-                            marginTop: "2%",
-                            right: 300,
-                            "&:hover": { cursor: "pointer" },
+                            top: 0,
+                            display: { xs: "none", md: "block" },
+                            left: 220,
+                            height: "100vh",
+                            width: "80vw",
+                            backgroundColor: "rgba(0,0,0,0.8)",
                         }}
-                    />
-                </div>
+                        onClick={() => setShowImage(false)}
+                    >
+                        <img
+                            alt=""
+                            key={authorLastName + postId + currentImage.current}
+                            src={
+                                process.env.REACT_APP_SERVER +
+                                "/public/" +
+                                currentImage.current
+                            }
+                            style={{
+                                margin: "auto",
+                                marginTop: "125px",
+                            }}
+                            height="75%"
+                        />
+                        <CloseIcon
+                            sx={{
+                                color: "white",
+                                size: "200px",
+                                position: "fixed",
+                                marginTop: "2%",
+                                right: 300,
+                                "&:hover": { cursor: "pointer" },
+                            }}
+                        />
+                    </Box>
+                    <Box
+                        sx={{
+                            paddingTop: "50px",
+                            position: "fixed",
+                            top: 0,
+                            display: {
+                                xs: "block",
+                                md: "none",
+                                lg: "none",
+                            },
+                            left: 0,
+                            height: "100vh",
+                            width: "100vw",
+                            backgroundColor: "rgba(0,0,0,0.8)",
+                        }}
+                        onClick={() => setShowImage(false)}
+                    >
+                        {" "}
+                        <CloseIcon
+                            sx={{
+                                color: "white",
+
+                                position: "fixed",
+                                marginTop: "10%",
+                                right: 3,
+                                "&:hover": { cursor: "pointer" },
+                            }}
+                        />
+                        <img
+                            alt=""
+                            key={authorLastName + postId + currentImage.current}
+                            src={
+                                process.env.REACT_APP_SERVER +
+                                "/public/" +
+                                currentImage.current
+                            }
+                            style={{
+                                margin: "auto",
+                                marginTop: "100px",
+                            }}
+                            width="95%"
+                        />
+                    </Box>
+                </>
             ) : (
                 ""
             )}
