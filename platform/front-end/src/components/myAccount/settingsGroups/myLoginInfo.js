@@ -50,9 +50,7 @@ export default class MyLoginInfo extends React.Component {
             // turn response into a JSON object
             .then((response) => response.json())
             // remount this component to refresh
-            .then(() => {
-                this.props.mountComponent();
-            });
+            .then(this.props.remount());
     };
 
     // calls when email input is updated and applies to state
@@ -137,6 +135,11 @@ export default class MyLoginInfo extends React.Component {
                     {settings}
                 </Typography>
                 <div style={{ marginTop: "100px" }}>
+                    {this.props.updated ? (
+                        <h3 style={{ color: "white" }}>Info updated!</h3>
+                    ) : (
+                        ""
+                    )}
                     <ContactMailIcon
                         sx={{ mr: 2, color: "rgba(255, 255, 255, 0.7)" }}
                     />

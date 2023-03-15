@@ -17,9 +17,12 @@ export default class AccountSettings extends React.Component {
             settings: this.props.settings,
             posts: [],
             dataIsLoaded: true,
+            key: 1,
+            updated: false,
         };
     }
 
+    remount = () => this.setState({ key: this.state.key + 1, updated: true });
     // calls when user selects what settings to change and takes to update form
     changeSettings = (newSettings) => {
         // apply settings type to state
@@ -32,6 +35,10 @@ export default class AccountSettings extends React.Component {
             case "My information":
                 return (
                     <MyInformation
+                        updated={this.state.updated}
+                        key={this.state.key}
+                        remount={this.remount}
+                        settingsGroup={this.settingsGroup}
                         updateSession={this.props.updateSession}
                         settings={this.props.settings}
                         remountParent={this.componentDidMount}
@@ -56,6 +63,9 @@ export default class AccountSettings extends React.Component {
             case "My login info":
                 return (
                     <MyLoginInfo
+                        updated={this.state.updated}
+                        key={this.state.key}
+                        remount={this.remount}
                         settings={this.props.settings}
                         mountComponent={this.componentDidMount}
                     />
