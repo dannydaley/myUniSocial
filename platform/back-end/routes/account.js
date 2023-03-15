@@ -92,7 +92,7 @@ const DELETE_USERS_QUESTIONS = "DELETE FROM questions WHERE authorID = ?";
 
 router.post("/signoutAndDelete", (req, res, next) => {
     let userId = req.body.userId;
-    let password = req.body.password;
+    let input = req.body.input;
     // search if user exists using email address
     db.query(
         "SELECT * FROM users WHERE username = ?",
@@ -106,10 +106,7 @@ router.post("/signoutAndDelete", (req, res, next) => {
             let user = userData[0];
             //if a user exists, and their stored password matches the output of the hashing function
             // with their password entry..
-            if (
-                user !== undefined &&
-                user.password === passwordHash(password, user.passwordSalt)
-            ) {
+            if (user !== undefined && input === "delete") {
                 db.query(DELETE_USERS_POSTS, userId, (err) => {
                     // if error
                     if (err) {

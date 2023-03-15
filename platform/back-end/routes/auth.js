@@ -9,7 +9,7 @@ var randomstring = require("randomstring");
 
 const FIND_USER = "SELECT * FROM users WHERE email = ?";
 const SIGN_UP_USER =
-    "INSERT INTO users (email, username, firstName, lastName, password, passwordSalt, aboutMe, course, year, profilePicture, asked, answered) VALUES(?,?,? ,?,?,? ,?,?,? ,?,?,?)";
+    "INSERT INTO users (email, username, firstName, lastName, password, passwordSalt, aboutMe, course, year, profilePicture, asked, answered) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
 //#region ENDPOINTS
 

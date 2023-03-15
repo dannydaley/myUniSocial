@@ -162,7 +162,7 @@ export default class App extends Component {
             this.setState({ isSignedIn: true });
         } else if (route === "signoutAndDelete") {
             if (window.confirm("this will delete your data")) {
-                let password = prompt("Enter password to confirm");
+                let input = prompt("type 'delete' to delete your data");
                 fetch(
                     process.env.REACT_APP_SERVER + "/account/signoutAndDelete",
                     {
@@ -171,7 +171,7 @@ export default class App extends Component {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            password: password,
+                            input: input,
                             userId: this.state.loggedInUsername,
                         }),
                     }
