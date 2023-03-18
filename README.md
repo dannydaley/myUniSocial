@@ -2,7 +2,23 @@
 
 myUniSocial is a service for universities to assist in the social and learning aspects of university life. The platform has space for tools to aid students on their journey.
 
-### Features
+## Features
+
+### myUni404
+
+-   View question feed
+-   Search for question and get relevant hits
+-   View questions and answers
+-   write questions
+-   Write answers
+-   Vote answers up or down
+-   Answeres with higher votes are listed above those with less
+-   Multiple categorys/feeds of questions by field
+-   User profiles
+-   view users asked questions
+-   view users answers
+-   asked/answered count
+-   Profile picture and about me updates
 
 ## Front-End
 
