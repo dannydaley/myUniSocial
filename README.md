@@ -1,11 +1,12 @@
-#myUniSocial
+# myUniSocial
 
 myUniSocial is a service for universities to assist in the social and learning aspects of university life. The platform has space for tools to aid students on their journey.
 
-###Features
+### Features
 
-##Front-End
-####Installed Dependecies
+## Front-End
+
+#### Installed Dependecies
 
 -   "@emotion/react": "^11.7.1",
 -   "@emotion/styled": "^11.6.0",
@@ -37,9 +38,9 @@ myUniSocial is a service for universities to assist in the social and learning a
 -   "uninstall": "0.0.0",
 -   "web-vitals": "^2.1.4"
 
-##Back-End
+## Back-End
 
-####Installed Dependecies
+#### Installed Dependecies
 
 -   "body-parser": "^1.19.2",
 -   "cookie-parser": "^1.4.6",
@@ -62,11 +63,11 @@ myUniSocial is a service for universities to assist in the social and learning a
 -   "uuid": "^3.4.0"
     ###Database
 
-###Database table setup
+### Database table setup
 
-###Table Structure
+### Table Structure
 
-####Table: users
+#### Table: users
 
 | id  | firstName | lastName | username      | email                | password   | passwordSalt     | aboutMe                   |
 | --- | --------- | -------- | ------------- | -------------------- | ---------- | ---------------- | ------------------------- |
@@ -76,53 +77,56 @@ myUniSocial is a service for universities to assist in the social and learning a
 | ------------------ | --------------- | ---- | -------- | ---------- | ---------------- | ----- | -------- |
 | images/profPic.png | Web Development | 3    | Falmouth | Falmouth U | COMP110, COMP120 | 10    | 20       |
 
-####Table: posts
+#### Table: posts
 
 | id  | author          | content                         | date      | circle    | recipient | likes | dislikes | postStrict | relativePostId |
 | --- | --------------- | ------------------------------- | --------- | --------- | --------- | ----- | -------- | ---------- | -------------- |
 | 1   | "dannydaley123" | "This is the body of the post!" | 17-3-2023 | "COMP110" | "none"    | 1     | 0        | 0          | null           |
 
-####Table: questions####
-|postID|author|authorID|authorProfilePicture|date|category|score|relativePostID|title|text|code|language|
-|------|--------|--------------------|----|--------|-----|--------------|-----|----|----|--------|
-|4|"Danny Daley"| "dannydaley123" | "images/dannydaley123picture"|"15-3-2023"| "Web"|1|0| "Why isnt this working?"|"Why isnt this code working?"|"<\code>Code Snippet</\code>"| "HTML|
+#### Table: questions
 
-####Table: friendships
+| postID | author        | authorID        | authorProfilePicture          | date        | category | score | relativePostID | title                    | text                          | code                          | language |
+| ------ | ------------- | --------------- | ----------------------------- | ----------- | -------- | ----- | -------------- | ------------------------ | ----------------------------- | ----------------------------- | -------- |
+| 4      | "Danny Daley" | "dannydaley123" | "images/dannydaley123picture" | "15-3-2023" | "Web"    | 1     | 0              | "Why isnt this working?" | "Why isnt this code working?" | "<\code>Code Snippet</\code>" | "HTML    |
+
+#### Table: friendships
 
 | user1           | user2         |
 | --------------- | ------------- |
 | "dannydaley123" | "newUser1234" |
 
-####Table: userActions
+#### Table: userActions
 
 | actionId | type            | sender          | recipient     | message                     | seen  | approved | date        | relativePost |
 | -------- | --------------- | --------------- | ------------- | --------------------------- | ----- | -------- | ----------- | ------------ |
 | 0        | "freindRequest" | "dannydaley123" | "newUser1234" | " wants to be your friend!" | false | false    | "15-3-2023" | null         |
 
-####Table: images
+#### Table: images
 
 | ownerUsername   | imageLocation                              | postId |
 | --------------- | ------------------------------------------ | ------ |
 | "dannydaley123" | images/uploads/dannydaley123-768732197.png | 20     |
 
-####Table: messages
+#### Table: messages
 
 | chatId | messageId | sender        | recipient       | message      | date        | seen  |
 | ------ | --------- | ------------- | --------------- | ------------ | ----------- | ----- |
 | 1      | 2         | "newUser1234" | "dannydaley123" | "Hey there!" | "16-3-2023" | false |
 
-####Table: chats
+#### Table: chats
 
 | chatId | user1         | user2           | seenByUser1 | seenByUser2 | lastActive |
 | ------ | ------------- | --------------- | ----------- | ----------- | ---------- |
 | 1      | "newUser1234" | "dannydaley123" | true        | false       | "time"     |
 
-####Table: circles
+#### Table: circles
 
 | circleName | users |
 | ---------- | ----- |
 | "COMP110"  | 0     |
 
-###Testing the project
+### Testing the project
+
 Jest is a JavaScript test runner that lets you access the DOM via jsdom. While jsdom is only an approximation of how the browser works, it is usually good enough for testing React components. Jest provides a great iteration speed combined with powerful features like mocking modules and timers so you can have more control over how the code executes
-###Running the project
+
+### Running the project
