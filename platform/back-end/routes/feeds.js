@@ -9,10 +9,10 @@ const GET_ALL_USERS_FRIENDS =
     "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
 
 const GET_QUESTION_FEED =
-    "SELECT * FROM `questions` WHERE (title != ?) AND (category = ?) ORDER BY postID DESC";
+    "SELECT `questions`.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM `questions` LEFT OUTER JOIN `users` ON `questions`.`authorID` = `users`.`username` WHERE (`questions`.`title` != ?) AND (`questions`.`category` = ?) ORDER BY postID DESC";
 
 const GET_QUESTION_REPLIES =
-    "SELECT * FROM questions WHERE relativePostID = ? ORDER BY score DESC";
+    "SELECT `questions`.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM `questions` LEFT OUTER JOIN `users` ON `questions`.`authorID` = `users`.`username` WHERE relativePostID = ? ORDER BY score DESC";
 
 const GET_USER_AND_POST_DATA_BY_POST_ID =
     "SELECT posts.*, users.firstName, users.lastName, users.profilePicture FROM `posts` LEFT OUTER JOIN `users` ON `posts`.`author` = `users`.`username` WHERE `posts`.`id` = ? OR `posts`.`relativePostId` = ? ORDER BY id";
@@ -23,10 +23,11 @@ const CHECK_FOR_FRIENDSHIP =
 const SELECT_IMAGES_BY_POST_ID =
     "SELECT images.imageLocation, images.postId FROM `images` WHERE postId = ?";
 
-const GET_QUESTION_BY_POST_ID = "SELECT * FROM questions WHERE postID = ?";
+const GET_QUESTION_BY_POST_ID =
+    "SELECT `questions`.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM `questions` LEFT OUTER JOIN `users` ON `questions`.`authorID` = `users`.`username` WHERE postID = ?";
 
 const GET_QUESTIONS_BY_AUTHOR_ID =
-    "SELECT * FROM `questions` WHERE `authorID` = ?";
+    "SELECT `questions`.*, `users`.`firstName`, `users`.`lastName`, `users`.`profilePicture` FROM `questions` LEFT OUTER JOIN `users` ON `questions`.`authorID` = `users`.`username` WHERE `authorID` = ?";
 //#endregion SQL QUERIES
 
 //#region ENDPOINTS
@@ -299,6 +300,7 @@ router.post("/getQuestionFeed", (req, res, next) => {
             res.status(500).send(err.message);
             return;
         }
+        console.log(postData);
         // respond with userData on success
         res.json(postData);
     });

@@ -414,7 +414,7 @@ export default class FullQuestion extends React.Component {
                                         score={item.score}
                                         language={item.language}
                                         authorProfilePicture={
-                                            item.authorProfilePicture
+                                            item.profilePicture
                                         }
                                     />
                                     <Divider />

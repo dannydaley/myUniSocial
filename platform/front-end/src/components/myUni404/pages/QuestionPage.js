@@ -139,7 +139,7 @@ class QuestionPage extends React.Component {
                             loggedInUsername={this.props.loggedInUsername}
                             userProfilePicture={this.props.userProfilePicture}
                             authorProfilePicture={
-                                this.state.questionInfo.authorProfilePicture
+                                this.state.questionInfo.profilePicture
                             }
                             viewProfile={this.viewProfile}
                             key={this.state.key}
