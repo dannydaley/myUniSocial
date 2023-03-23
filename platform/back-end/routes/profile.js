@@ -5,6 +5,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
 
+//#region SQL QUERIES
+
 const CHECK_THAT_USERS_ARE_FRIENDS =
     "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)";
 const GET_USER_PROFILE_INFO_BY_USERNAME =
@@ -17,14 +19,22 @@ const GET_POSTS_BY_AUTHOR_OR_RECIPIENT =
 const GET_POSTS_BY_AUTHOR_BY_CIRCLE =
     "SELECT * FROM `posts` WHERE author = ? AND circle = ? ORDER BY id DESC";
 
-//#region PROFILE DATA
+const CHECK_FOR_FRIENDSHIP =
+    "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)";
+
+const CHECK_FOR_ACTIVE_FRIEND_REQUEST =
+    "SELECT * FROM userActions WHERE (sender = ? AND recipient = ? AND type = ?) OR (sender = ? AND recipient = ? AND type = ?)";
+
+//#endregion SQL QUERIES
+
+//#region ENDPOINTS
 
 router.post("/getUserProfile", (req, res) => {
     //set up variables from the request body
     let { loggedInUsername, userProfileToGet } = req.body;
     // check the database for any existing friendships containing both the logged in user and the profile in question
     db.query(
-        "SELECT * FROM friendships WHERE (user1 = ? OR user2 = ?) AND (user1 = ? OR user2 = ?)",
+        CHECK_FOR_FRIENDSHIP,
         [
             loggedInUsername,
             loggedInUsername,
@@ -46,6 +56,34 @@ router.post("/getUserProfile", (req, res) => {
                 ? (isFriendsWithLoggedInUser = true)
                 : (isFriendsWithLoggedInUser = false);
             // get the user data matching the profile in question by username
+            let friendRequestSent;
+            let requestSender;
+            if (isFriendsWithLoggedInUser === false) {
+                db.query(
+                    CHECK_FOR_ACTIVE_FRIEND_REQUEST,
+                    [
+                        loggedInUsername,
+                        userProfileToGet,
+                        "friendRequest",
+                        userProfileToGet,
+                        loggedInUsername,
+                        "friendRequest",
+                    ],
+                    (err, rows) => {
+                        // if error
+                        if (err) {
+                            // respond with error status and error message
+                            console.log(err.message);
+                            return;
+                        }
+                        // respond with success on success
+                        if (rows.length > 0) {
+                            friendRequestSent = true;
+                            requestSender = rows[0].sender;
+                        }
+                    }
+                );
+            }
             db.query(
                 GET_USER_PROFILE_INFO_BY_USERNAME,
                 userProfileToGet,
@@ -60,6 +98,8 @@ router.post("/getUserProfile", (req, res) => {
                     res.json({
                         isFriendsWithLoggedInUser: isFriendsWithLoggedInUser,
                         profileData: userData[0],
+                        friendRequestSent: friendRequestSent,
+                        sender: requestSender,
                     });
                 }
             );
@@ -194,7 +234,6 @@ router.post("/getFeedByUser", (req, res) => {
                                         })
                                     );
                                 }
-
                                 res.json({
                                     // respond with friendship status and posts
                                     isFriendsWithLoggedInUser:
@@ -210,6 +249,6 @@ router.post("/getFeedByUser", (req, res) => {
     );
 });
 
-//#endregion PROFILE DATA
+//#endregion ENDPOINTS
 
 module.exports = router;

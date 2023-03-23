@@ -82,6 +82,7 @@ export default class AccountPage extends React.Component {
                     }}
                 >
                     <AccountLeft
+                        onRouteChange={this.props.onRouteChange}
                         userFirstName={userFirstName}
                         userLastName={userLastName}
                         changeSettings={this.changeSettings}
@@ -102,6 +103,7 @@ export default class AccountPage extends React.Component {
                     }}
                 >
                     <AccountSettings
+                        changeGroup={this.componentDidMount}
                         settings={this.state.settings}
                         userFirstName={userFirstName}
                         userLastName={userLastName}

@@ -128,7 +128,7 @@ export default class MyInformation extends React.Component {
                 this.props.refreshData();
             })
             // remount the parent component to refresh profile picture accross the site
-            .then(this.props.remountParent());
+            .then(this.props.remount());
     };
 
     // calls when user updates cover picture
@@ -154,9 +154,7 @@ export default class MyInformation extends React.Component {
             // apply response data to state and refresh the data on the users screen
             .then((res) => {
                 this.setState({ coverPicture: res.coverPicture });
-                this.props.remountParent();
-                // remount the parent component
-                this.props.refreshData();
+                this.props.remount();
             });
     };
 
@@ -182,10 +180,7 @@ export default class MyInformation extends React.Component {
             // turn response into a JSON object
             .then((response) => response.json())
             // remount the parent component and refresh data
-            .then(() => {
-                this.props.remountParent();
-                this.props.refreshData();
-            });
+            .then(this.props.remount());
     };
 
     render() {
@@ -233,6 +228,11 @@ export default class MyInformation extends React.Component {
                         {settings}
                     </Typography>
                     <div style={{ marginTop: "30px", display: "block" }}>
+                        {this.props.updated ? (
+                            <h3 style={{ color: "white" }}>Info updated!</h3>
+                        ) : (
+                            ""
+                        )}
                         <div
                             style={{
                                 display: "flex",
@@ -250,20 +250,22 @@ export default class MyInformation extends React.Component {
                                     alignItems: "center",
                                 }}
                             >
-                                <img
-                                    alt=""
-                                    src={
-                                        process.env.REACT_APP_SERVER +
-                                        "/public/" +
-                                        profilePicture
-                                    }
-                                    width="200px"
-                                    height="150px"
+                                <div
                                     style={{
-                                        boxShadow: "1px 3px 5px 0px black",
-                                        mb: 3,
+                                        backgroundImage:
+                                            "url(" +
+                                            process.env.REACT_APP_SERVER +
+                                            "/public/" +
+                                            profilePicture +
+                                            ")",
+                                        backgroundSize: "cover",
+                                        minWidth: "140px",
+                                        height: "140px",
+                                        marginBottom: "20px",
+                                        border: "1px solid gray",
+                                        borderRadius: "3%",
                                     }}
-                                />
+                                ></div>
                                 <label htmlFor="file-input">
                                     <div
                                         style={{
@@ -275,7 +277,7 @@ export default class MyInformation extends React.Component {
                                             fontSize="large"
                                             sx={{
                                                 mt: 3,
-                                                fontSize: 70,
+                                                fontSize: 30,
                                                 color: "white",
                                                 mr: 1,
                                                 ":hover": { cursor: "pointer" },
@@ -292,6 +294,7 @@ export default class MyInformation extends React.Component {
                                                 bgcolor: "none",
                                                 color: "white",
                                                 ":hover": { cursor: "pointer" },
+                                                textDecorationLine: "underline",
                                             }}
                                         >
                                             Change profile picture
@@ -315,20 +318,22 @@ export default class MyInformation extends React.Component {
                                     alignItems: "center",
                                 }}
                             >
-                                <img
-                                    alt=""
-                                    src={
-                                        process.env.REACT_APP_SERVER +
-                                        "/public/" +
-                                        coverPicture
-                                    }
-                                    width="200px"
-                                    height="150px"
+                                <div
                                     style={{
-                                        boxShadow: "1px 3px 5px 0px black",
-                                        mb: 3,
+                                        backgroundImage:
+                                            "url(" +
+                                            process.env.REACT_APP_SERVER +
+                                            "/public/" +
+                                            coverPicture +
+                                            ")",
+                                        backgroundSize: "cover",
+                                        minWidth: "140px",
+                                        height: "140px",
+                                        marginBottom: "20px",
+                                        border: "1px solid gray",
+                                        borderRadius: "3%",
                                     }}
-                                />
+                                ></div>
                                 <label htmlFor="cover-file-input">
                                     <div
                                         style={{
@@ -340,7 +345,7 @@ export default class MyInformation extends React.Component {
                                             fontSize="large"
                                             sx={{
                                                 mt: 3,
-                                                fontSize: 70,
+                                                fontSize: 30,
                                                 color: "white",
                                                 mr: 1,
                                                 ":hover": { cursor: "pointer" },
@@ -357,6 +362,7 @@ export default class MyInformation extends React.Component {
                                                 bgcolor: "none",
                                                 color: "white",
                                                 ":hover": { cursor: "pointer" },
+                                                textDecorationLine: "underline",
                                             }}
                                         >
                                             Change cover picture

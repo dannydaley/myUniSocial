@@ -14,7 +14,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import FalF from "./../assets/FalF.png";
+// import FalF from "./../assets/FalF.png";
 import SearchBar from "./SearchBar";
 import ShowNotifications from "./navBar/showNotifications";
 import { Link } from "react-router-dom";
@@ -44,8 +44,8 @@ function NavBar({
     ] = useState(false);
 
     const handleProfileMenuOpen = (event) => {
-        showMessagesToggle((showMessages = false));
-        showNotificationsToggle((showNotifications = false));
+        // showMessagesToggle((showMessages = false));
+        // showNotificationsToggle((showNotifications = false));
         setAnchorEl(event.currentTarget);
     };
 
@@ -127,6 +127,12 @@ function NavBar({
             >
                 Sign Out
             </MenuItem>
+            <MenuItem
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={() => onRouteChange("signoutAndDelete")}
+            >
+                Sign Out & Delete Data
+            </MenuItem>
         </Menu>
     );
 
@@ -146,6 +152,7 @@ function NavBar({
                 horizontal: "right",
             }}
             open={isMobileMenuOpen}
+            // onClick={handleProfileMenuOpen}
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
@@ -158,9 +165,20 @@ function NavBar({
                         <MailIcon />
                     </Badge>
                 </IconButton>
-                <p>Messages</p>
+                <Link
+                    to="/messages"
+                    onClick={handleMenuClose}
+                    style={{
+                        textDecoration: "none",
+                        color: "black",
+                        fontSize: 16,
+                        // fontWeight: "bold",
+                    }}
+                >
+                    Messages
+                </Link>
             </MenuItem>
-            Notifications
+
             <MenuItem>
                 <IconButton
                     size="large"
@@ -170,12 +188,37 @@ function NavBar({
                     color="inherit"
                 >
                     <AccountCircle />
+                    <Link
+                        to="/myProfile"
+                        onClick={handleMenuClose}
+                        style={{
+                            textDecoration: "none",
+                            color: "black",
+                            fontSize: 16,
+                            // fontWeight: "bold",
+                        }}
+                    >
+                        My Profile
+                    </Link>
                 </IconButton>
-                <p>
-                    <Link to="/myProfile">My Profile</Link>
-                </p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem>
+                <Link
+                    to="/myAccount"
+                    onClick={handleMenuClose}
+                    style={{
+                        textDecoration: "none",
+                        color: "black",
+                        fontWeight: "bold",
+                    }}
+                >
+                    My Account
+                </Link>
+            </MenuItem>
+            <MenuItem
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={() => onRouteChange("signout")}
+            >
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -185,7 +228,22 @@ function NavBar({
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Sign Out</p>
+                Sign Out
+            </MenuItem>
+            <MenuItem
+                style={{ textDecoration: "none", color: "black" }}
+                onClick={() => onRouteChange("signoutAndDelete")}
+            >
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <AccountCircle />
+                </IconButton>
+                Sign Out & Delete Data
             </MenuItem>
         </Menu>
     );
@@ -196,6 +254,7 @@ function NavBar({
                 <Box
                     sx={{
                         flexGrow: 1,
+                        // justifyItems: "spaceBetween",
                     }}
                 >
                     <AppBar
@@ -240,11 +299,11 @@ function NavBar({
                                             );
                                         }}
                                     >
-                                        <img
+                                        {/* <img
                                             alt=""
                                             src={FalF}
                                             style={{ width: "45px" }}
-                                        />
+                                        /> */}
                                         <img
                                             alt=""
                                             src={myUniSocial}
@@ -264,11 +323,11 @@ function NavBar({
                                             );
                                         }}
                                     >
-                                        <img
+                                        {/* <img
                                             alt=""
                                             src={FalF}
                                             style={{ width: "45px" }}
-                                        />
+                                        /> */}
                                         <img
                                             alt=""
                                             src={myUni404}
@@ -279,7 +338,7 @@ function NavBar({
                                 )}
                             </Typography>
 
-                            <Box sx={{ flexGrow: 0.6 }} />
+                            <Box sx={{ flexGrow: 0.8 }} />
                             <SearchBar platform={platform} />
                             <Box sx={{ flexGrow: 1 }} />
                             <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -355,6 +414,7 @@ function NavBar({
                             </Box>
                         </Toolbar>
                     </AppBar>
+
                     {renderMobileMenu}
                     {renderMenu}
                 </Box>

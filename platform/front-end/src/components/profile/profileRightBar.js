@@ -11,6 +11,7 @@ export default class ProfileRightBar extends React.Component {
             <Container
                 xs={0}
                 sx={{
+                    zIndex: "0",
                     padding: "20px",
                     paddingTop: "110px",
                     display: "flex",

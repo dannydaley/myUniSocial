@@ -64,17 +64,31 @@ export default class ReactionNotification extends React.Component {
                     >
                         {firstName} {lastName}
                     </Link>
-                    <Link to={`/post/${this.props.relativePost}`}>
-                        <p
-                            style={{
-                                width: "60%",
-                                lineBreak: "strict",
-                                marginLeft: "0",
-                            }}
-                        >
-                            {message}
-                        </p>
-                    </Link>
+                    {message === "replied to your question!" ? (
+                        <Link to={`/question/${this.props.relativePost}`}>
+                            <p
+                                style={{
+                                    width: "60%",
+                                    lineBreak: "strict",
+                                    marginLeft: "0",
+                                }}
+                            >
+                                {message}
+                            </p>
+                        </Link>
+                    ) : (
+                        <Link to={`/post/${this.props.relativePost}`}>
+                            <p
+                                style={{
+                                    width: "60%",
+                                    lineBreak: "strict",
+                                    marginLeft: "0",
+                                }}
+                            >
+                                {message}
+                            </p>
+                        </Link>
+                    )}
                 </Button>
             );
         } else {
@@ -92,16 +106,27 @@ export default class ReactionNotification extends React.Component {
                     >
                         <h4 style={{ color: "#217cd8" }}>{firstName}</h4>
                     </Link>
-
-                    <Link to={`/post/${this.props.relativePost}`}>
-                        {" "}
-                        <h4
-                            style={{ color: "#217cd8", marginLeft: "5px" }}
-                            onClick={() => this.setNotificationAsSeen()}
-                        >
-                            {message}
-                        </h4>
-                    </Link>
+                    {message === "replied to your question!" ? (
+                        <Link to={`/question/${this.props.relativePost}`}>
+                            {" "}
+                            <h4
+                                style={{ color: "#217cd8", marginLeft: "5px" }}
+                                onClick={() => this.setNotificationAsSeen()}
+                            >
+                                {message}
+                            </h4>
+                        </Link>
+                    ) : (
+                        <Link to={`/post/${this.props.relativePost}`}>
+                            {" "}
+                            <h4
+                                style={{ color: "#217cd8", marginLeft: "5px" }}
+                                onClick={() => this.setNotificationAsSeen()}
+                            >
+                                {message}
+                            </h4>
+                        </Link>
+                    )}
                     <Button
                         variant="outlined"
                         style={{

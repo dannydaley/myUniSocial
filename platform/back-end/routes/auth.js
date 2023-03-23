@@ -2,14 +2,16 @@ var express = require("express");
 var express = require("express");
 var router = express.Router();
 const db = require("../config/database");
-const { passwordHash, generatePepper } = require("../security");
+const { passwordHash, generateSalt } = require("../security");
 var randomstring = require("randomstring");
 
-//#region SIGN UP & SIGN IN
+//#region SQL QUERIES
 
 const FIND_USER = "SELECT * FROM users WHERE email = ?";
 const SIGN_UP_USER =
-    "INSERT INTO users (email, username, firstName, lastName, password, passwordSalt, aboutMe, course, year, profilePicture, asked, answered) VALUES(?,?,? ,?,?,? ,?,?,? ,?,?,?)";
+    "INSERT INTO users (email, username, firstName, lastName, password, passwordSalt, aboutMe, course, year, profilePicture, asked, answered) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+//#region ENDPOINTS
 
 router.post("/signUp", (req, res) => {
     //set up variables from the request for better readability
@@ -24,7 +26,7 @@ router.post("/signUp", (req, res) => {
     //if both password fields match
     if (signUpPassword === confirmSignUpPassword) {
         //generate salt to store
-        let passwordSalt = generatePepper;
+        let passwordSalt = generateSalt;
         //generate password to store, using password from the confirm field, and the generated salt
         let storePassword = passwordHash(confirmSignUpPassword, passwordSalt);
         //assign default profile picture
@@ -139,9 +141,7 @@ router.post("/signin", (req, res) => {
 
 router.post("/signout", (req, res) => {
     // delete session
-    req.session.destroy(function (err) {
-        console.log(err);
-    });
+    req.session = null;
     // respond with success
     res.json("success");
 });
@@ -163,5 +163,7 @@ router.post("/refreshSessionStatus", (req, res) => {
         res.json("no session");
     }
 });
+
+//#endregion ENDPOINTS
 
 module.exports = router;

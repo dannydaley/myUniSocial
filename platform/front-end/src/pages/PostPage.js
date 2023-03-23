@@ -19,6 +19,7 @@ export default class PostPage extends React.Component {
             likes: 0,
             dislikes: 0,
             images: [],
+            comments: [],
             contentIsLoaded: false,
         };
     }
@@ -42,14 +43,15 @@ export default class PostPage extends React.Component {
             .then((data) => {
                 this.setState({
                     isFriendsWithLoggedInUser: data.isFriendsWithLoggedInUser,
-                    firstName: data.postData.firstName,
-                    lastName: data.postData.lastName,
-                    authorUsername: data.postData.author,
-                    profilePicture: data.postData.profilePicture,
-                    content: data.postData.content,
-                    likes: data.postData.likes,
-                    dislikes: data.postData.dislikes,
-                    images: data.postData.images,
+                    firstName: data.postData[0].firstName,
+                    lastName: data.postData[0].lastName,
+                    authorUsername: data.postData[0].author,
+                    profilePicture: data.postData[0].profilePicture,
+                    content: data.postData[0].content,
+                    likes: data.postData[0].likes,
+                    dislikes: data.postData[0].dislikes,
+                    images: data.postData[0].images,
+                    comments: data.postData,
                     contentIsLoaded: true,
                 });
                 // look for notifications
@@ -118,6 +120,9 @@ export default class PostPage extends React.Component {
                             likes={this.state.likes}
                             dislikes={this.state.dislikes}
                             onRouteChange={onRouteChange}
+                            comments={this.state.comments}
+                            changeCircle={this.props.changeCircle}
+                            circle={this.props.circle}
                         />
                     </Grid>
                     <Grid

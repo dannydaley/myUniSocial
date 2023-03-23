@@ -43,6 +43,7 @@ export default class Question extends React.Component {
                     <CardContent>
                         <div
                             style={{
+                                width: "1000px",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "top",
@@ -120,23 +121,12 @@ export default class Question extends React.Component {
                         </div>
                     </CardContent>
                     <CardActions>
-                        <Button
-                            size="small"
-                            onClick={() =>
-                                this.goToQuestion(
-                                    this.props.authorProfilePicture,
-                                    this.props.title,
-                                    this.props.poster,
-                                    this.props.question,
-                                    this.props.code,
-                                    this.props.postID,
-                                    this.props.language,
-                                    this.props.authorID
-                                )
-                            }
+                        <Link
+                            to={`/question/${this.props.postID}`}
+                            style={{ textDecoration: "none" }}
                         >
-                            Read More
-                        </Button>
+                            <Button size="small">Read More</Button>
+                        </Link>
                         <div
                             style={{
                                 marginLeft: "auto",

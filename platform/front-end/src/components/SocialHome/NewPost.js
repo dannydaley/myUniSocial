@@ -2,7 +2,6 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import ImageIcon from "@mui/icons-material/Image";
 import SendIcon from "@mui/icons-material/Send";
-import Divider from "@mui/material/Divider";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/system";
 import { switchUnstyledClasses } from "@mui/base/SwitchUnstyled";
@@ -125,6 +124,7 @@ export default class NewPost extends React.Component {
         if (this.props.recipient === undefined) {
             recipient = "none";
         }
+        document.getElementById("filled-textarea").value = "";
         formData.append("username", this.props.loggedInUsername);
         formData.append("postContent", this.state.postContent);
         formData.append("postStrict", this.state.postStrict);
@@ -134,6 +134,7 @@ export default class NewPost extends React.Component {
             .post(process.env.REACT_APP_SERVER + "/posts/newPost", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 body: JSON.stringify({
+                    relativePostId: 0,
                     username: this.props.loggedInUsername,
                     postData: this.state,
                     circle: this.props.circle,
@@ -148,11 +149,18 @@ export default class NewPost extends React.Component {
 
     render() {
         return (
-            <div style={{ marginTop: "20px" }}>
+            <div
+                style={{
+                    marginTop: "20px",
+                    backgroundColor: "#292929",
+                    padding: "20px",
+                    borderRadius: "10px",
+                }}
+            >
                 <label htmlFor="file-input">
                     <ImageIcon
                         fontSize="large"
-                        sx={{ mt: 3, fontSize: 70, color: "white", mr: 2 }}
+                        sx={{ mt: 2, fontSize: 35, color: "white", mr: 2 }}
                     />
                 </label>
                 <input
@@ -172,6 +180,7 @@ export default class NewPost extends React.Component {
                         padding: 0,
                     }}
                     sx={{ mt: 2, mr: 2, p: 0 }}
+                    size="small"
                     id="filled-textarea"
                     label="New Post"
                     placeholder="I've got something to say!"
@@ -183,6 +192,7 @@ export default class NewPost extends React.Component {
                     endIcon={<SendIcon />}
                     loadingPosition="end"
                     variant="contained"
+                    size="small"
                     sx={{
                         backgroundColor: "#f5c732",
                         mb: 3,
@@ -190,19 +200,6 @@ export default class NewPost extends React.Component {
                 >
                     Post
                 </LoadingButton>
-                {/* <div style={{margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography
-                  sx={{fontWeight: 'bold', color: 'white'}}
-                  title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)">
-                    post strict
-                </Typography>
-                <SwitchUnstyled
-                  component={this.Root}
-                  {...this.label}
-                  onChange={this.onStrictChange}
-                  title="Posting strict keeps the post off of the general feed if posting to a circle. (has no affect on general or profiles)" /></div>                      */}
-
-                <Divider variant="middle" sx={{ mt: 5 }} />
             </div>
         );
     }

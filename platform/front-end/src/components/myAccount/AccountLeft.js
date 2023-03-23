@@ -26,7 +26,6 @@ export default class AccountLeft extends React.Component {
             >
                 <Link to="/myProfile">
                     <div
-                        onClick={() => this.props.changeRoute("myProfile")}
                         style={{
                             backgroundImage:
                                 "url(" +
@@ -101,7 +100,113 @@ export default class AccountLeft extends React.Component {
                     >
                         My login
                     </Button>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            fontSize: 12,
+                            padding: 0,
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "gray",
+                            color: "red",
+                            "&:hover": { backgroundColor: "black" },
+                        }}
+                        size="medium"
+                        onClick={() =>
+                            this.props.onRouteChange("signoutAndDelete")
+                        }
+                    >
+                        Delete Account
+                    </Button>
                 </Stack>
+
+                <a
+                    style={{ marginTop: "auto", textDecoration: "none" }}
+                    href={
+                        "https://eu.jotform.com/sign/230583571284055/invite/01gtc87ce613aaf304a8d0d908"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Consent Form
+                    </Button>
+                </a>
+                <a
+                    style={{ marginTop: "10px", textDecoration: "none" }}
+                    href={
+                        "https://forms.office.com/Pages/ResponsePage.aspx?id=s-4LVT1qRkahEfidAXd5LnDKbBdyf5JGo-fKf-5dPR9URUMzRFE5RkQ4QjZRTVBaRzUzMlBFNFYxOC4u"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Research Form
+                    </Button>
+                </a>
+                <a
+                    style={{ marginTop: "auto", textDecoration: "none" }}
+                    href={
+                        process.env.REACT_APP_SERVER +
+                        "/public/privacy-policy.html"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Privacy Policy
+                    </Button>
+                </a>
+
+                <a
+                    style={{ marginTop: "20px", textDecoration: "none" }}
+                    href={
+                        process.env.REACT_APP_SERVER +
+                        "/public/cookie-policy.html"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "100%",
+                            height: "30px",
+                            backgroundColor: "#f5c732",
+                            "&:hover": { backgroundColor: "gray" },
+                        }}
+                        size="small"
+                    >
+                        Cookie Policy
+                    </Button>
+                </a>
             </Container>
         );
     }

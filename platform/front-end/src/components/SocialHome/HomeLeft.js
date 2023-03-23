@@ -2,8 +2,6 @@ import * as React from "react";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
 import myUni404 from "../../assets/myUni404small.png";
 import { Link } from "react-router-dom";
 
@@ -25,7 +23,7 @@ export default class HomeLeft extends React.Component {
                 user: this.props.loggedInUsername,
             }),
         })
-            //TURN THE RESPONSE INTO A JSON OBJECT
+            //turn the response into a json object
             .then((response) => response.json())
             // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
             .then((data) => {
@@ -55,7 +53,6 @@ export default class HomeLeft extends React.Component {
             >
                 <Link to="/myProfile">
                     <div
-                        // onClick={() => this.props.changeRoute("myProfile")}
                         style={{
                             backgroundImage:
                                 "url(" +
@@ -77,7 +74,12 @@ export default class HomeLeft extends React.Component {
                         key={1}
                         spacing={2}
                         direction="column"
-                        sx={{ width: "80%", margin: "0 auto" }}
+                        sx={{
+                            width: "90%",
+                            margin: "0 auto",
+                            overflowY: "scroll",
+                            marginBottom: "30px",
+                        }}
                     >
                         <Button
                             variant="contained"
@@ -92,95 +94,57 @@ export default class HomeLeft extends React.Component {
                         >
                             GENERAL
                         </Button>
-                        {this.state.circles.map((circle) =>
-                            circle.length >= 2 ? (
-                                <Button
-                                    key={Math.random() * 1000}
-                                    variant="contained"
-                                    sx={{
-                                        width: "100%",
-                                        height: "30px",
-                                        backgroundColor: "#f5c732",
-                                        "&:hover": { backgroundColor: "gray" },
-                                    }}
-                                    size="medium"
-                                    onClick={() =>
-                                        this.props.changeCircle(`${circle}`)
-                                    }
-                                >
-                                    {circle}
-                                </Button>
-                            ) : (
-                                ""
+                        {this.state.circles.length >= 2 ? (
+                            this.state.circles.map((circle) =>
+                                circle.length >= 2 ? (
+                                    <Button
+                                        key={Math.random() * 1000}
+                                        variant="contained"
+                                        sx={{
+                                            width: "100%",
+                                            height: "30px",
+                                            backgroundColor: "#f5c732",
+                                            "&:hover": {
+                                                backgroundColor: "gray",
+                                            },
+                                        }}
+                                        size="medium"
+                                        onClick={() =>
+                                            this.props.changeCircle(`${circle}`)
+                                        }
+                                    >
+                                        {circle}
+                                    </Button>
+                                ) : (
+                                    ""
+                                )
                             )
+                        ) : (
+                            <div>
+                                <p style={{ color: "white" }}>
+                                    Follow modules in{" "}
+                                    <span
+                                        style={{
+                                            color: "#f5c732",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        <Link
+                                            to="/myAccount"
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#f5c732",
+                                            }}
+                                        >
+                                            account settings
+                                        </Link>
+                                    </span>
+                                </p>
+                            </div>
                         )}
                     </Stack>
                 ) : (
-                    <div>
-                        <React.Fragment>
-                            <CssBaseline />
-                            <Container
-                                position="fixed"
-                                maxWidth="sm"
-                                sx={{
-                                    position: "fixed",
-                                    bgcolor: "#343434",
-                                    border: "",
-                                    display: "flex",
-                                    height: "80vh",
-                                    width: 300,
-                                    mt: 16,
-                                    flexDirection: "column",
-                                    justifyContent: "flex-start",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Box sx={{ padding: 2, bgcolor: "none" }}>
-                                    <Link to="/myProfile">
-                                        <div
-                                            style={{
-                                                backgroundImage:
-                                                    "url(" +
-                                                    process.env
-                                                        .REACT_APP_SERVER +
-                                                    "/public/" +
-                                                    userProfilePicture +
-                                                    ")",
-                                                backgroundSize: "cover",
-                                                minWidth: "120px",
-                                                height: "120px",
-                                                marginBottom: "50px",
-                                                border: "1px solid gray",
-                                                borderRadius: "50%",
-                                                width: "200px",
-                                                ":hover": { cursor: "pointer" },
-                                            }}
-                                        ></div>
-                                    </Link>
-                                    <Stack
-                                        spacing={2}
-                                        sx={{
-                                            width: 200,
-                                            margin: "50px auto 0",
-                                        }}
-                                    >
-                                        <Button
-                                            variant="contained"
-                                            onClick={() =>
-                                                changeCircle("general")
-                                            }
-                                            sx={{
-                                                width: 200,
-                                                margin: "0 auto",
-                                            }}
-                                        >
-                                            GENERAL
-                                        </Button>
-                                    </Stack>
-                                </Box>
-                            </Container>
-                        </React.Fragment>
-                    </div>
+                    ""
                 )}
                 <Link
                     to="/myuni404/feed/Web"

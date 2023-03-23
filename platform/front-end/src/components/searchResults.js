@@ -95,6 +95,7 @@ export default class SearchResults extends React.Component {
                                     color: "black",
                                     marginBottom: "10px",
                                 }}
+                                onClick={() => this.props.deleteInput()}
                             >
                                 <div
                                     style={{
@@ -198,32 +199,31 @@ export default class SearchResults extends React.Component {
                                             )
                                         }
                                     ></div>
-                                    <Typography
-                                        variant="h7"
+                                    <Link
                                         sx={{
-                                            maxWidth: "400px",
-                                            marginLeft: "10px",
-                                            color: "white",
-                                            ":hover": {
-                                                textDecoration: "underline",
-                                            },
-                                            fontWeight: "bold",
+                                            textDecoration: "none",
+                                            margin: "0 auto",
                                         }}
-                                        onClick={() =>
-                                            this.goToQuestion(
-                                                item.authorProfilePicture,
-                                                item.title,
-                                                item.poster,
-                                                item.question,
-                                                item.code,
-                                                item.postID,
-                                                item.language,
-                                                item.authorID
-                                            )
-                                        }
+                                        to={`/question/${item.postID}`}
                                     >
-                                        {item.title}
-                                    </Typography>
+                                        <Typography
+                                            variant="h7"
+                                            sx={{
+                                                maxWidth: "400px",
+                                                marginLeft: "10px",
+                                                color: "white",
+                                                ":hover": {
+                                                    textDecoration: "underline",
+                                                },
+                                                fontWeight: "bold",
+                                            }}
+                                            onClick={() =>
+                                                this.props.deleteInput()
+                                            }
+                                        >
+                                            {item.title}
+                                        </Typography>
+                                    </Link>
                                 </div>
                             ) : (
                                 ""

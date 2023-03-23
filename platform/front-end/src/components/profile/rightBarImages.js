@@ -2,6 +2,7 @@ import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import CircularProgress from "@mui/material/CircularProgress";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default class RightBarImages extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export default class RightBarImages extends React.Component {
         this.state = {
             imagesAreLoaded: false,
             loggedInUsername: this.props.loggedInUsername,
-            showingImage: false,
+            showImage: false,
         };
     }
 
@@ -26,6 +27,12 @@ export default class RightBarImages extends React.Component {
 
     images = [];
 
+    currentImage;
+
+    openImage = (image) => {
+        this.currentImage = image;
+        this.setState({ showImage: true });
+    };
     formatPictures = (imageData) => {
         let counter = 2;
         imageData.forEach((element) => {
@@ -71,12 +78,8 @@ export default class RightBarImages extends React.Component {
             });
     };
 
-    showImage = () => {
-        this.setState({ showImage: true });
-    };
-
     render() {
-        const { imagesAreLoaded } = this.state;
+        const { imagesAreLoaded, showImage } = this.state;
         if (!imagesAreLoaded) {
             return (
                 <ImageList sx={{}} variant="quilted" cols={1} rowHeight={121}>
@@ -103,12 +106,48 @@ export default class RightBarImages extends React.Component {
                                           )}
                                           alt={item.title}
                                           loading="lazy"
-                                          onClick={() => this.showImage()}
+                                          onClick={() =>
+                                              this.openImage(item.img)
+                                          }
                                       />
                                   </ImageListItem>
                               ))
                             : ""}
                     </ImageList>
+                    {showImage ? (
+                        <div
+                            style={{
+                                paddingTop: "50px",
+                                position: "fixed",
+                                zIndex: 1,
+                                top: 0,
+                                left: 240,
+                                height: "100vh",
+                                width: "73vw",
+                                backgroundColor: "rgba(0,0,0,0.8)",
+                            }}
+                            onClick={() => this.setState({ showImage: false })}
+                        >
+                            <img
+                                alt=""
+                                src={this.currentImage}
+                                style={{ marginTop: "150px" }}
+                                height={"600px"}
+                            />
+                            <CloseIcon
+                                sx={{
+                                    color: "white",
+                                    size: "200px",
+                                    position: "fixed",
+                                    marginTop: "2%",
+                                    right: 300,
+                                    "&:hover": { cursor: "pointer" },
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        ""
+                    )}
                 </>
             );
         }

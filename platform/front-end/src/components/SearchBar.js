@@ -71,6 +71,11 @@ export default class SearchBar extends React.Component {
         this.setState({ newInput: true, renderChild: true });
     };
 
+    deleteInput = () => {
+        this.setState({ searchInput: "" });
+        document.getElementById("search-bar").value = "";
+    };
+
     render() {
         return (
             <>
@@ -79,6 +84,7 @@ export default class SearchBar extends React.Component {
                         <SearchIcon />
                     </this.SearchIconWrapper>
                     <this.StyledInputBase
+                        id="search-bar"
                         onChange={this.onInputChange}
                         placeholder="Search…"
                         inputProps={{ "aria-label": "search" }}
@@ -87,6 +93,7 @@ export default class SearchBar extends React.Component {
                     this.state.newInput &&
                     this.state.searchInput.length > 2 ? (
                         <SearchResults
+                            deleteInput={this.deleteInput}
                             platform={this.props.platform}
                             searchInput={this.state.searchInput}
                             unmountMe={this.handleChildUnmount}

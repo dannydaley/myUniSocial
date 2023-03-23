@@ -435,11 +435,132 @@ Social Media, Social Networking, Higher Education.
 	My work will be original and free of plagiarism or any research misconduct, my research results will be accurately represented.
 
 \section{Expected Outcomes}
+
+
  Users will prefer the prototype platform over the one currently in place. I expect this to be due to a more
  feature-rich environment, 
  especially to those within computing disciplines as the integration of myUni404 will cater for them directly. Users will find it easier to find their 
  cohort and socialise in an online setting, while finding it easier to find local, university and student events and updates.
-%\section*{Acknowledgments}
+
+
+ \section{Computing Artefact}
+ \subsection{Development}
+ Merging both systems and completing development went as planned and there wasnt any unexpected changes to scope.
+
+ Features that were expected to work on the platform were implemented and the platform had all of the features that would be generally expected of a social media platform 
+ apart from some extended features like video and voice chat which tends to be quite common place on most modern systems.
+
+
+ \subsection{Refactoring}
+ Although many of the sites components were previously built, either as part of myCircle \cite{myCircle} or myUni404 \cite{myUni404}, many were still slightly redesigned or refactored. Among these elements were the basic UI layout grid (FIGURE), moving away from a layout which used three sections whos size were dictated by pixel measurements into a leaner layout that uses an invisible 
+ to evenly distribute portions of the screen, allowing for a uniform design to be acheived across differing screen sizes and resolutions.
+
+The previous chat system used to work in such a way that the text window was updated every 30 minutes or so and was an increased load on the server. The new system uses websockets to create a chat room which 2 users can instant message within. This allows for real time updates and is more in keeping with modern standards.
+
+ Aside from a user interface refactor, the server code was also subject to a large refactor. Previously one big file containing around 1200 lines of myCircle \cite{myCircle} server code, was split into individual files containing endpoints grouped by what kind of functionality they would provide, ie. endpoints that change the users first name, that change the users profile picture, password changing would be in the Account settings file, and so on.
+
+ \subsection{Features}
+
+ The final prototype platform boasts the majority of features one would expect from a social media platform. After signing up with basic credentials, such as an email address and password,
+ new users can log in and start updating their account. They can customize their profile picture, profile cover picture, display name, about me section, location, password, manage friendships
+ and the modules they follow through their account settings.
+ 
+ Once a user follows a module, it appears in the left bar on the main feed screen. Users can switch between followed modules to view content and discussions related to each specific module
+ or the ``general" tab to see all updates from friends and modules in an unfiltered or unsorted fashion. Each module has its own dedicated profile, similar to users, and users are automatically
+ accepted as `friends' with these modules. This enables them to see official posts and updates. Users can comment on both module and user posts to encourage further discussion and collaboration.
+
+ Users can enjoy the improved instant messaging system, accessed through the chat icon on the top bar, which utilizes web sockets for real-time messaging and window updates. Additionally, users
+ can access the student portal through the self-titled buton on the left bar on the main feed window, allowing users to access the rest of their student tools and resources.
+
+ For users interested in computing disciplines, the myUni404 section of the platform is available to ask tech-related questions with the added function of including code snippets for others to 
+ review and answer. Replies to these questions can also include code snippets to help the original poster identify their mistake and refactor accordingly. Users can post myUni404 questions into 
+ their chosen field, such as Web, Game Development, Robotics and Systems/OS, and use a syntax highlighter that supports many programming languages, such as C++ and Javascript.
+
+ Users receive alert notifications for likes on their posts, comments, friend requests, messages and question replies. They can also choose to log out and delete their data if they do not intend
+ to use the platform any further. Sessions were added to enable users to leave and return to the platform wihout having to log back in. Cookie and privacy policies can be found in the site
+ footer on the login and sign-up pages, as well as in the account settings section. The website operates securely over the HTTPS protocol.
+
+ \subsection{Testing}
+
+\section{Results}
+\subsection{Data Analyses}
+Here I would outline some diagrams of my data analysis
+\begin{table}                                      
+\begin{tabular}{ll}\hline
+	\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\Question.\\ \\
+\end{tabular}} & \multicolumn{1}{l|}{Student Portal}{Prototype Platform} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ Rate the difficulty of finding course related content on the\\ platform.\\ \\                                      
+\end{tabular}} & \multicolumn{1}{l|}{4.76}{5.53}\\  \hline                                   
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ Rate the difficulty of finding a forum/conversation regarding\\ your\\ modules on the platform.\\ \\
+\end{tabular}} & \multicolumn{1}{l|}{2.61}{5.23} \\ \hline                                  
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ Rate the difficulty of accessing your account settings on the\\ platform.\\ \\
+\end{tabular}} & \multicolumn{1}{l|}{4.80}{6.11} \\ \hline                                   
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ Rate how much you feel the platform might benefit your\\ education.\\ \\
+\end{tabular}} & \multicolumn{1}{l|}{5.38}{6} \\ \hline                                  
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ Rate how much you feel the platform might benefit social life\\ at university.
+\end{tabular}} & \multicolumn{1}{l|}{2.88}{5.03} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ How likely are you to engage with the community on this\\ platform?\\ \\                                   
+\end{tabular}}& \multicolumn{1}{l|}{2.69}{5} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}\\ How likely are you to engage with course related material on\\ this platform?\\ \\                                  
+\end{tabular}} & \multicolumn{1}{l|}{5.88}{5.80}  \\ \hline                               
+\end{tabular}
+\end{table}  
+\begin{figure}[h!]
+	\includegraphics[width=\linewidth]{images/PrototypeFull.png}
+	\caption{All quantitative question scores for prototype platform}
+	\label{figure 3}
+\end{figure}
+\begin{figure}[h!]
+	\includegraphics[width=\linewidth]{images/StudentPortalFull.png}
+	\caption{All quantitative question scores for the student portal}
+	\label{figure 4}
+\end{figure}
+
+\section{Discussion}
+
+This section is probably most important, it forms the core of your argument and synthesizes the supporting evidence for it, but it also tends to be the section that is most often neglected. Remember to remember such limitations such Learning space materials not being available for redistribution and users not being automatically signed up like when starting university.
+
+\subsection{Contextualization and Broadening}
+\subsection{Impact or Potential Impact}
+\subsection{Implications for Research, Theory, and/or Practice}
+\subsection{Limitations}
+As we dont have access to student records and things like that, accounts couldnt be made in advance and required users to create accounts,
+this isnt the case with the learning space and could have hampered results.
+
+
+As we couldnt get all of the learning space materials because of copyright, we were comparing a literal (learning space) with a hypothetical (prototype platform).
+
+
+Again with the modules, having a restricted view of modules available being on my computer science course of study, I could only add the modules to the platform
+that I know about. Some users noted that some of their modules were missing which I feel ultimately hampered my results.
+
+Not being able to use official university logo's gave the platform a third party social media site feel which could have left users feeling like it was just another site to 
+watch over and manage
+
+
+\begin{itemize}
+	\item Reiterate the research problem and scope
+	\item State and synthesize the major findings.
+	\item Explain the meaning of the findings.
+	\item Relate the findings to prior art and studies.
+	\item Defend the interpretation, considering alternatives.
+	\item Articulate the broader implications for research, theory, and/or practice.
+	\item Suggest directions for future research.
+
+		\end{itemize}
+
+
+
+
+
+\subsection{Answers to the Research question(s)}
+\subsection{Recommendations}
+\section{Future Work}
+	If this study were to be continued and explored further, there are areas that could certainly be reiterated to increase the studies accuracy. Having the support of the institution would be extremely helpful in regards to building something that could plug directly into the student records and remove the requirement for user sign up, allowing for pre-made user accounts, automatically populated modules and access to the full and proper course content.
+
+
+\section{Conclusion}
+ %\section*{Acknowledgments}
  %   This should be a simple paragraph before the References to thank those individuals and
  %   institutions who have supported your work on this article.
 
@@ -597,6 +718,19 @@ Vol 45, No 5, 2014.
 % starts a section numbered zero.)}
 \appendices
 \newpage
+\section{Acknowledgements}
+Here I give my thanks to participants and staff that helped make this project
+
+
+\section{Reflective Report}
+	Here I give my reflective addendum, things I could have done better and discuss my limitations etc approx 2000 words.
+
+
+\section{Artefact testing addendum}
+
+
+\section{Full R code}
+\newpage
 \onecolumn
 \section{{UML Diagram}}
 \begin{figure}[h!]
@@ -616,6 +750,9 @@ Vol 45, No 5, 2014.
 
  %	\end{tabular}
 \end{figure}
+\section{Refactoring of code}
+
+\section{Full page screenshots of artefact}
 \clearpage
 
 \section{R Studio Testing procedure}

@@ -46,12 +46,16 @@ export default class NoQuestions extends React.Component {
                             >
                                 No questions yet :(
                             </Typography>
-                            <Typography
-                                variant="body2"
-                                sx={{ textAlign: "left", color: "white" }}
-                            >
-                                Try posting one!
-                            </Typography>
+                            {this.props.fromProfile ? (
+                                ""
+                            ) : (
+                                <Typography
+                                    variant="body2"
+                                    sx={{ textAlign: "left", color: "white" }}
+                                >
+                                    Try posting one!
+                                </Typography>
+                            )}
                         </div>
                     </CardContent>
                 </Card>

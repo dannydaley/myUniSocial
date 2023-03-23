@@ -18,11 +18,14 @@ export default class ProfilePage extends React.Component {
             profilePicture: "",
             coverPicture: "",
             contentIsLoaded: false,
+            friendRequestSent: false,
+            requestSender: "",
         };
     }
 
     // calls when component mounts
     componentDidMount = () => {
+        this.setState({ contentIsLoaded: false });
         // change nav bar logo to social
         this.props.SwitchPlatform("myUniSocial");
         // request user profile data from server
@@ -45,6 +48,8 @@ export default class ProfilePage extends React.Component {
                     aboutMe: data.profileData.aboutMe,
                     profilePicture: data.profileData.profilePicture,
                     coverPicture: data.profileData.coverPicture,
+                    friendRequestSent: data.friendRequestSent,
+                    requestSender: data.sender,
                     contentIsLoaded: true,
                 });
                 // check for notifications
@@ -64,6 +69,7 @@ export default class ProfilePage extends React.Component {
             }),
             // turn response into a JSON object
         }).then((response) => response.json());
+        this.componentDidMount();
     };
 
     render() {
@@ -75,8 +81,13 @@ export default class ProfilePage extends React.Component {
             userLastName,
             userProfilePicture,
         } = this.props;
-        const { contentIsLoaded, coverPicture, isFriendsWithLoggedInUser } =
-            this.state;
+        const {
+            contentIsLoaded,
+            coverPicture,
+            isFriendsWithLoggedInUser,
+            friendRequestSent,
+            requestSender,
+        } = this.state;
         if (contentIsLoaded) {
             return (
                 <Grid
@@ -97,6 +108,9 @@ export default class ProfilePage extends React.Component {
                         }}
                     >
                         <ProfileLeftBar
+                            loggedInUsername={loggedInUsername}
+                            friendRequestSent={friendRequestSent}
+                            requestSender={requestSender}
                             userProfileToGet={userProfileToGet}
                             sendFriendRequest={this.sendFriendRequest}
                             userFirstName={userFirstName}
@@ -115,7 +129,7 @@ export default class ProfilePage extends React.Component {
                         md={6}
                         sx={{
                             backgroundColor: "#292929",
-                            paddingRight: { xs: "30px" },
+                            paddingRight: { xs: "0px", md: "25px" },
                             margin: "0 auto",
                             marginTop: { xs: "-20px" },
                             paddingBottom: "50px",

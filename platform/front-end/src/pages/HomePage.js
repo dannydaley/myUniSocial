@@ -1,8 +1,14 @@
-import React from "react";
+import * as React from "react";
 import Grid from "@mui/material/Grid"; // Grid version 1
 import HomeLeft from "../components/SocialHome/HomeLeft";
 import Feed from "../components/SocialHome/Feed";
 import HomeRight from "../components/SocialHome/HomeRight";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import MoreIcon from "@mui/icons-material/MoreVert";
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -12,6 +18,7 @@ export default class HomePage extends React.Component {
             circleLoaded: true,
             posts: [],
             dataIsLoaded: false,
+            showCircles: false,
         };
     }
 
@@ -39,12 +46,20 @@ export default class HomePage extends React.Component {
         })
             //TURN THE RESPONSE INTO A JSON OBJECT
             .then((response) => response.json())
-            .then(await this.delayFunction())
+            // .then(await this.delayFunction())
             // WHAT WE DO WITH THE DATA WE RECEIVE (data => console.log(data)) SHOULD SHOW WHAT WE GET
             .then((data) => {
+                let posts = [];
+                let comments = [];
+                data.posts.forEach((element) => {
+                    element.relativePostId > 0
+                        ? comments.push(element)
+                        : posts.push(element);
+                });
                 this.setState({
                     circle: newCircle,
-                    posts: data.posts,
+                    posts: posts,
+                    comments: comments,
                     dataIsLoaded: true,
                 });
 
@@ -57,7 +72,7 @@ export default class HomePage extends React.Component {
 
         this.props.SwitchPlatform("myUniSocial");
     }
-    // //CHANGE CIRCLE SHOULD BE REMOVED AND JUST CALL GET FEED INSTEAD, THIS IS AN UNNESSECARY MIDDLE MAN
+
     changeCircle = (newCircle) => {
         this.getFeed(newCircle);
     };
@@ -109,8 +124,33 @@ export default class HomePage extends React.Component {
                         minHeight: "100vh",
                     }}
                 >
+                    {this.state.showCircles ? (
+                        <div
+                            style={{
+                                backgroundColor: "white",
+                                position: "absolute",
+                                marginTop: "300px",
+                                zIndex: 100,
+
+                                bottom: 0,
+                            }}
+                        >
+                            <HomeLeft
+                                changeCircle={this.changeCircle}
+                                onRouteChange={onRouteChange}
+                                userProfilePicture={userProfilePicture}
+                                loggedInUsername={loggedInUsername}
+                            />
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
                     <Feed
+                        onClick={() => this.setState({ showCircles: false })}
+                        style={{ zIndex: 10 }}
                         posts={this.state.posts}
+                        comments={this.state.comments}
                         circle={this.state.circle}
                         changeCircle={this.changeCircle}
                         getNotifications={getNotifications}
@@ -122,6 +162,43 @@ export default class HomePage extends React.Component {
                         userProfilePicture={userProfilePicture}
                         dataIsLoaded={this.state.dataIsLoaded}
                     />
+                    <AppBar
+                        position="fixed"
+                        color="primary"
+                        sx={{
+                            zIndex: 1000,
+                            backgroundColor: "#f5c732",
+                            top: "auto",
+                            bottom: 0,
+                            display: { xs: "block", md: "none" },
+                        }}
+                    >
+                        <Toolbar>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                            >
+                                <MenuIcon
+                                    onClick={() =>
+                                        this.setState({
+                                            showCircles:
+                                                !this.state.showCircles,
+                                        })
+                                    }
+                                />
+                            </IconButton>
+                            {/* <StyledFab color="secondary" aria-label="add">
+                                <AddIcon />
+                            </StyledFab> */}
+                            <Box sx={{ flexGrow: 1 }} />
+                            {/* <IconButton color="inherit">
+                                <SearchIcon />
+                            </IconButton> */}
+                            <IconButton color="inherit">
+                                <MoreIcon />
+                            </IconButton>
+                        </Toolbar>
+                    </AppBar>
                 </Grid>
                 <Grid
                     item

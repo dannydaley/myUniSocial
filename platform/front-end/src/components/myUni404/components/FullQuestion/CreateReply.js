@@ -15,7 +15,7 @@ export default class CreateReply extends React.Component {
         this.state = {
             authorID: this.props.userID,
             author: this.props.userFirstName + " " + this.props.userLastName,
-            title: "reply",
+            title: this.props.title,
             relativePostID: this.props.relativePostID,
             text: "",
             code: "",
@@ -55,12 +55,16 @@ export default class CreateReply extends React.Component {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    authorID: this.props.loggedInUsername,
-                    author: this.state.author,
-                    title: this.state.title,
+                    loggedInUsername: this.props.loggedInUsername,
+                    authorID: this.props.authorID,
+                    author:
+                        this.props.userFirstName +
+                        " " +
+                        this.props.userLastName,
+                    title: this.props.title,
                     text: this.state.text,
                     code: this.state.code,
-                    relativePostID: this.state.relativePostID,
+                    relativePostID: this.props.relativePostID,
                     language: this.state.language,
                     category: this.state.category,
                     authorProfilePicture: this.props.userProfilePicture,
@@ -71,7 +75,9 @@ export default class CreateReply extends React.Component {
                 // apply response data to state and refresh question
                 .then((data) => {
                     if (data.status === "success") {
-                        this.props.refreshQuestion();
+                        window.location.replace(
+                            "/question/" + this.props.relativePostID
+                        );
                     }
                 });
         }
@@ -149,6 +155,7 @@ export default class CreateReply extends React.Component {
                                 }}
                             >
                                 <textarea
+                                    id="text"
                                     spellcheck="true"
                                     style={{
                                         width: "90%",

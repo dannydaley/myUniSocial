@@ -145,7 +145,7 @@ export default class App extends Component {
                 });
         } else if (route === "home") {
             if (!this.state.socketId) {
-                // const socket = io.connect(process.env.REACT_APP_SERVER);
+                this.socket = io.connect(process.env.REACT_APP_SERVER);
                 this.socket.on("connect", () => {
                     this.setState({
                         socketId: this.socket.id,
@@ -156,11 +156,36 @@ export default class App extends Component {
                     username: this.state.loggedInUsername,
                 });
                 this.socket.on("connect_error", () => {
-                    console.log("error");
-                    setTimeout(() => this.socket.connect(), 3001);
+                    setTimeout(() => this.socket.connect(), 9030);
                 });
             }
             this.setState({ isSignedIn: true });
+        } else if (route === "signoutAndDelete") {
+            if (window.confirm("this will delete your data")) {
+                let input = prompt("type 'delete' to delete your data");
+                fetch(
+                    process.env.REACT_APP_SERVER + "/account/signoutAndDelete",
+                    {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            input: input,
+                            userId: this.state.loggedInUsername,
+                        }),
+                    }
+                ) //TURN THE RESPONSE INTO A JSON OBJECT
+                    .then((response) => response.json())
+                    // WHAT WE DO WITH THE DATA WE RECEIVE (data => (data)) SHOULD SHOW WHAT WE GET
+                    .then((data) => {
+                        if (data === "success deleting user data") {
+                            this.onRouteChange("signout");
+                        } else if (data === "incorrent password") {
+                            alert("Incorrect password");
+                        }
+                    });
+            }
         }
         this.setState({ route: route });
     };
@@ -375,6 +400,7 @@ export default class App extends Component {
                                             userCoverPicture={
                                                 this.state.userCoverPicture
                                             }
+                                            onRouteChange={this.onRouteChange}
                                         />
                                     }
                                 />
@@ -473,6 +499,9 @@ export default class App extends Component {
                                             }
                                             userLastName={
                                                 this.state.userLastName
+                                            }
+                                            loggedInUsername={
+                                                this.state.loggedInUsername
                                             }
                                         />
                                     }

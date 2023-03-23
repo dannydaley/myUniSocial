@@ -1,6 +1,6 @@
 //This component handles the image aside from the login/sign up form.
 import myUniSocial from "../../assets/myUniSocial.png";
-import falUni from "../../assets/falLogo.png";
+// import falUni from "../../assets/falLogo.png";
 
 function SignInLeft() {
     return (
@@ -13,11 +13,11 @@ function SignInLeft() {
                 alignItems: "center",
             }}
         >
-            <img alt="" src={falUni} style={{ width: "30vw" }} />
+            {/* <img alt="" src={falUni} style={{ width: "30vw" }} /> */}
             <img
                 alt=""
                 src={myUniSocial}
-                style={{ width: "15vw", marginBottom: "5px" }}
+                style={{ width: "30vw", marginBottom: "5px" }}
             />
         </div>
     );
