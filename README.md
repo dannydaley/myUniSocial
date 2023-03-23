@@ -79,19 +79,15 @@ myUniSocial is a service for universities to assist in the social and learning a
 -   "uuid": "^3.4.0"
     ###Database
 
-### Database table setup
+## Database table setup
 
 ### Table Structure
 
 #### Table: users
 
-| id  | firstName | lastName | username      | email                | password   | passwordSalt     | aboutMe                   |
-| --- | --------- | -------- | ------------- | -------------------- | ---------- | ---------------- | ------------------------- |
-| 1   | Danny     | Daley    | dannydaley123 | dannydaley@email.com | myPassword | mYhAsHeDpAsSwOrD | This is my about me text! |
-
-| profilePicture     | course          | year | location | education  | circles          | asked | answered |
-| ------------------ | --------------- | ---- | -------- | ---------- | ---------------- | ----- | -------- |
-| images/profPic.png | Web Development | 3    | Falmouth | Falmouth U | COMP110, COMP120 | 10    | 20       |
+| id  | firstName | lastName | username      | email                | password   | passwordSalt     | aboutMe                   | profilePicture     | course          | year | location | education  | circles          | asked | answered |
+| --- | --------- | -------- | ------------- | -------------------- | ---------- | ---------------- | ------------------------- | ------------------ | --------------- | ---- | -------- | ---------- | ---------------- | ----- | -------- |
+| 1   | Danny     | Daley    | dannydaley123 | dannydaley@email.com | myPassword | mYhAsHeDpAsSwOrD | This is my about me text! | images/profPic.png | Web Development | 3    | Falmouth | Falmouth U | COMP110, COMP120 | 10    | 20       |
 
 #### Table: posts
 
