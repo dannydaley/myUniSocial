@@ -16,7 +16,7 @@ services:
         build: ./
         restart: always
         ports:
-            - 9030:3001
+            - 127.0.0.1:9030:3001
         volumes:
             - "app-data:/app/public/images/"
 

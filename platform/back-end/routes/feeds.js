@@ -33,6 +33,7 @@ const GET_QUESTIONS_BY_AUTHOR_ID =
 //#region ENDPOINTS
 
 router.post("/getFeedFriendsOnly", (req, res) => {
+    console.log(req.session);
     //set up variables from the request body
     let user = req.body.user;
     // ready friends array to populate
