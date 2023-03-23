@@ -186,11 +186,11 @@ function NavBar({
                     aria-controls="primary-search-account-menu"
                     aria-haspopup="true"
                     color="inherit"
+                    onClick={handleMenuClose}
                 >
                     <AccountCircle />
                     <Link
                         to="/myProfile"
-                        onClick={handleMenuClose}
                         style={{
                             textDecoration: "none",
                             color: "black",
@@ -358,6 +358,7 @@ function NavBar({
                                     }}
                                 >
                                     <Badge
+                                        data-testid="messagesButton"
                                         badgeContent={mailNotifications}
                                         color="error"
                                     >

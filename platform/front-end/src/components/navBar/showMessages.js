@@ -20,7 +20,11 @@ export default class ShowMessages extends React.Component {
                 }}
             >
                 <Divider sx={{ mt: 0 }} variant="middle" />
-                <Link to="/messages" onClick={() => showMessagesToggle()}>
+                <Link
+                    data-testid="goToMessages"
+                    to="/messages"
+                    onClick={() => showMessagesToggle()}
+                >
                     <h4 style={{ color: "#217cd8" }}>Go to messages</h4>
                 </Link>
             </div>

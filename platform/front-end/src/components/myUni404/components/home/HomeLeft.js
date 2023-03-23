@@ -26,6 +26,7 @@ export default function HomeLeft(props) {
         >
             <Link to="/myProfile">
                 <div
+                    data-testid="myProfile"
                     style={{
                         backgroundImage:
                             "url(" +
@@ -49,6 +50,7 @@ export default function HomeLeft(props) {
             >
                 <Link to="/ask-question" style={{ textDecoration: "none" }}>
                     <Button
+                        data-testid="Ask"
                         variant="contained"
                         sx={{
                             width: "100%",
@@ -66,6 +68,7 @@ export default function HomeLeft(props) {
                     style={{ textDecoration: "none" }}
                 >
                     <Button
+                        data-testid="Web"
                         variant="contained"
                         sx={{
                             width: "100%",
@@ -74,7 +77,6 @@ export default function HomeLeft(props) {
                             "&:hover": { backgroundColor: "gray" },
                         }}
                         size="medium"
-                        onClick={() => props.changeFeed(1, "Web")}
                     >
                         Web
                     </Button>
@@ -84,6 +86,7 @@ export default function HomeLeft(props) {
                     style={{ textDecoration: "none" }}
                 >
                     <Button
+                        data-testid="GamDev"
                         variant="contained"
                         sx={{
                             width: "100%",
@@ -92,7 +95,6 @@ export default function HomeLeft(props) {
                             "&:hover": { backgroundColor: "gray" },
                         }}
                         size="medium"
-                        onClick={() => props.changeFeed(2, "GamDev")}
                     >
                         Game Dev
                     </Button>
@@ -102,6 +104,7 @@ export default function HomeLeft(props) {
                     style={{ textDecoration: "none" }}
                 >
                     <Button
+                        data-testid="SysOs"
                         variant="contained"
                         sx={{
                             width: "100%",
@@ -110,7 +113,6 @@ export default function HomeLeft(props) {
                             "&:hover": { backgroundColor: "gray" },
                         }}
                         size="medium"
-                        onClick={() => props.changeFeed(3, "SysOs")}
                     >
                         Systems/OS
                     </Button>
@@ -120,6 +122,7 @@ export default function HomeLeft(props) {
                     style={{ textDecoration: "none" }}
                 >
                     <Button
+                        data-testid="Robotics"
                         variant="contained"
                         sx={{
                             width: "100%",
@@ -128,7 +131,6 @@ export default function HomeLeft(props) {
                             "&:hover": { backgroundColor: "gray" },
                         }}
                         size="medium"
-                        onClick={() => props.changeFeed(4, "Robotics")}
                     >
                         Robotics
                     </Button>
@@ -144,6 +146,7 @@ export default function HomeLeft(props) {
                 }}
             >
                 <Button
+                    data-testid="myUniSocialLink"
                     variant="contained"
                     sx={{
                         backgroundColor: "#f5c732",
@@ -152,7 +155,7 @@ export default function HomeLeft(props) {
                     }}
                     size="medium"
                 >
-                    <img src={myUniSocial} width={"105px"} alt="myUni404" />
+                    <img src={myUniSocial} width={"105px"} alt="myUniSocial" />
                 </Button>
             </Link>
             <a

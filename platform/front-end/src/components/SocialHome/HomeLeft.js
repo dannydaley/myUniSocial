@@ -53,6 +53,7 @@ export default class HomeLeft extends React.Component {
             >
                 <Link to="/myProfile">
                     <div
+                        data-testid="myProfile"
                         style={{
                             backgroundImage:
                                 "url(" +
@@ -157,6 +158,7 @@ export default class HomeLeft extends React.Component {
                     }}
                 >
                     <Button
+                        data-testid="myUni404Link"
                         variant="contained"
                         sx={{
                             backgroundColor: "#f5c732",

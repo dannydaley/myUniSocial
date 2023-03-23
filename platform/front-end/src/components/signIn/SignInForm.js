@@ -149,9 +149,10 @@ class SignInForm extends React.Component {
                         )}
 
                         <Button
+                            className="submit"
                             variant="contained"
                             sx={{ width: "33ch", marginTop: "20px" }}
-                            onSubmit={() => this.onSubmitSignIn()}
+                            onSubmit={() => this.onSubmitSignIn("sending")}
                             onClick={() => this.onSubmitSignIn()}
                         >
                             Sign In
