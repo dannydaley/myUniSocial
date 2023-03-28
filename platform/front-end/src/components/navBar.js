@@ -14,7 +14,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-// import FalF from "./../assets/FalF.png";
 import SearchBar from "./SearchBar";
 import ShowNotifications from "./navBar/showNotifications";
 import { Link } from "react-router-dom";
@@ -22,7 +21,6 @@ import ShowMessages from "./navBar/showMessages";
 
 function NavBar({
     platform,
-
     getNotifications,
     refuseFriendRequest,
     confirmFriendRequest,
@@ -44,8 +42,6 @@ function NavBar({
     ] = useState(false);
 
     const handleProfileMenuOpen = (event) => {
-        // showMessagesToggle((showMessages = false));
-        // showNotificationsToggle((showNotifications = false));
         setAnchorEl(event.currentTarget);
     };
 
@@ -84,6 +80,7 @@ function NavBar({
         >
             <MenuItem>
                 <Link
+                    data-testid="goToMyFeed"
                     to="/"
                     onClick={handleMenuClose}
                     style={{
@@ -97,6 +94,7 @@ function NavBar({
             </MenuItem>
             <MenuItem>
                 <Link
+                    data-testid="goToMyProfile"
                     to="/myProfile"
                     onClick={handleMenuClose}
                     style={{
@@ -110,6 +108,7 @@ function NavBar({
             </MenuItem>
             <MenuItem>
                 <Link
+                    data-testid="goToMyAccount"
                     to="/myAccount"
                     onClick={handleMenuClose}
                     style={{
@@ -122,12 +121,14 @@ function NavBar({
                 </Link>
             </MenuItem>
             <MenuItem
+                data-testid="signOut"
                 style={{ textDecoration: "none", color: "black" }}
                 onClick={() => onRouteChange("signout")}
             >
                 Sign Out
             </MenuItem>
             <MenuItem
+                data-testid="signOutAndDelete"
                 style={{ textDecoration: "none", color: "black" }}
                 onClick={() => onRouteChange("signoutAndDelete")}
             >
@@ -152,7 +153,6 @@ function NavBar({
                 horizontal: "right",
             }}
             open={isMobileMenuOpen}
-            // onClick={handleProfileMenuOpen}
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
@@ -172,7 +172,6 @@ function NavBar({
                         textDecoration: "none",
                         color: "black",
                         fontSize: 16,
-                        // fontWeight: "bold",
                     }}
                 >
                     Messages
@@ -195,7 +194,6 @@ function NavBar({
                             textDecoration: "none",
                             color: "black",
                             fontSize: 16,
-                            // fontWeight: "bold",
                         }}
                     >
                         My Profile
@@ -254,7 +252,6 @@ function NavBar({
                 <Box
                     sx={{
                         flexGrow: 1,
-                        // justifyItems: "spaceBetween",
                     }}
                 >
                     <AppBar
@@ -299,15 +296,9 @@ function NavBar({
                                             );
                                         }}
                                     >
-                                        {/* <img
-                                            alt=""
-                                            src={FalF}
-                                            style={{ width: "45px" }}
-                                        /> */}
                                         <img
                                             alt=""
                                             src={myUniSocial}
-                                            // height="50px"
                                             width="150px"
                                         />
                                     </Link>
@@ -323,15 +314,9 @@ function NavBar({
                                             );
                                         }}
                                     >
-                                        {/* <img
-                                            alt=""
-                                            src={FalF}
-                                            style={{ width: "45px" }}
-                                        /> */}
                                         <img
                                             alt=""
                                             src={myUni404}
-                                            // height="50px"
                                             width="150px"
                                         />
                                     </Link>
@@ -389,6 +374,7 @@ function NavBar({
                                     </Badge>
                                 </IconButton>
                                 <IconButton
+                                    data-testid="accountButton"
                                     sx={{ color: "#0d0d0d" }}
                                     size="large"
                                     edge="end"

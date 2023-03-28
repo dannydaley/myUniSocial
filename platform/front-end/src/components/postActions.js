@@ -112,6 +112,7 @@ export default class PostActions extends React.Component {
                         {!this.state.voted ? (
                             <>
                                 <ThumbDownIcon
+                                    data-testid="thumb-down-button"
                                     style={{
                                         color: "white",
                                         marginRight: "5px",
@@ -140,18 +141,6 @@ export default class PostActions extends React.Component {
                         )}
                     </div>
                     <div style={{ width: "20vw" }}>
-                        {/* <Button
-                            variant="contained"
-                            sx={{
-                                backgroundColor: "#f5c732",
-
-                                "&:hover": { backgroundColor: "gray" },
-                            }}
-                            size="medium"
-                            title="Commenting is not yet functional"
-                        >
-                            View / Add Comment
-                        </Button> */}
                         {this.state.hideInput ? (
                             <Typography
                                 variant="h6"
@@ -170,6 +159,7 @@ export default class PostActions extends React.Component {
                             </Typography>
                         ) : (
                             <TextField
+                                data-testid="comment-field"
                                 style={{
                                     backgroundColor: "white",
                                     opacity: "0.5",
@@ -203,6 +193,7 @@ export default class PostActions extends React.Component {
                         {!this.state.voted ? (
                             <>
                                 <ThumbUpIcon
+                                    data-testid="thumb-up-button"
                                     style={{
                                         color: "white",
                                         marginRight: "5px",
