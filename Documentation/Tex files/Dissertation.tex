@@ -222,7 +222,7 @@ same as being on continuous alert for predators, which causes a release of
     social media could aid in reduced learning and research capabilities. With a growing dependency on information
     being easy to find, this could hinder the development of research skills. In most cases, people tend to use slang or
     abbreviated language on social media as most relationships between individuals tend to be interpersonal, coupled
-    with an increased reliance on spellcheckers and autocorrection, this decreases their charge over the dialect and
+    with an increased reliance on spellcheckers and auto-correction, this decreases their charge over the dialect and
     formal writing abilities. Another valuable note from the paper shines a light on time wastage, while social media
     and the internet, in general, are a boon for education, it opens the door for many distractions if the right amount
    of self-discipline is not present. While social networking has improved the quality and rate of coordinated
@@ -332,13 +332,14 @@ same as being on continuous alert for predators, which causes a release of
         \end{figure}
 
 
-        In appendix A figure 2 we can see a class diagram for the base system, with the main functionality coming from 'App.js' and being passed into
-        functional child components. This class diagram is a derivative of the previously mentioned 'myCircle' system with the relevant adjustments,
-        as is the same for the Use Case Diagram which can be seen in Appendix A figure 3.
+        In appendix E figure 9 a class diagram shows the base system, with the main functionality coming from 'App.js' and being passed into
+        functional child components. This class diagram is a derivative of the previously mentioned 'myCircle' system with the relevant adjustments before the merging of the myUni404 platform,
+        as is the same for the Use Case Diagram which can be seen in Appendix E figure 11. The growth of the system after introducing the second platform can be observed by comparing Appendix E figure 9
+	 with Appendix E figure 10.
 
         \subsection{Technological Stack}
         The stack used for the platform is a React.js front end \cite{React} making use of Material UI for styling \cite{Mui}, alongside a Node powered back end \cite{Node} with Express for server
-    functionality\cite{Express}. The project utilises a mySQL database for its capabilities of working with data relationally. Other technologies are at play as depenedencies such as Axios for front end to
+    functionality\cite{Express}. The project utilises a mySQL database for its capabilities of working with data relationally. Other technologies are at play as dependencies such as Axios for front end to
      back end requests, a full list of technologies can be found at the project github link in appendix (TODO)
 
 
@@ -347,20 +348,20 @@ same as being on continuous alert for predators, which causes a release of
 
 \section{Artefect Development}
 	As this project was an evolution of the merging of two projects (myCircle and myUni404) it took around 12 weeks to finish development to a satisfactory level. The front end or user interface of
-	the platform was built in React using JSX, making use of Material UI for some stylings, while the back end and server side code was written in Javascript with endpoints being made using
-	Express. The development cycle was carried out using an Agile approach utlising weekly sprints to add and refine functionality. The overall layout of the user interface for myUni404 was based 
-	on that from myCircle with some	improvements. A CSS grid was used to allow for onscreen elements to scale proportionally regardless of screen size or resolution. Using the improved and more
-	evolved form of the layout across the entirety of the platform was a necessity as it looked a great deal better and increased functionality, the refacotring of the myCircle components took
+	the platform was built in React using JSX, making use of Material UI for some styling, while the back end and server side code was written in Javascript with endpoints being made using
+	Express. The development cycle was carried out using an Agile approach utilising weekly sprints to add and refine functionality. The overall layout of the user interface for myUni404 was based 
+	on that from myCircle with some	improvements. A CSS grid was used to allow for on-screen elements to scale proportionally regardless of screen size or resolution. Using the improved and more
+	evolved form of the layout across the entirety of the platform was a necessity as it looked a great deal better and increased functionality, the refactoring of the myCircle components took
 	precedence at the start of development.	Following suit with the user interface, the back end and server side code bases of the two platforms were combined. myUni404's server code was built on
 	top of its predecessor, so the vast majority of the front end components were built to plug directly into back end code base with the exception of some renaming of variables or end points. The
 	original myCircle server code was one file consisting of around 1200 lines which grew considerably with the introduction of the code from the second platform. Having learned better practices and
 	striving to meet and maintain industry standards, a large refactor was essential, endpoints were grouped by area of responsibility (ie relating to account settings, fetching or working with feed
-	data etc.) and split into seperate modular files. This resulted in a massive increase in codebase maintainability and making the project much easier to work with. Further improvements to the
+	data etc.) and split into separate modular files. This resulted in a massive increase in codebase maintainability and making the project much easier to work with. Further improvements to the
 	back end of the site refining how browser sessions were implemented. Browser sessions allow the web browser to store small pieces of data about the platform so that the website can remember
 	things like the users username, profile picture and whether or not they have an active session, removing their need to log in after every page refresh and in turn improving the overall user
 	experience of the platform. The previous version of the chat system relied on the page making a request to the back end and updating regardless	of their being any new messages or updates
-	waiting. Granted this system worked but in its nature added an unnessecary load on the server. In its place, the new system utilised web sockets to allow for real-time updates with no extra
-	requests to the server as there is a single pipeline of communication establilshed between the two users.
+	waiting. Granted this system worked but in its nature added an unnecessary load on the server. In its place, the new system utilised web sockets to allow for real-time updates with no extra
+	requests to the server as there is a single pipeline of communication established between the two users.
 
 	With the system being available to users throughout the experimental phase, system security was of the highest priority. As such the server and hosting solution was altered to use HTTPS protocol
 	 to add encryption to HTTP requests and responses, vastly increasing end user security while using the platform. 
@@ -392,13 +393,13 @@ same as being on continuous alert for predators, which causes a release of
         \subsection{Philosophical Position}
         Having great applications within sociology and psychology, the philosophical approach of this study was taken from an 
         interpretivist point as the application of this platform and the observations of its utility somewhat align with the social
-         sciences and as such will require a socioscientific approach. This interpretivist approach by its nature called for a qualitative
+         sciences and as such will require a socio-scientific approach. This interpretivist approach by its nature called for a qualitative
          method; often criticised for its generalisability and flaws in reliability, quantitative and qualitative methods were combined
          in order to increase reliability and validity of findings ultimately making this a mixed method study.
 
         \subsection{Experimental Design}
         To gather information on the effectiveness of my platform, I conducted a between-groups study involving
-	two study groups. An ideal sample size of 52 participants (2 groups of 26) was recommended by G*Power to establish statistical significance for this study, see figure 3 for a depiction of a
+	two study groups. An ideal sample size of 52 participants (2 groups of 26) was recommended by G*Power to establish statistical significance for this study, see figure 4 for a depiction of a
 	central and noncentral distribution plot. Both groups were given the same set of tasks to complete, group A were asked to fulfil
         these tasks on the existing online university portal ie. Learning Space or Moodle while group B were asked to 
         do so on the prototype platform. An online survey was used to collect information on the test users' experiences
@@ -421,7 +422,7 @@ same as being on continuous alert for predators, which causes a release of
 	prevent such breaches from occurring. All regulations defined by GOV.UK and the Data Protection Act 2018 \cite{Gov UK Data Protection} were met and abided by throughout
         the development and life of the platform. More sensitive information such as race, ethnic background, religious beliefs and other more
         sensitive categories mentioned on the cited website were not stored for functionality of the platform as such information
-        is irrelevant for the platform to function properly. A full privacy policy and cookie policy was availble to users via the footer on the login screen or
+        is irrelevant for the platform to function properly. A full privacy policy and cookie policy was available to users via the footer on the login screen or
 	through the account settings menu, informing users that their data was to solely be used for functionality within the platform, such as displaying
 	their name, email for log in authentication and so on.
 
@@ -438,14 +439,14 @@ same as being on continuous alert for predators, which causes a release of
 
 		\paragraph{Informed Consent \& Voluntary Participation}
 
-		Participants were required to complete a consent form before comencement of their participation. This consent form outlined the general purpose
+		Participants were required to complete a consent form before commencement of their participation. This consent form outlined the general purpose
 		of the study, the purpose of the project and how the findings will be used while also ensuring their understanding that their participation is
 		voluntary and that they maintain the freedom to withdraw their participation at any point and for any reason without explanation.
        
       		 \paragraph{Do no harm}
-       		The evaluation process was carried out in such a manner to minimise any potentital causes of harm (unintentional or otherwise) to participants.
+       		The evaluation process was carried out in such a manner to minimise any potential causes of harm (unintentional or otherwise) to participants.
 		These potential harms could have taken form by subjecting users to undue stress, pain, anxiety, diminishing of self-esteem or invasions of privacy.
-		These risks were mitigated by ensuring that no required tasks or questions required as per the data collection survey were invasive, controvercial
+		These risks were mitigated by ensuring that no required tasks or questions required as per the data collection survey were invasive, controversial
 		or damaging in nature and were generally everyday tasks that students and users would typically perform as part of their student life.
 
 		\paragraph{Confidentiality}
@@ -455,12 +456,12 @@ same as being on continuous alert for predators, which causes a release of
 
        		\paragraph{Anonymity}
 
-       		Participants data submissions were anonymous and no identifying factors were nessecary or relevant as part of the questions or tasks that users 
+       		Participants data submissions were anonymous and no identifying factors were necessary or relevant as part of the questions or tasks that users 
 		were asked to perform.
 
 		\paragraph{Only assess relevant components}
-		Only relevent components of functionality were assessed as part of this study, as such users were only asked to complete tasks which were
-		accomplishable on both platform being tested to avoid any biases that could come about by tailoring the questions in favour of one platform over 
+		Only relevant components of functionality were assessed as part of this study, as such users were only asked to complete tasks which were able to be
+		accomplished on both platform being tested to avoid any biases that could come about by tailoring the questions in favour of one platform over 
 		another.                
 	\subsection{Data management}
 		Data for this study was collected by means of an online survey which consisted of both qualitative and quantitative questions. The quantitative
@@ -474,11 +475,13 @@ same as being on continuous alert for predators, which causes a release of
 
 \section{Results}
 
- The survey to collect data consisted of both qualitative and quantitative questions. These questions were generally coupled by a quantitative question first, asking them to perfrom a task and 
+ The survey to collect data consisted of both qualitative and quantitative questions. These questions were generally coupled by a quantitative question first, asking them to perform a task and 
  rate there experience of doing so on a Likert scale, followed by a qualitative question asking them to explain a little about there experience of performing the task. Two exceptions to this are questions
- 6 and 7 which ask how likely the user would be to engage with the community and how likely they would be to engage with course related content respectively. The quantitative questions
- are as follows:
-
+ 6 and 7 which ask how likely the user would be to engage with the community and how likely they would be to engage with course related content respectively.
+ \\
+ \\
+ The quantitative questions are as follows:
+\\
 
     \begin{tabular}{ | c | c | }
             \hline
@@ -501,8 +504,8 @@ same as being on continuous alert for predators, which causes a release of
     \end{tabular}
 
 	\subsection{Data Analyses}
-		With the Likert scale ranging from 1 (least favourable answer) to 7 (most favourable answer) users generally had a higher overall satisfaction rate on the prototype platfom `myUniSocial'
-		with the exception of the final question, ``How likely are you engage with course related material on this platform", which came in at a very close second. Figure 4 displays the mean scores
+		With the Likert scale ranging from 1 (least favourable answer) to 7 (most favourable answer) users generally had a higher overall satisfaction rate on the prototype platform `myUniSocial'
+		with the exception of the final question, ``How likely are you to engage with course related material on this platform", which came in at a very close second. Figure 4 displays the mean scores
 		of all quantitative questions with group A representing the existing student portal and B depicting the scores from the prototype platform.
 
 		\begin{figure}[h!]
@@ -524,21 +527,21 @@ same as being on continuous alert for predators, which causes a release of
         		\label{figure 6}
 		\end{figure}
 
-		Comparing figures 6 \& 7 shows that there is generally a wide spread within the results, but the majority of the more favorable results are still claimed by the prototype platform.
-		This is especially prevalant in any questions related more toward the social aspects of university, most notably questions 2, 5 and 6. The student portal scored higher on question 7
+		Comparing figures 6 \& 7 shows that there is generally a wide spread within the results, but the majority of the more favourable results are still claimed by the prototype platform.
+		This is especially prevalent in any questions related more toward the social aspects of university, most notably questions 2, 5 and 6. The student portal scored higher on question 7
 		which asked users how likely they were to engage with course related content on the platform.
 
 
 \section{Discussion}
 
-With the prototype platform generally having a higher overall score across all questions, it is suggested with some significance that an institutional social media platform centered around the university
+With the prototype platform generally having a higher overall score across all questions, it is suggested with some significance that an institutional social media platform centred around the university
 could indeed be of a benefit to both social and academic aspects to university life. Participants reported that even having used the existing student portal for some years, they were either unaware of the
 forum functionality that was in place or that it was simply not enticing to use without it being a criterion for sessioned work. The consensus was that participants saw very little to no benefit
 to their social lives within the student portal.
 
-Some of the lesser scores for the prototype platform were generally more centered around finding course related content or using the platform as a general aid for their studies as they would the
+Some of the lesser scores for the prototype platform were generally more centredd around finding course related content or using the platform as a general aid for their studies as they would the
 student portal, and were typically coupled with qualitative responses explaining that they could not find course content specifically relating to them or their chosen track of study and modules.
-For this study to gain more concrete results their would be a nessecary requirement for extra clearance and permissions to access university-wide module and student lists or information in order
+For this study to gain more concrete results their would be a necessary requirement for extra clearance and permissions to access university-wide module and student lists or information in order
 populate the modules with the correct students, in turn being on equal footing with the student portal and not ultimately comparing a literal against a hypothetical.
 
 The prototype platform witnessed a good level of engagement with some users posting questions into the myUni404 space, changing account profile pictures, posting and generally engaging with other
@@ -553,9 +556,9 @@ Improvements could be made to pull more robust outcomes should the study be iter
 Likert scale range from -4 to 4, or perhaps removing the numbers from the scale entirely in favour of a slider that starts at a neutral position and implementing some Human Computer Interaction
 (HCI) analytics software to generate heat maps regarding mouse movements while using the platform to gauge how easily participants were able to navigate the platform.
 
-Given the small window of time to build the artefact and conduct this study, this study could be regarded as a viable precursor to a seemingly promising area of research. With more time, mitigation of 
+Given the small window of time to build the artefact and conduct this study, this research could be regarded as a viable precursor to a seemingly promising area of research. With more time, mitigation of 
 limitations such as; having support and access to resources from the institution regarding permissions to effectively redistribute course content, student records to facilitate automatic profile and
-account generation as well as populating modules on the platform with the correctly enrolled students, we could definitivley answer the research question: Could an institutional social media platform be of a benefit
+account generation as well as populating modules on the platform with the correctly enrolled students, we could definitively answer the research question: Could an institutional social media platform be of a benefit
 to the social and academic aspects to university life.
 
 
@@ -570,16 +573,12 @@ to the social and academic aspects to university life.
 \end{itemize}
 
 
-
-
-
-
 \section{Future Work}
 	If this study were to be continued and explored further, adjustments should be made to improve the prospects of acquiring more meaningful results. Modifying the survey Likert scale to range 
 	from -3 to 3 or removing numbers from it entirely in place of a slider with a neutral origin could help remove any unconscious biases.
 
 	Making the research question more targeted towards a single and more definitive answer, ``benefiting social and academic aspects of university" is perhaps too broad for one study,
-	or this may in fact be grounds for A B style testing to measure	those metrics seperatly.
+	or this may in fact be grounds for A B style testing to measure	those metrics separately.
 
 	Limitations and restrictions would need to be mitigated for this study to continue any further, access to module and enrolled students or building a system that simply
 	`plugs in' would serve this study well, as students not being able to find their course or module ultimately hampered my results. University logos on the platform  would help 
@@ -587,17 +586,20 @@ to the social and academic aspects to university life.
 	platform to maintain. Permission to use and essentially redistribute course materiel, in lieu of a system that `plugs in', would vastly improve the quality of this study as in doing so would
 	remove the current need to compare a literal (the university student portal) with a hypothetical (the prototype platform).
 
-	Even with such limitations, restrictions and areas for improvement,
-	this remains an interesting area of study and users took the prototype platform well. Even with the platform being a hypothetical, students embraced what it could be and engaged with the
-	available content, posted questions and collaborated with one another on a system that they felt to be intuitive and somewhat natural to use. This is evident in both the qualitative and
-	quantitative data, but I would like to run some Human-computer interaction (HCI) analytics to measure this more candidly.
+	Even with such limitations, restrictions and areas for improvement, this remains an interesting area of study and users took the prototype platform well. Even with the platform being a
+	hypothetical, students embraced what it could be and engaged with the available content, posted questions and collaborated with one another on a system that they felt to be intuitive and
+	somewhat natural to use. This is evident in both the qualitative and quantitative data, but it would be advantageous to run some Human-computer interaction (HCI) analytics to measure
+	this more candidly.
 
 
 \section{Conclusion}
-
-
-
-
+	Acknowledging that this study compared a literal university student portal with a hypothetical prototype student portal, it cannot be concluded with certainty that an institutional
+	social media platform could benefit both social and academic aspects of university life. Nonetheless, I feel that given the results, there is evidence to suggest that if studied further 
+	with the previously mentioned limitations and restrictions mitigated that it would be a welcome evolution of systems currently being used and in turn see an increase in student/course engagement
+	while promoting student collaboration.
+	The prototype platform saw good levels of enagement with users updating their profile information, changing profile and cover pictures, posting and making use of the `myUni404' section of the
+	platform which allows users to post programming or tech related questions that include a code snippet as well as users also replying to such content. This behaviour is promising in terms of the 
+	potential for collaboration that such a platform could provide and seemingly calls for a redesign or reformat of how student portals function for students at university.
 
 
 
@@ -616,9 +618,9 @@ to the social and academic aspects to university life.
 
 \bibitem{Wang2011}
         Wang, Qingya / Chen, Wei / Liang, Yu {\it{The Effects of Social Media on College Students}}.MBA Student Scholarship, Paper 5. 2011.
+
 \bibitem{Evans2014}
-        Evans, C. {\it{Twitter for Teaching: Can Social Media Be Used To Enhance The Process Of Learning?}} British Journal of Education Technology
-Vol 45, No 5, 2014.
+        Evans, C. {\it{Twitter for Teaching: Can Social Media Be Used To Enhance The Process Of Learning?}} British Journal of Education Technology Vol 45, No 5, 2014.
 
 \bibitem{Williams2022}
         Williams, R. Thomas {\it{Social Networking Services (SNS) In Education}}
@@ -639,9 +641,8 @@ Vol 45, No 5, 2014.
         Methodological Approach.}} Journal of Learning Analytics, 3(3), 47-71.
         2016.
 \bibitem{Amedie 2015}
-        Amedie, J. {\it{The Impact of Social Media on Society.}}
-        Advanced Writing: Pop Culture Intersections. 2
-        2015.
+        Amedie, J. {\it{The Impact of Social Media on Society.}} Advanced Writing: Pop Culture Intersections. 2 2015.
+
 \bibitem{Kuppuswamy et al 2010}
         Kuppuswamy, S /Shankar Narayan, P. B. {\it{The Impact of Social Networking Websites on the Education of Youth.}}
         International Journal of Virtual Communities and Social Networking, 2(1), 67-79.
@@ -721,9 +722,64 @@ Vol 45, No 5, 2014.
 
 \end{thebibliography}
 
+\appendices
+\newpage
+\section{Acknowledgements}
+Here I give my thanks to participants and staff that helped make this project
 
 
+\section{Reflective Report}
+        Here I give my reflective addendum, things I could have done better and discuss my limitations etc approx 2000 words.
 
+
+\section{Artefact testing addendum}
+
+
+\section{Full R code}
+\newpage
+\onecolumn
+\section{{Prototype Design UML Diagrams}}
+
+	\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/myUniSocialClass.png}
+                \caption{myUniSocial Class Diagram}
+                \label{figure 3}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/myUniSocial404Class.png}
+                \caption{myUniSocial Use Case Diagram}
+                \label{figure 4}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/myUniSocialUseCaseDiagram.png}
+                \caption{myUniSocial Class Diagram}
+                \label{figure 3}
+\end{figure}
+\clearpage
+\newpage
+
+\section{Prototype platform screenshos}
+
+\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/myCircle.png}
+                \caption{myCircle user interface}
+                \label{figure 4}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/myunisocial.png}
+                \caption{myUniSocial User interface}
+                \label{figure 4}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/myUni4042.png}
+                \caption{myUni404 `Ask Question` page}
+                \label{figure 4}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.85\paperwidth]{images/404screenshot.png}
+                \caption{myUni404 Question}
+                \label{figure 4}
+\end{figure}
 %\section{Biography Section}
 %If you have an EPS/PDF photo (graphicx package needed), extra braces are
 % needed around the contents of the optional argument to biography to prevent
