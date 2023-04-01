@@ -2,6 +2,8 @@
 
 myUniSocial is a service for universities to assist in the social and learning aspects of university life. The platform has space for tools to aid students on their journey.
 
+The platform can be seen and used at the following URL: https://myunisocial.kemeneth.net
+
 ## Features
 
 ### myUni404
@@ -137,8 +139,38 @@ myUniSocial is a service for universities to assist in the social and learning a
 | ---------- | ----- |
 | "COMP110"  | 0     |
 
+### Running the project
+
+Opening a terminal in myUniSocial/platform/front-end and running ..
+`npm start`
+will start the react development server.
+
+Opening another terminal in myUniSocial/platform/back-end and running ..
+`npm start`
+will run the express server, or alternatively..
+``npm run dev`
+to start the server in development mode.
+
+#### Deploying the project
+
+To run the project in a local or remote deployment, I prefer to log in to the hosting solution (ideally ubuntu) via ssh.
+
+navigate to directory back-end directory
+`cd /srv/students/dd252935/myUniSocial/platform/back-end`
+
+run docker-compose build, and start the docker image...
+`docker-compose build && docker-compose up`
+
+or alternatively, run the command and start a daemonised image to run in the background..
+`docker-compose build && docker-compose up -d`
+
+If restarting the project for whatever reason, be sure to do the necessary clean up.
+`docker-compose down && docker-compose build && docker-compose up -d --remove-orphans`
+
 ### Testing the project
 
-Jest is a JavaScript test runner that lets you access the DOM via jsdom. While jsdom is only an approximation of how the browser works, it is usually good enough for testing React components. Jest provides a great iteration speed combined with powerful features like mocking modules and timers so you can have more control over how the code executes
+front-end
+`npm run test`
 
-### Running the project
+endpoint stress testing
+`loadtest -n 10000 -c 10 --rps 200 --data '{ "email": "testuser@email.com", "password": "test123"}' -T 'application/x-www-form-urlencoded' -m POST http://localhost:3001/auth/signin`

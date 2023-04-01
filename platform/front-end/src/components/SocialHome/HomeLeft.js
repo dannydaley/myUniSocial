@@ -167,7 +167,12 @@ export default class HomeLeft extends React.Component {
                         }}
                         size="medium"
                     >
-                        <img src={myUni404} width={"105px"} alt="myUni404" />
+                        <img
+                            src={myUni404}
+                            width={"105px"}
+                            height={"auto"}
+                            alt="myUni404"
+                        />
                     </Button>
                 </Link>
                 <a

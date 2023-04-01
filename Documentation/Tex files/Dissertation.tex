@@ -11,7 +11,7 @@
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage[utf8]{inputenc}
-
+\usepackage{listings}
 \usepackage{array}
 \usepackage{makecell}
 
@@ -28,7 +28,7 @@
 \title{The Risks and Benefits of Social Media, and Its Place in Higher Education}
 
 \author{DD252935}
-        % <-this % stops a space
+% <-this % stops a space
 
 
 %\thanks{This paper was produced by the IEEE Publication Technology Group. They are in Piscataway, NJ.}
@@ -45,34 +45,51 @@
 \maketitle
 
 \begin{abstract}
-        This paper investigates the use of social media systems as tools in higher education
-        institutions and the risks and benefits attached to social media use. This investigation will
-        facilitate the development of a purpose-built social media platform to assist the learning and social
-        aspects of university life. A follow-up mixed-method study is proposed to analyse and measure the effectiveness of
-        the new platform in an academic setting.
-\end{abstract}
+	This study examines the effectiveness of a purpose-built social media platform for supporting learning and social interaction in higher education. A mixed-methods
+	approach was used, including qualitative and quantitative surveys, to compare the new platform to the student portal. The results indicate that the social media
+	platfrom showed promise for enhancing student engagement and collaboration, but further research is needed to fully evaluate its potential. These findings suggest 
+	that social media-style platforms could be a valuable addition to traditional student content delivery systems.
 
 
-
-
+        \end{abstract}
 
 \begin{IEEEkeywords}
 Social Media, Social Networking, Higher Education.
 \end{IEEEkeywords}
 
 \section{Introduction}
-        Social media is all around us, and the vast majority of us use social media in some way or another very
-        frequently. Many studies have taken place to explore the impact social media could have on students
-        when they have been encouraged to use existing platforms as a contact and collaboration tool as part
-        of their course.
+
+
+    This paper looks at the utility that social media platforms can provide in a university setting as a means to justify, design and develop an institutional social media site to aid in the 
+    academic and social aspects of university life.
+
+
+    Social media is all around us, and the vast majority of us use social media in some way or another very
+    frequently. Many studies have taken place to explore the impact social media could have on students
+    when they have been encouraged to use existing platforms as a contact and collaboration tool as part
+    of their course.
+
     Finding your place socially at university can be very daunting, especially if you have been unable to find
     your way into any large social events, or onto any student-run social channels such as Discord \cite{Discord} etc, if any
     such things are in place at all. Failure to find such places can have a major impact on not only the university
-    experience but also their mental health, as they can find themselves isolated. This paper plans to research into the
-    question; could a social media platform embedded into higher education institutions be of benefit to students
-    starting university by aiding their integration into their new social setting?
+    experience but also their mental health, as they can find themselves isolated.
 
+    Lockdowns and isolations during the pandemic left many students segregated and created an environment in which
+    many had left home to find themselves unable to socialise and find their new student cohort, as such, there is a need for better online socialization tools to be adopted by universities.
 
+    This paper researches into the question; could and institutionalised social media platform benefit the academic and social aspects of university life?
+
+ \subsection{Roadmap of this paper}
+    In section II a review of past work and literature is conducted to first understand how social media has been implemented in a university setting, followed by an observation of 
+    previous literature exploring the effects of social in an effort to comprehend the impacts it can have to ultimately develop an artefact that is positive in nature.
+
+    Section III is an evaluation of both tiers of the related work.
+    Section IV outlines the design elements of the prototype social media platform artefact, including user interface elements 
+    and technological stack. Section V looks at the development process of the social media platform as well as the testing of artefact performance.
+
+    Section VI explains the research methodology chosen for this 
+    study including legal, social and ethical considerations. Section VII observes the experimental results. Section VIII discusses the results and implications of this paper and contained research. 
+	Section IX looks at the potential for future study within this area accounting for limitations encountered within this iteration and Section X concludes with a summary of findings.
 
 
 
@@ -83,7 +100,7 @@ Social Media, Social Networking, Higher Education.
     impact on society in many ways, and using it one way or another has become
     commonplace in most of our lives, but do we fully understand the risks and
     advantages that it presents? This literary analysis of recent (2010-2022)
-    research papers aim to explore findings on the possible side effects of
+    research papers aim to explore the findings on the possible side effects of
     social media to weigh the pros against the cons regarding
     the integration of social media with higher education (HE) and pedagogy. I
     hypothesize, that with proper application, social media could become a valuable
@@ -144,7 +161,7 @@ Social Media, Social Networking, Higher Education.
     improve their capacity to engage in more self-directed collaborative practices
     in order to better take ownership of their learning.
 
-    Tripathi \cite{Tripathi 2022} observed that nearly two-thirds of faculty at
+    Tripathi \cite{Tripathi 2022} observed that nearly two-thirds of the faculty at
     their institution had used social media in a class session, some even
     posting content for students to further read outside of classes, which saw
     promising levels of engagement while other members of the faculty ask students
@@ -177,8 +194,8 @@ Social Media, Social Networking, Higher Education.
     yet. The paper talks about the connection between social media and anxiety
     – It states that social media causes depression and anxiety in two ways. Chronic
     stress causes depression and anxiety. Being constantly alert for new social
-    media messages, to your instinctive fight-or-flight limbic system, is the
-same as being on continuous alert for predators, which causes a release of
+    media messages, to your instinctive fight-or-flight limbic system, is the 
+    same as being on continuous alert for predators, which causes a release of
     the stress hormone cortisol. The second cause of depression anxiety is
     constantly trying to maintain an unrealistic and unachievable image of
     oneself on their chosen social network. The paper also mentions
@@ -207,8 +224,8 @@ same as being on continuous alert for predators, which causes a release of
     and unethical activities such as ``useless chatting, time killing by random searching and not doing their jobs". The paper
     goes on to note that social networking sites quite often play host to attractive activities such
     as gaming or advertisements, enticing people to sign up or simply waste time, it is the over-indulgence
-    of such activities that causes users to develop social media addiction. It states that providing ubiquitous
-    facility of social networks is a straight invitation to addiction for any teenager and even an adult, as
+    of such activities that cause users to develop social media addiction. It states that providing the ubiquitous
+    facilities of social networks is a straight invitation to addiction for any teenager and even an adult, as
     academic satisfaction is not enough got those students who suffer from social isolation\cite{Pempek et al 2009}. 
 
     A study conducted by W.Akram and R.Kumar \cite{Akram et al 2017} observes both the negative
@@ -219,12 +236,14 @@ same as being on continuous alert for predators, which causes a release of
     see and benefit from. The literature saw that social media helped in development towards simply being more prepared, stating that
     social media is fundamentally about showcasing and taking part in  current trends around the world, further enabling students
     to plan or gauge an idea of what might be expected of them. In contrast to those points, the paper outlines that
-    social media could aid in reduced learning and research capabilities. With a growing dependency on information
-    being easy to find, this could hinder the development of research skills. In most cases, people tend to use slang or
-    abbreviated language on social media as most relationships between individuals tend to be interpersonal, coupled
-    with an increased reliance on spellcheckers and auto-correction, this decreases their charge over the dialect and
+    social media could aid in reduced learning and research capabilities.
+
+
+    With a growing dependency on information being easy to find, this could hinder the development of research skills.
+    In most cases, people tend to use slang or abbreviated language on social media as most relationships between individuals tend to be interpersonal, coupled
+    with an increased reliance on spellcheckers and auto-correction, which decreases their charge over the dialect and
     formal writing abilities. Another valuable note from the paper shines a light on time wastage, while social media
-    and the internet, in general, are a boon for education, it opens the door for many distractions if the right amount
+    and the internet, in general, are a boon for education, it opens the door to many distractions if the right amount
    of self-discipline is not present. While social networking has improved the quality and rate of coordinated
     efforts from students, it remains important to be responsible and understand the possible negative effects
     that social media brings forward. A consensus is established with Tariq et al's \cite{Tariq et al 2012}
@@ -235,7 +254,7 @@ same as being on continuous alert for predators, which causes a release of
     for adolescents and that there are also multiple potential risks that can act in detriment to their
     mental health and well-being. Some of the positive impacts outlined were access to health information,
     enhanced communication and learning opportunities, while the negatives involve stress, depression,
-    suppression of emotional awareness, fatigue, online harassment, a decline of intellectual ability
+    suppression of emotional awareness, fatigue, online harassment, a decline in intellectual ability
     and a shrinking capacity for concentration. The paper goes on to express that these risks could be
     navigated successfully with proper handling, such would call for education around social media abuse
     being provided (expressly to parents to mitigate the risks for children and adolescents), but a greater
@@ -245,7 +264,7 @@ same as being on continuous alert for predators, which causes a release of
     of social media, asserting that excessive use of social media can lead people to disastrous results, starting
     with anxiety and leading to depression. They saw in Pantic et al.'s study \cite{Pantic et al 2012}, mirrored
     by a study conducted by Rosen et al. \cite{Rosen et al 2013}, that depression and time spent on Facebook by
-    adolescents were directly correlated and that those that spent most of their time engaging in online activities
+    adolescents were directly correlated and those that spent most of their time engaging in online activities
     were among those with major depressive symptoms. The paper concludes to suggest that social media can have an
     epidemic-like on any individual. Social networking sites should be constrained to an age limit and any
     social media application that does not have a positive impact and enables such things as discrimination, violence
@@ -264,10 +283,6 @@ same as being on continuous alert for predators, which causes a release of
     outweigh any possible risks.
 
 
-
-
-
-
 \section{Evaluation}
 
         \subsection{Social Media in higher Education}
@@ -277,12 +292,15 @@ same as being on continuous alert for predators, which causes a release of
          is the opportunity to easily reach others from across the globe whilst still making effective team management and organization possible and instant.
          The studies observed noted an increase in team ethic with the introduction of social media in their courses and a direct correlation between
          social media usage and course engagement while their online activities showed no evidence of being related to interpersonal relationships
-         between students and their tutors. Another consensus is that to fully leverage social media within higher education, a balance must be found.
+         between students and their tutors.
+
+	 Another consensus is that to fully leverage social media within higher education, a balance must be found.
          Social media sites play host to many distractions and irrelevant activities and nonsensical information, calling for the responsibility of domain
-         selection, and responsibility of proper use. In the same vein as striking balance, setting and formality must be taken into consideration, different
+         selection, and responsibility for proper use. In the same vein as striking balance, setting and formality must be taken into consideration, different
          approaches and rule sets may need to be applied between settings of different formalities and would not be a one size fits all scenario. To fully
          employ social media in pedagogy, the staff and faculty would be at the heart of operations, it would require a small degree of technical competence and
          familiarity for teaching staff to use such platforms effectively and engagingly.
+
          All literature reviewed conducts a study on existing mediums of social media where distractions already exist and the courses may have altered slightly  to
          fit into social media space. For this research project, I will build a platform expressly for use within higher education,
          and conduct my study in the same fashion as those previously mentioned.
@@ -305,7 +323,7 @@ same as being on continuous alert for predators, which causes a release of
 
         The title of the platform is ``myUniSocial", the core of which the system is an evolution of my work carried out in developing a previous
         social media system \cite{Daley 2022}.The previous system or `myCircle'\cite{myCircle} is built around interests and hobbies as opposed
-        to simple media reposting to navigate the negative impacts observed in the above review of literature and the comparison culture that exists in modern
+        to simple media reposting to navigate the negative impacts observed in the above review of past literature and the comparison culture that exists in modern
         society. In recognition of the distraction factor mentioned by many in the literature review, it felt like somewhat of a responsibility
         to minimise possible distractions on the platform, and if they do exist, to make them a benefit to engage with and for it to be relevant
         to their course. To achieve this, in place of the interest groups or `circles', course modules are displayed allowing users to
@@ -316,7 +334,7 @@ same as being on continuous alert for predators, which causes a release of
 	The layout of the user interface of the platform is designed to have a familiar feeling experience to what users have generally come to expect from social media platforms, with myUni404 being an 
 	improved version of the myCircle user interface, the myCircle elements were updated to include the improvements to achieve a consistent feel of quality across the platform. 
 	Colour schemes that somewhat align with the university were used to give users a sense of what the platform could feel like if the platform was backed by the university and was the new
-	standard for a student portal based platform. Initially university logos were on the platform login and navigation bar, but were removed after taking trademarks and other such things into
+	standard for a student portal-based platform. Initially, university logos were on the platform login and navigation bar, but were removed after taking trademarks and other such things into
 	consideration.
 
         \begin{figure}[h!]
@@ -332,44 +350,49 @@ same as being on continuous alert for predators, which causes a release of
         \end{figure}
 
 
-        In appendix E figure 9 a class diagram shows the base system, with the main functionality coming from 'App.js' and being passed into
+        In appendix D figure 11 a class diagram shows the base system, with the main functionality coming from 'App.js' and being passed into
         functional child components. This class diagram is a derivative of the previously mentioned 'myCircle' system with the relevant adjustments before the merging of the myUni404 platform,
-        as is the same for the Use Case Diagram which can be seen in Appendix E figure 11. The growth of the system after introducing the second platform can be observed by comparing Appendix E figure 9
-	 with Appendix E figure 10.
+        as is the same for the Use Case Diagram which can be seen in Appendix E figure 13. The growth of the system after introducing the second platform can be observed by comparing Appendix D figure 9
+	 with Appendix D figure 12.
 
         \subsection{Technological Stack}
-        The stack used for the platform is a React.js front end \cite{React} making use of Material UI for styling \cite{Mui}, alongside a Node powered back end \cite{Node} with Express for server
+        The stack used for the platform is a React.js front-end \cite{React} making use of Material UI for styling \cite{Mui}, alongside a Node powered back-end \cite{Node} with Express for server
     functionality\cite{Express}. The project utilises a mySQL database for its capabilities of working with data relationally. Other technologies are at play as dependencies such as Axios for front end to
-     back end requests, a full list of technologies can be found at the project github link in appendix (TODO)
+     back end requests, a full list of technologies can be found on the project github link in Appendix H.
 
 
 
 
 
 \section{Artefect Development}
-	As this project was an evolution of the merging of two projects (myCircle and myUni404) it took around 12 weeks to finish development to a satisfactory level. The front end or user interface of
-	the platform was built in React using JSX, making use of Material UI for some styling, while the back end and server side code was written in Javascript with endpoints being made using
+	As this project was an evolution of the merging of two projects (myCircle and myUni404) it took around 12 weeks to finish development to a satisfactory level. The front-end or user interface of
+	the platform was built in React using JSX, making use of Material UI for some styling, while the back-end and server-side code was written in Javascript with endpoints being made using
 	Express. The development cycle was carried out using an Agile approach utilising weekly sprints to add and refine functionality. The overall layout of the user interface for myUni404 was based 
 	on that from myCircle with some	improvements. A CSS grid was used to allow for on-screen elements to scale proportionally regardless of screen size or resolution. Using the improved and more
 	evolved form of the layout across the entirety of the platform was a necessity as it looked a great deal better and increased functionality, the refactoring of the myCircle components took
-	precedence at the start of development.	Following suit with the user interface, the back end and server side code bases of the two platforms were combined. myUni404's server code was built on
-	top of its predecessor, so the vast majority of the front end components were built to plug directly into back end code base with the exception of some renaming of variables or end points. The
+	precedence at the start of development.	Following suit with the user interface, the back-end and server-side codebases of the two platforms were combined. myUni404's server code was built on
+	top of its predecessor, so the vast majority of the front-end components were built to plug directly into back-end code base with the exception of some renaming of variables or endpoints. The
 	original myCircle server code was one file consisting of around 1200 lines which grew considerably with the introduction of the code from the second platform. Having learned better practices and
 	striving to meet and maintain industry standards, a large refactor was essential, endpoints were grouped by area of responsibility (ie relating to account settings, fetching or working with feed
 	data etc.) and split into separate modular files. This resulted in a massive increase in codebase maintainability and making the project much easier to work with. Further improvements to the
 	back end of the site refining how browser sessions were implemented. Browser sessions allow the web browser to store small pieces of data about the platform so that the website can remember
-	things like the users username, profile picture and whether or not they have an active session, removing their need to log in after every page refresh and in turn improving the overall user
-	experience of the platform. The previous version of the chat system relied on the page making a request to the back end and updating regardless	of their being any new messages or updates
+	things like the users' username, profile picture and whether or not they have an active session, removing their need to log in after every page refresh and in turn improving the overall user
+	experience of the platform. The previous version of the chat system relied on the page making a request to the back end and updating regardless	of there being any new messages or updates
 	waiting. Granted this system worked but in its nature added an unnecessary load on the server. In its place, the new system utilised web sockets to allow for real-time updates with no extra
 	requests to the server as there is a single pipeline of communication established between the two users.
 
 	With the system being available to users throughout the experimental phase, system security was of the highest priority. As such the server and hosting solution was altered to use HTTPS protocol
-	 to add encryption to HTTP requests and responses, vastly increasing end user security while using the platform. 
+	 to add encryption to HTTP requests and responses, vastly increasing end-user security while using the platform. 
 	 A `Sign out \& delete data' button was also added for users to be able to wipe all of their data from the server on completion of their participation.`
        
        \subsection{Testing of artefact performance}
-        The application front end will be unit tested throughout development using Jest \cite{Jest}, while the Express server will be unit-tested using Mocha \cite{Mocha}
-        and Supertest \cite{SuperTest} to execute HTTP requests against the server.
+      Artefact front-end components were subject to unit tests which can be seen in Appendix B figure 8. The most frequently used and constant of components were tested and all testing suites produced
+      passing outcomes. Google Lighthouse was used to test overall page performance and accessibility for the feed page, the output of this test can be seen at Appendix B figure 9.
+
+      The login form was also stress tested with 10,000 requests at a rate of 200 requests per second. Login information for a test user was passed into the test to see how the login form and 
+      database handled the load of such a volume of requests. Given that hosting solutions were limited and the server played host to important files and other projects, it was not an option at
+      this time to stress test the deployment on the production server, this test was performed on a local deployment. The command could be performed in the same fashion seen in
+      Appendix B figure 10 on a staging environment, the figure shown displays the output given for the local instance.
 
         \subsection{Validation and Verification}
 
@@ -379,7 +402,7 @@ same as being on continuous alert for predators, which causes a release of
         The product quality model defined in ISO/IEC 25010 consists of the quality categories seen in figure 2, below.
 
         \begin{figure}[h!]
-                \includegraphics[width=\linewidth]{iso.png}
+                \includegraphics[width=\linewidth]{images/iso.png}
                 \caption{Quality Characteristics of ISO 25010 - https://iso25000.com/images/figures/en/iso25010.png}
                 \label{figure 2}
         \end{figure}
@@ -390,24 +413,36 @@ same as being on continuous alert for predators, which causes a release of
 
 \section{Research Methodology}
 
+	\subsection{Research Question}
+		Could an institutionalised social media platform benefit the academic and social aspects of university life?
+
+	\subsection{Hypotheses}
+		\subsubsection{Hypothesis}
+		The prototype platform has a positive effect on the social and academic aspects of university life.
+\\
+		\subsubsection{Null Hypothesis}
+		The platform has no effect, or a negatice effect on the social and academic aspects of university life.
+
+
         \subsection{Philosophical Position}
         Having great applications within sociology and psychology, the philosophical approach of this study was taken from an 
         interpretivist point as the application of this platform and the observations of its utility somewhat align with the social
          sciences and as such will require a socio-scientific approach. This interpretivist approach by its nature called for a qualitative
          method; often criticised for its generalisability and flaws in reliability, quantitative and qualitative methods were combined
-         in order to increase reliability and validity of findings ultimately making this a mixed method study.
+         in order to increase the reliability and validity of findings ultimately making this a mixed-method study.
 
         \subsection{Experimental Design}
         To gather information on the effectiveness of my platform, I conducted a between-groups study involving
-	two study groups. An ideal sample size of 52 participants (2 groups of 26) was recommended by G*Power to establish statistical significance for this study, see figure 4 for a depiction of a
-	central and noncentral distribution plot. Both groups were given the same set of tasks to complete, group A were asked to fulfil
+	two study groups. An ideal sample size of 52 participants (2 groups of 26) was recommended by G*Power to establish statistical significance with a confidence interval of 95\%
+	for this study. See figure 4 for a depiction of a central and noncentral distribution plot, see Appendix F figure 18 for full G*Power output.
+	Both groups were given the same set of tasks to complete, group A were asked to fulfil
         these tasks on the existing online university portal ie. Learning Space or Moodle while group B were asked to 
         do so on the prototype platform. An online survey was used to collect information on the test users' experiences
         of both platforms in an effort to gauge how much of a benefit they felt the systems offered in both the
         learning and social aspects of university life. The survey was conducted in a similar manner to
         studies explored in the review of literature \cite{Liu2010}\cite{Baruah2012}\cite{Wang2011}\cite{Evans2014}\cite{Akram et al 2017},
         the results obtained from those papers seemed proficient and I felt it well justified the survey as a means for collecting data.
-        A between-subjects study was chosen as each group was testing only one platform as a cohort and asked to test all functionalities of
+        A between-subjects study was chosen as each group was testing only one platform as a cohort and were asked to test all functionalities of
         the system as per the tasks. Users were asked to complete a Likert Scale style survey and a qualitative survey to fully convey their experience.
 	        \begin{figure}[h!]
                 \includegraphics[width=\linewidth]{images/gpowerplot.png}
@@ -417,8 +452,8 @@ same as being on continuous alert for predators, which causes a release of
 	\subsection{Legal, Social \& Ethical considerations}
 
 	\subsubsection{Legal}
-        Database entries for users, required for functionality of the artefact were handled responsibly. Users passwords were hashed and salted to ensure that in
-	the event of a database breach,	the entries that the attacker would see could not resemble the actual data, and a server side pepper was also at play to
+        Database entries for users, required for functionality of the artefact were handled responsibly. Users' passwords were hashed and salted to ensure that in
+	the event of a database breach,	the entries that the attacker would see could not resemble the actual data, and a server-side pepper was also at play to
 	prevent such breaches from occurring. All regulations defined by GOV.UK and the Data Protection Act 2018 \cite{Gov UK Data Protection} were met and abided by throughout
         the development and life of the platform. More sensitive information such as race, ethnic background, religious beliefs and other more
         sensitive categories mentioned on the cited website were not stored for functionality of the platform as such information
@@ -426,23 +461,22 @@ same as being on continuous alert for predators, which causes a release of
 	through the account settings menu, informing users that their data was to solely be used for functionality within the platform, such as displaying
 	their name, email for log in authentication and so on.
 
-        ICO (Information Commisioners Office) \cite{ICO} Data protection self assessment for Data Controllers, Data Processors and Information Security
+        ICO (Information Commissioners Office) \cite{ICO} Data protection self-assessment for Data Controllers, Data Processors and Information Security
         checklist reports gave an overall rating of green, with all required Data Control and Security measures set to be in place and that
         there are no other parties receiving, processing or controlling user data from my platform. Any data held as part of research conducted was held to such standards,
 	regulations and was considered an utmost priority.
-
+\\
         \subsubsection{Social}
                 All measures were taken to ensure that opportunities for unwanted or harmful behaviours to take place (ie. bullying and discrimination)
                 were minimised during testing and data collection to ensure that the platform was a safe space for its users.
-
+\\
         \subsubsection{Ethical}
 
 		\paragraph{Informed Consent \& Voluntary Participation}
-
 		Participants were required to complete a consent form before commencement of their participation. This consent form outlined the general purpose
 		of the study, the purpose of the project and how the findings will be used while also ensuring their understanding that their participation is
 		voluntary and that they maintain the freedom to withdraw their participation at any point and for any reason without explanation.
-       
+     
       		 \paragraph{Do no harm}
        		The evaluation process was carried out in such a manner to minimise any potential causes of harm (unintentional or otherwise) to participants.
 		These potential harms could have taken form by subjecting users to undue stress, pain, anxiety, diminishing of self-esteem or invasions of privacy.
@@ -451,69 +485,69 @@ same as being on continuous alert for predators, which causes a release of
 
 		\paragraph{Confidentiality}
 		Any identifying information of participants, within my research data and the prototype platform, have not been made available to or accessed
-		by anybody apart from myself. As such all documentations and reports exclude any identifying user information in due respect to both participant
+		by anybody apart from myself. As such all documentation and reports exclude any identifying user information in due respect to both participant
 		and user confidentiality.
 
        		\paragraph{Anonymity}
 
-       		Participants data submissions were anonymous and no identifying factors were necessary or relevant as part of the questions or tasks that users 
+       		Participants' data submissions were anonymous and no identifying factors were necessary or relevant as part of the questions or tasks that users 
 		were asked to perform.
 
 		\paragraph{Only assess relevant components}
 		Only relevant components of functionality were assessed as part of this study, as such users were only asked to complete tasks which were able to be
-		accomplished on both platform being tested to avoid any biases that could come about by tailoring the questions in favour of one platform over 
-		another.                
+		accomplished on both platforms being tested to avoid any biases that could come about by tailoring the questions in favour of one platform over 
+		another.
 	\subsection{Data management}
-		Data for this study was collected by means of an online survey which consisted of both qualitative and quantitative questions. The quantitative
-		questions were in the form of a Likert scale, asking users to rate their experience of performing a certain task on a scale of 1 (least favourable
-		/ difficult) to 7 (most favourable / easy), while the qualitative questions asked users to explain a little about their experience of performing
+		Data for this study was collected by means of an online survey which consisted of both qualitative and quantitative questions. An online survey was chosen for this study to follow suit
+		with studies conducted in previous research within this area  \cite{Liu2010}\cite{Baruah2012}\cite{Wang2011}\cite{Evans2014}\cite{Akram et al 2017}. The quantitative
+		questions were in the form of a Likert scale, asking users to rate their experience of performing a certain task on a scale of 1 (least favourable/difficult)
+		to 7 (most favourable/easy), while the qualitative questions asked users to explain a little about their experience of performing
 		 that task.
 
 		Submissions were collected by using Microsoft forms and kept securely in a Microsoft Onedrive. At the end of the experimental phase any remaining
-		identifying factors were removed from the dataset to ensure security of participant data while working with any results on my local machine.
-		(TODO::: JUSTIFY LIKERT SCALE AND QUALITATIVE SURVEY BY REFERENCING LIT/LITREVIEW)
+		identifying factors were removed from the dataset to ensure the security of participant data while working with any results on my local machine.
 
 \section{Results}
 
- The survey to collect data consisted of both qualitative and quantitative questions. These questions were generally coupled by a quantitative question first, asking them to perform a task and 
- rate there experience of doing so on a Likert scale, followed by a qualitative question asking them to explain a little about there experience of performing the task. Two exceptions to this are questions
- 6 and 7 which ask how likely the user would be to engage with the community and how likely they would be to engage with course related content respectively.
+ The survey to collect data consisted of both qualitative and quantitative questions. These questions were generally coupled with a quantitative question first, asking them to perform a task and then 
+ rate their experience of doing so on a Likert scale, followed by a qualitative question asking them to explain a little about their experience of performing the task. Two exceptions to this are questions
+ 6 and 7 which ask how likely the user would be to engage with the community and how likely they would be to engage with course-related content respectively.
  \\
  \\
  The quantitative questions are as follows:
 \\
-
-    \begin{tabular}{ | c | c | }
+\centerline{
+    \begin{tabular}{|c|c|}
             \hline
       	    \thead{Question No.} & \thead{Question Text} \\
             \hline
-	    Q1 &  \makecell{Rate the difficulty of finding course related\\ content  on the platform.} \\
+	    Q1 &  \makecell{Rate the difficulty of finding course\\ related content on the platform.} \\
       	    \hline
-	    Q2 & \makecell{Rate the difficulty of finding a forum/\\conversation your modules on the platform.} \\
+	    Q2 & \makecell{Rate the difficulty of finding a forum/\\conversation about your modules on\\ the platform.} \\
 	    \hline
-	    Q3 & \makecell{Rate the difficulty of accessing your\\ account settings  on the platform.} \\
+	    Q3 & \makecell{Rate the difficulty of accessing your\\ account settings on the platform.} \\
 	    \hline
-	    Q4 & \makecell{Rate how much you feel the platform might\\ benefit your  education.} \\
+	    Q4 & \makecell{Rate how much you feel the platform might\\ benefit your education.} \\
 	    \hline
-	    Q5 & \makecell{Rate how much you feel the platform might\\ benefit your  social life at university.} \\
+	    Q5 & \makecell{Rate how much you feel the platform might\\ benefit your social life at university.} \\
 	    \hline
-	    Q6 & \makecell{How likely are you to engage with the\\ community on this  platform?} \\
+	    Q6 & \makecell{How likely are you to engage with the\\ community on this platform?} \\
 	    \hline
-	    Q7 & \makecell{How likely are you to engage with course\\ related material  on this platform?}  \\ 
+	    Q7 & \makecell{How likely are you to engage with course\\ related material on this platform?}  \\ 
 	    \hline
     \end{tabular}
-
+}
 	\subsection{Data Analyses}
 		With the Likert scale ranging from 1 (least favourable answer) to 7 (most favourable answer) users generally had a higher overall satisfaction rate on the prototype platform `myUniSocial'
-		with the exception of the final question, ``How likely are you to engage with course related material on this platform", which came in at a very close second. Figure 4 displays the mean scores
+		with the exception of the final question, ``How likely are you to engage with course-related material on this platform", which came in at a very close second. Figure 4 displays the mean scores
 		of all quantitative questions with group A representing the existing student portal and B depicting the scores from the prototype platform.
 
 		\begin{figure}[h!]
-        		\includegraphics[width=\linewidth]{images/GroupedBarComparison.png}
+			\centerline{
+				\includegraphics[width=\linewidth]{images/GroupedBarComparison.png}}
         		\caption{All quantitative question scores across both platform. A = Student Portal, B = Prototype Platform}
-        		\label{figure 4}
+			\label{figure 4}
 		\end{figure}
-
 
 		\begin{figure}[h!]
         		\includegraphics[width=\linewidth]{images/PrototypeFull.png}
@@ -527,30 +561,30 @@ same as being on continuous alert for predators, which causes a release of
         		\label{figure 6}
 		\end{figure}
 
-		Comparing figures 6 \& 7 shows that there is generally a wide spread within the results, but the majority of the more favourable results are still claimed by the prototype platform.
+		Comparing figures 6 \& 7 shows that there is generally a widespread within the results, but the majority of the more favourable results are still claimed by the prototype platform.
 		This is especially prevalent in any questions related more toward the social aspects of university, most notably questions 2, 5 and 6. The student portal scored higher on question 7
-		which asked users how likely they were to engage with course related content on the platform.
+		which asked users how likely they were to engage with course-related content on the platform.
 
 
 \section{Discussion}
 
 With the prototype platform generally having a higher overall score across all questions, it is suggested with some significance that an institutional social media platform centred around the university
-could indeed be of a benefit to both social and academic aspects to university life. Participants reported that even having used the existing student portal for some years, they were either unaware of the
+could indeed be of a benefit to both social and academic aspects of university life. Participants reported that even having used the existing student portal for some years, they were either unaware of the
 forum functionality that was in place or that it was simply not enticing to use without it being a criterion for sessioned work. The consensus was that participants saw very little to no benefit
 to their social lives within the student portal.
 
-Some of the lesser scores for the prototype platform were generally more centredd around finding course related content or using the platform as a general aid for their studies as they would the
+Some of the lesser scores for the prototype platform were generally more centred around finding course-related content or using the platform as a general aid for their studies as they would the
 student portal, and were typically coupled with qualitative responses explaining that they could not find course content specifically relating to them or their chosen track of study and modules.
-For this study to gain more concrete results their would be a necessary requirement for extra clearance and permissions to access university-wide module and student lists or information in order
+For this study to gain more concrete results there would be a requirement for extra clearance and permissions to access university-wide module and student lists or information in order to
 populate the modules with the correct students, in turn being on equal footing with the student portal and not ultimately comparing a literal against a hypothetical.
 
 The prototype platform witnessed a good level of engagement with some users posting questions into the myUni404 space, changing account profile pictures, posting and generally engaging with other
 students. This level of interaction could further support Kelm's \cite{Kelm2011} study in which social media was incorporated into course material and noted an increase in course engagement and sense of
 team ethic. Participants seemed to have no issues finding their way around the prototype platform or with any aspects of the usability of the system, evidence for this is suggested in the quantitative
-results as users appear to have experienced more difficulty in navigating to certain features of the platform within the student portal than on the prototype social media platform.
+results as users appear to have experienced more difficulty in navigating certain features of the platform within the student portal than on the prototype social media platform.
 
 Qualitative results from the prototype platform also mention that having to sign up and register as a user, in contrast to students already having an account pre-registered on the student portal
-at their arrival to university, left participants feeling that it would be an another platform to manage in addition to the social media sites that they regularly use during their everyday lives.
+at their arrival to university, left participants feeling that it would be another platform to manage in addition to the social media sites that they regularly use during their everyday lives.
 
 Improvements could be made to pull more robust outcomes should the study be iterated over again in an effort to remove any potential unconscious biases. Improvements that I would make would include; making
 Likert scale range from -4 to 4, or perhaps removing the numbers from the scale entirely in favour of a slider that starts at a neutral position and implementing some Human Computer Interaction
@@ -559,18 +593,18 @@ Likert scale range from -4 to 4, or perhaps removing the numbers from the scale 
 Given the small window of time to build the artefact and conduct this study, this research could be regarded as a viable precursor to a seemingly promising area of research. With more time, mitigation of 
 limitations such as; having support and access to resources from the institution regarding permissions to effectively redistribute course content, student records to facilitate automatic profile and
 account generation as well as populating modules on the platform with the correctly enrolled students, we could definitively answer the research question: Could an institutional social media platform be of a benefit
-to the social and academic aspects to university life.
+to the social and academic aspects of university life.
 
 
-\begin{itemize}
-        \item Reiterate the research problem and scope
-        \item State and synthesize the major findings.
-        \item Explain the meaning of the findings.
-        \item Relate the findings to prior art and studies.
-        \item Defend the interpretation, considering alternatives.
-        \item Articulate the broader implications for research, theory, and/or practice.
-        \item Suggest directions for future research.
-\end{itemize}
+%\begin{itemize}
+%        \item Reiterate the research problem and scope
+%        \item State and synthesize the major findings.
+%        \item Explain the meaning of the findings.
+%        \item Relate the findings to prior art and studies.
+%        \item Defend the interpretation, considering alternatives.
+%        \item Articulate the broader implications for research, theory, and/or practice.
+%        \item Suggest directions for future research.
+%\end{itemize}
 
 
 \section{Future Work}
@@ -597,10 +631,16 @@ to the social and academic aspects to university life.
 	social media platform could benefit both social and academic aspects of university life. Nonetheless, I feel that given the results, there is evidence to suggest that if studied further 
 	with the previously mentioned limitations and restrictions mitigated that it would be a welcome evolution of systems currently being used and in turn see an increase in student/course engagement
 	while promoting student collaboration.
-	The prototype platform saw good levels of enagement with users updating their profile information, changing profile and cover pictures, posting and making use of the `myUni404' section of the
-	platform which allows users to post programming or tech related questions that include a code snippet as well as users also replying to such content. This behaviour is promising in terms of the 
+	The prototype platform saw good levels of engagement with users updating their profile information, changing profile and cover pictures, posting and making use of the `myUni404' section of the
+	platform which allows users to post programming or tech-related questions that include a code snippet as well as users also replying to such content. This behaviour is promising in terms of the 
 	potential for collaboration that such a platform could provide and seemingly calls for a redesign or reformat of how student portals function for students at university.
 
+\section{Acknowledgements}
+I would like to thank Sokol Murturi, Dr Joseph Walton-
+Rivers, Dr Michael Scott and Warwick New as well as all
+other staff of the Games Academy at Falmouth University for
+making this project possible and guiding me in bringing it into
+fruition. 
 
 
 \begin{thebibliography}{}
@@ -719,25 +759,170 @@ to the social and academic aspects to university life.
         Gov.UK. {\it{https://www.gov.uk/data-protection}}
 \bibitem{ICO}
         Information Commisioner's Office. {\it{https://ico.org.uk/for-organisations/sme-web-hub/checklists/data-protection-self-assessment/}}
-
 \end{thebibliography}
-
 \appendices
 \newpage
-\section{Acknowledgements}
-Here I give my thanks to participants and staff that helped make this project
-
+\clearpage
+\newpage
 
 \section{Reflective Report}
-        Here I give my reflective addendum, things I could have done better and discuss my limitations etc approx 2000 words.
+ 
+This project ``myUniSocial" is an evolution of my previous project ``myCircle". Since starting my journey to become a web developer this type of project was always an
+area of interest for me as I feel social media systems, as we have come to know them, incorporate a vast range of elements and processes that I see to be at the core of many
+web applications.
+Overcoming challenges such as; how to store a users “friends list” without storing more than one name in a database field, 
+Implementing real-time chat systems, 
+Ensuring database data is kept securely, browser sessions, implementing HTTPS protocol for security and 
+Restricting content based on a particular users' friend list were all part of bringing this project to life. 
+In overcoming these challenges and acknowledging the broader applications of these elements and challenges, I can say that I chose the right project to pursue and feel that it has made me a better developer.
 
+\subsection{Cognitive}
+Having attempted to build a social media platform for my final second-year personal project, I approached the development of this platform with the knowledge of what parts to build. The
+first version worked well for the most part, but parts of the system had much room for improvement. Parts of the user interface were unsatisfactory, the layout was inconsistent across screen
+resolutions, the server code was all in one file and the chat system worked by sending a request to the back end every 5 seconds or so regardless of any updates that may or not be waiting.
+Acknowledging these issues along with the required components and moving parts, I knew exactly what the new system needed to feel more complete and boast a higher quality, and how to go about it.
+I understood that the front-end system needed to be built in a more modular way to get a satisfactory user interface across all screen resolutions. Working with the previous server code-base
+taught me to make modular server files from the get-go to acheive an easier and more maintainable development environment. Web sockets in place of the old chat system allowed for real-time
+communication while also reducing load on the server. All of these valuable updates came from the knowledge and understanding gained from the first iteration of building a social media system.
+An appropriate smart goal to further improve in this area could be to take more time to whiteboard and wireframe system architecture or components to better plan how the system or components should 
+be made for the group project currently in development.
+\\Specific: I will take time to whiteboard and plan new components for the group project to increase quality of system architecture.
+\\Measurable: This could be measured by observing a tidier codebase, cleaner solutions and a better system architecture.
+\\Achievable: Seeing how the implementation of a modular approach effected this project, applying that more rigorously to this project is very acheivable
+\\Relevant: Being able to think and plan around system architecture is very important to be a successful and competent web developer.
+\\Time-bound: The group project has a deadline for a little over a month away, giving this goal a concrete deadline.
+
+\subsection{Procedural}
+The “friends list” problem was one of the  challenges to overcome within developing the platform. Being poor form to store more than one item of data in any given field in an SQL database,
+figuring out how to store or gather a list of users' friends required a lot of thought. Whiteboarding the problem, I ultimately had the idea of storing `friendships` in their own separate
+table. These friendships weren’t attached to the users' table but stood aside from the users  consisting of two fields, user1 and user2. With this in place, to gather a user's friends
+list ‘Get all entries from the friendships database where user1 or user2 matches the username of the logged in user’. With that data gathered ‘remove all names from that returned list
+that matches the logged in user's username, leaving only the names of the users names. This way around the problem felt particularly clean as it works across the board and for all users.
+Storing multiple names in a friend list field instead would create a massively bloated database, taking into consideration people in the same friend circles that would have a similar
+friends list and essentially be a lot of duplicate data. The implementation I went with ensured that no data is repeated, is minimised ultimately being a clean solution to what could
+have been a messy problem. Overcoming this challenge made me recognise a great deal of self-development and vastly increased my confidence in problem-solving which I see to be vital as an 
+aspiring web developer.
+\\ A smart goal for this area could be to read more documentation. Reading more documentation could reduce the need to think around problems like this, as there is more than likely tried and true 
+industry standard ways of dealing with them.
+\\Specific: I will read documentation for the technologies and libraries used as part of the group project.
+\\Measurable: With a list in the project of what technologies are currently at play within the group project, this goal can be measured accurately against it.
+\\Achievable: This goal is very achievable as for the most part the documentations are easily accessed, and I have a list in the repository of what has been used.
+\\Relevant: As a web developer, a good understanding of technologies and frameworks is incredibly important making this goal very relevant to my career.
+\\Time-bound: The deadline for the group project is a little over a month away, giving this goal a set deadline to be completed in.
+\subsection{Affective}
+Developing the platform was something that I genuinely enjoyed doing. Seeing the platform grow and the components working as intended felt like achievement after achievement. That said, the want to keep 
+building and get things `just right' may have got in the way of other areas of this project. Wanting research participants to use and see the platform as envisioned ultimately delayed the 
+research part of this study and forced hasty decisions to be made such as quantitative survey questions that would have benefited from more time and thought. In the end my pride and perfectionist 
+approach to developing the artefact reduced the significance of the overall study whereas having users fulfil the research phase on a minimum viable product would have produced better results.
+The scope for this project was definitely ambitious and given the opportunity to do it all again I would still choose a project of this nature, but I would manage myself slightly more strictly in terms 
+of getting carried away on the artefact and pay more attention to the other elements of the study.\\ A smart goal for this could be to more strictly focus on producing an MVP for the group project right
+away to avoid other areas of the project being neglected.
+\\Specific: Focus more on producing an MVP.
+\\Measurable: This could be measured by having a working platform with reduced functionality sooner, rather than refined components being ready immediately.
+\\Achievable: This is very achievable and only requires a shift in focus.
+\\Relevant: This focus is very relevant to web development as it would increase client satisfaction by seeing working systems sooner.
+\\Time-bound: The group project is due in just over a month, making this goal comfortably time sensitive.
+
+
+\subsection{Dispositional}
+Lack of engagement certainly was not an issue with this research and development project. As previously mentioned working on this project was something that I genuinely enjoyed and I was proud to be 
+building what I felt to be a giant compared to other projects I have worked on both individually and as part of a team. With that in mind, and again previously mentioned, I may have been carried away with 
+the development of the artefact. The vast majority of my time over the past 3 months have been devoted to the platform's development whilst also making some time for other engagements such as work on other 
+projects and internships. Building something like a social media platform is a reasonably large task, and I felt that if it was missing any element that we have generally come to expect from a social media
+platform, that absence of that element would be all that people see. With that in mind I was very motivated to make sure that the platform had all of the common features that one would expect to see, with 
+the exclusion of voice or video chat.
+\\ A smart goal to better manage this would be to adhere to sprint goals more closely, getting a lot of work done can be good, but sometimes can get too ahead and cause
+more work for the following sprint. This could be applied to the group project.
+\\Specific: Following sprint goals and controlling how many hours per day I work.
+\\Measurable: This could be measured by ticking off my given tasks according to the current sprint cycle.
+\\Achievable: This goal is very acheivable as it ultimately gives me more free time.
+\\Relevant: Sticking to sprint and essentially `following the brief' is very important as a web developer and is vital for controlling workflow.
+\\Time-bound: With remaining development time for the group project being around a month, there is a strict timeframe to work with on this goal.
+
+\subsection{Interpersonal}
+Having built a good rapport with university staff, my supervisor and the available expertise, good communication and engagement was essential in the development of this project. Building a social media 
+platform with university elements built into it to try and show potential for its place within an academic setting comes with its own set of risks and potential pitfalls. Being able to communicate with 
+staff to discuss ideas and avoid any sort of privacy or legal issues was paramount. At all stages I tried to obtain a well-rounded group of opinions and suggestions from my peers, staff and supervisor 
+to help form what the platform ultimately came to be. All communications from both staff and my supervisor were treated as expert opinions, such as a prompt to remove university logo's from the platform
+to avoid any trademark issues regardless of the context of the project, were actioned accordingly although somewhat unfortunate as the platform felt more external and removed some university-style
+immersion. As such guidance from peers, staff and my supervisor have been an integral part of this research and development project. 
+\\As a smart goal, I will improve communication with other team members on the group project which ends next month.
+\\Specific: I will speak to the team once a week throughout the rest of development and note any ideas, issues or concerns.
+\\Measureable: This can be measured by taking notes, doing so will help solidify any suggestions or concerns.
+\\Achievable: I generally do not have an issue speaking up to the group, but a more conscious effort to increase communication cross the team is very acheivable.
+\\Relevant: Communication skills are very important as a web devloper as it helps gain a true understanding of projects, while also making me a better team member.
+\\Time-bound: With the deadline for team project being next month, there is an explicit time-frame to acheive this goal.
+
+\subsection{Practice}
+With my first attempt at developing a social media platform resulting in a codebase with large files and becoming difficult to maintain and work with, I made a conscious effort to take a more modular 
+approach to building the server and an object-oriented approach to front end components. This drastically improved the quality of not only the server and front-end components in themselves, but also 
+the quality of maintainability and development environment too. Finding problematic code became much easier, in turn making bug fixing an easier process, resulting in a cleaner workflow and greater 
+quality in the project as a whole. A well-kept development environment inspired more commenting and clean up in an effort towards keeping the project lean and easy to access components. Taking more 
+pride in this space inspired me to follow good practices such uniform variable, function and class naming conventions to uphold code readability as well as ensuring that any useless code was removed.
+Lessons learned from previous project made a huge difference in the overall quality of this platform taking form in more modular files, code maintainability and readability.
+\\As a smart goal, I will strive to further improve the quality of my work through means of code maintainability and best practices by the end of development of the group project next month.
+\\Specific: The goal is to improve quality of work through means of following best coding practices and codebase maintainability.
+\\Measurable: The success of this goal can be measured by observing code maintainability on the group project.
+\\Achievable: I have started to work within these practices as part of this project, that becoming second nature is very attainable.
+\\Relevant: To become a good web developer, developing these good habits is a must for success in the industry.
+\\Time-bound: With the deadline for the project being next month, there is a definitive time and date to measure this goal to.
+
+\subsection{Conclusion}
+In conducting this experiment and developing the artefact, I can say with certainty that I have learned a lot. The self development has presented itself in contrast between my past few projects and 
+has given me a great deal of confidence in the face of problem-solving and approaching issues that I might not immediately know how to solve. In light of self development, I will strive to continue 
+down a growing path and complete the SMART goals set out above. Taking time to whiteboard and think about system architecture, reading documentations for used software, focusing more on producing a
+minimum viable product, adhering to sprint goals more closely, increasing communication across the team and striving to improve codebase quality are all goals I will achieve in the weeks to come
+and will most definitely be a better developer because of it.
+
+
+\newpage
+\onecolumn
 
 \section{Artefact testing addendum}
 
+	\begin{figure}[h!]
+		\centering
+                \includegraphics[width=0.4\paperwidth]{images/unittests.png}
+                \caption{Front end unit tests}
+                \label{figure 3}
+	\end{figure}
+	\begin{figure}[h!]
+		\centering
+                \includegraphics[width=0.4\paperwidth]{images/lighthouse.png}
+                \caption{Google Lighthouse test output}
+                \label{figure 3}
+	\end{figure}
+	\begin{figure}[h!]
+		\centering
+                \includegraphics[width=0.85\paperwidth]{images/stresstest.png}
+		\caption{Login form stress test}
+                \label{figure 3}
+	\end{figure}
+\clearpage
+\newpage
 
 \section{Full R code}
-\newpage
-\onecolumn
+	
+
+
+
+\begin{figure}[h!]
+		\includegraphics[width=0.7\paperwidth]{images/groupedBarRcode.png}
+                \caption{Grouped bar plot in R Studio.}
+                \label{figure 4}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.7\paperwidth]{images/prototypeRcode.png}
+                \caption{Prototype platform Box plot in R studio.}
+                \label{figure 4}
+\end{figure}
+\begin{figure}[h!]
+                \includegraphics[width=0.7\paperwidth]{images/learningSpaceRcode.png}
+                \caption{Student Portal Box plot in R Studio.}
+                \label{figure 4}
+\end{figure}
+
+\clearpage
 \section{{Prototype Design UML Diagrams}}
 
 	\begin{figure}[h!]
@@ -758,7 +943,7 @@ Here I give my thanks to participants and staff that helped make this project
 \clearpage
 \newpage
 
-\section{Prototype platform screenshos}
+\section{Prototype platform screenshots}
 
 \begin{figure}[h!]
                 \includegraphics[width=0.85\paperwidth]{images/myCircle.png}
@@ -787,6 +972,27 @@ Here I give my thanks to participants and staff that helped make this project
 % $\backslash${\tt{includegraphics}} command within an optional argument. (You can create
 % your own custom macro containing the $\backslash${\tt{includegraphics}} command to make things
 % simpler here.)
+
+\newpage
+
+\clearpage
+\section{Additional materials}
+
+\subsection{Project Github link}
+https://github.falmouth.ac.uk/DD252935/myUniSocial
+
+\subsection{Refactoring}
+\subsubsection{Server Refactor Link}
+https://github.falmouth.ac.uk/DD252935/myUniSocial/commit/a0e6f0efe3ccdce7e3d7efd9ce74bae0ac874be3
+\subsubsection{Commit}
+a0e6f0efe3ccdce7e3d7efd9ce74bae0ac874be3
+
+\subsection{G*Power Output}
+\begin{figure}[h!]
+                \includegraphics[width=0.5\paperwidth]{images/gpoweroutput.png}
+		\caption{G*Power output}
+                \label{figure 4}
+\end{figure}
 
 \vspace{11pt}
 

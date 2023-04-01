@@ -300,6 +300,7 @@ function NavBar({
                                             alt=""
                                             src={myUniSocial}
                                             width="150px"
+                                            height="auto"
                                         />
                                     </Link>
                                 ) : (
@@ -318,6 +319,7 @@ function NavBar({
                                             alt=""
                                             src={myUni404}
                                             width="150px"
+                                            height="40px"
                                         />
                                     </Link>
                                 )}
