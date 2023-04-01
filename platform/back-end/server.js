@@ -44,7 +44,7 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "build")));
 const root = path.join(__dirname, "build");
-app.use(fallback("index.html", { root: root }));
+//app.use(fallback("index.html", { root: root }));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "build", "index.html"));
 });
@@ -80,9 +80,6 @@ let upload = multer({ storage: storage });
 const session = require("./session");
 app.use(session);
 
-const GET_ALL_USERS_FRIENDS =
-    "SELECT * FROM friendships WHERE user1 =? OR user2 = ?";
-
 //import different route files
 const setupRoutes = require("./routes/setup");
 const authRoutes = require("./routes/auth");
@@ -108,13 +105,6 @@ app.use("/messages", messageRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/posts", postRoutes);
 app.use("/feeds", feedRoutes);
-
-//app.get("*", function (req, res) {
-//    res.redirect("https://" + req.headers.host + req.url);
-
-// Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-// res.redirect('https://example.com' + req.url);
-//});
 
 //set server to listen to port from .env
 server.listen(process.env.PORT, () => {
