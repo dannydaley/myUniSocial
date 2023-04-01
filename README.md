@@ -79,7 +79,8 @@ The platform can be seen and used at the following URL: https://myunisocial.keme
 -   "socket.io": "^4.6.0",
 -   "sqlite3": "^5.1.4",
 -   "uuid": "^3.4.0"
-    ###Database
+
+### Database
 
 ## Database table setup
 

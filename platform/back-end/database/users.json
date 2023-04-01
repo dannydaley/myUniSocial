@@ -219,6 +219,26 @@
             "circles": "",
             "asked": 0,
             "answered": 0
+        },
+        {
+            "id": 12,
+            "username": "TestUser535651494",
+            "firstName": "Test",
+            "lastName": "User",
+            "email": "testuser@email.com",
+            "password": "e1425f7ab0061835ced7ae43b3a9928340a61bfab4d36a38ef3757342432348319d0388ac3837d5a99a6677f836fdca9253cf2c0a8953eaf676789d31a2adde8",
+            "passwordSalt": "49e4a26ad04f6901600288dd7eb803c840c4b6152f9bbbd3bf38adde01ae71f4f10e98a77dcb6a6286e89eed2f03f9cd5aabb1465ccea2701f7993f9e9450fa3b78bfa893c998b1ae65405099edc60ecbe4519384e3403244c049d7634d17f7b5c65f45b54463e732be672c9eae86a5376cdea0657328c93af6daa0ad5f35740aa316435bc02f144f577edc3b9628ad253987c0e25f028e48c50087dfc30a57643caee707cac96fd999523bb91f3e237aabe98fa278ddef23dc7737ec4f3f8f265affc60d3f526449fe6a9604730e9941416fca797372664d97e7a935d5570778df6c87296b13534ab84f30759b9046c085dffa1e0da54cd97710b1272648ed4",
+            "aboutMe": "I haven't added an about me yet!",
+            "course": "I haven't added my course yet!",
+            "year": 1,
+            "location": null,
+            "education": null,
+            "work": null,
+            "profilePicture": "images/defaultUser.png",
+            "coverPicture": null,
+            "circles": null,
+            "asked": 0,
+            "answered": 0
         }
     ]
 }
