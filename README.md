@@ -225,7 +225,7 @@ Run the unit tests with the following command:
 
 #### Server endpoint stress testing
 
-**This test will require the MySQL database to be set up with the dummy data provided.**
+**_This test will require the MySQL database to be set up with the dummy data provided._**
 
 **You may need to install 'loadtest' to perform this test**
 To install loadtest in a linux environment, run this command:
