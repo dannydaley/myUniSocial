@@ -13,6 +13,9 @@
 
 # misc
 .env
+
+*.yml
+
 docker-compose.yml
 #.DS_Store
 #.env.local
