@@ -141,36 +141,131 @@ The platform can be seen and used at the following URL: https://myunisocial.keme
 
 ### Running the project
 
-Opening a terminal in myUniSocial/platform/front-end and running ..
-`npm start`
-will start the react development server.
+#### Running the project in VS Code
 
-Opening another terminal in myUniSocial/platform/back-end and running ..
+With the repository cloned, open the "platform" directory in VS Code.
+
+In the topmost menu (where 'File' and 'Edit' usually are), select 'Terminal' => 'New Terminal'.
+
+Using the terminal navigate to the back-end directory with the following command.
+`cd back-end`
+
+Install the server dependencies.
+`npm install`
+
+Once the dependencies are installed, run the server in one of two modes.
+To just start the server run:
 `npm start`
-will run the express server, or alternatively..
-``npm run dev`
-to start the server in development mode.
+
+Or to run the server in development mode, run:
+`npm run dev`
+
+With the server now running, press the 'Split Terminal' in the menu just above the terminal, or in the topmost menu 'Terminal' => 'Split Terminal'.
+
+Using the new terminal navigate to the front-end directory with the following command. Note that it may start us in the back-end directory.
+`cd ../front-end`
+
+Ensure dependencies are installed.
+`npm install`
+
+With dependencies installed, start the front end in a development server.
+`npm start`
+
+The front end application will now be running on http://localhost:3000 .
+
+#### Running the project in a Ubuntu terminal environment
+
+Opening a terminal in the front end directory in the platform directory.
+
+If using a terminal already, navigate to the directory with the following command.
+`cd myUniSocial/platform/front-end`
+
+Ensure dependencies are installed.
+`npm install`
+
+With dependencies installed, start the front end in a development server.
+`npm start`
+
+The front end application will now be running on http://localhost:3000 .
+
+In a seperate terminal, navigate to the back-end directory.
+`cd myUniSocial/platform/back-end`
+
+**IMPORTANT** Rename the .env.example to .env
+
+Ensure dependencies are installed.
+`npm install`
+
+Once the dependencies are installed, run the server in one of two modes.
+To just start the server run:
+`npm start`
+
+Or to run the server in development mode, run:
+`npm run dev`
+
+The server will now be running on http://localhost:3001 .
+
+Note: the project will require a MySQL server to operate, see the MySQL documentation at:
+https://dev.mysql.com/doc/mysql-getting-started/en/
+
+**Make sure to use the credentials defined in the .env**
+
+With the database set up correctly, run this url in a browser to populate the database with dummy data:
+http://localhost:3001/setup/dummyTablesSetup
+
+### Testing the project
+
+#### Front end unit tests
+
+Navigate to front-end directory using the following command in a terminal:
+`cd platform/front-end`
+
+Run the unit tests with the following command:
+`npm run test`
+
+#### Server endpoint stress testing
+
+**This test will require the MySQL database to be set up with the dummy data provided.**
+
+**You may need to install 'loadtest' to perform this test**
+To install loadtest in a linux environment, run this command:
+`npm install -g loadtest`
+**More information on loadtest**: https://www.npmjs.com/package/loadtest
+
+Navigate to the back-end directory.
+`cd platform/back-end`
+
+Run the stress test:
+`loadtest -n 10000 -c 10 --rps 200 --data '{ "email": "testuser@email.com", "password": "test123"}' -T 'application/x-www-form-urlencoded' -m POST http://localhost:3001/auth/signin`
+
+Note: this stress test tests the login endpoint with test user credentials, running 10,000 requests, a concurrency of 10 at 200 requests per second.
 
 #### Deploying the project
 
+Only run a deployment from the 'main' branch, as environment variables are different for the purpose of testing, and to protect user data.
+This branch has been modified to support pop-up style deployment.
+
 To run the project in a local or remote deployment, I prefer to log in to the hosting solution (ideally ubuntu) via ssh.
 
-navigate to directory back-end directory
+Navigate to directory back-end directory
 `cd /srv/students/dd252935/myUniSocial/platform/back-end`
 
-run docker-compose build, and start the docker image...
+Rename, or copy the .env.example to ".env" (omitting the quotes)
+`cp .env.example .env`
+
+Run docker-compose build, and start the docker image...
 `docker-compose build && docker-compose up`
 
-or alternatively, run the command and start a daemonised image to run in the background..
+Rr alternatively, run the command and start a daemonised image to run in the background..
 `docker-compose build && docker-compose up -d`
 
 If restarting the project for whatever reason, be sure to do the necessary clean up.
 `docker-compose down && docker-compose build && docker-compose up -d --remove-orphans`
 
-### Testing the project
+Before anything will work, build and populate the database tables by going to the URL localhost:9030/setup/dummyTablesSetup
 
-front-end
-`npm run test`
+With the tables built user registration will work.
+alternatively, you can log in as a test user with the credentials
 
-endpoint stress testing
-`loadtest -n 10000 -c 10 --rps 200 --data '{ "email": "testuser@email.com", "password": "test123"}' -T 'application/x-www-form-urlencoded' -m POST http://localhost:3001/auth/signin`
+Email : testuser@email.com
+Password : test123

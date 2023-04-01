@@ -185,7 +185,7 @@
             "firstName": "Joanna",
             "lastName": "Nonexisterson",
             "username": "tester",
-            "email": "test@email.com",
+            "email": "test1@email.com",
             "password": "8669e1079a26fd9a9acd35812bfc65a516d27a113b44108f117a56f590e707f2274ff26f125805d49132d74480df54d740e67693b0d84eb6b47875d71715f06c",
             "passwordSalt": "d5d24ba38483b6ada5d46e8045a62d8185d1c963efafdf21ee0fb95575462cb1099b61b878a766b8c7273a20bf34e8c08bdbc81f164abd6acc39c9db17d4b87df5632f492d323f13d32db94798e9c3301caed2aa0482379c017e968a0854d57171a80dc4c94ce7560d1028ea36a7594c293c9a223ccc3813d2f275e681981a9a2f686b69b2f5b4fd9ee9910f10b178ea8f5df27d00ded77ef79f731b6a5ada87d080af97ed214a5347a07fbcebcb43192af3228bb5c3227105fb3df720bbbc8544c4f7aecf1f990d2bb10ee97feef2beae015a70b0355a709db499ed43a28a978941c5bdfceb725825ea7b5774e18642e8103b65894184fea59d1fa6870d2dcc",
             "aboutMe": "",
