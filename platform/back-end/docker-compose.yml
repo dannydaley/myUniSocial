@@ -8,7 +8,7 @@ services:
         restart: always
         environment:
             MYSQL_DATABASE: myUniSocialDb
-            MYSQL_ROOT_PASSWORD: DatabasePassword
+            MYSQL_ROOT_PASSWORD: 968dce130fc3
         volumes:
             - "myUniSocial-mysql-data:/var/lib/mysql"
 

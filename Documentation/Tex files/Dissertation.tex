@@ -338,7 +338,7 @@ Social Media, Social Networking, Higher Education.
 	consideration.
 
         \begin{figure}[h!]
-                \includegraphics[width=\linewidth]{myCircle.PNG}
+                \includegraphics[width=\linewidth]{images/myCircle.PNG}
                 \caption{myCircle user interface}
                 \label{figure 1}
         \end{figure}
@@ -350,10 +350,10 @@ Social Media, Social Networking, Higher Education.
         \end{figure}
 
 
-        In appendix D figure 11 a class diagram shows the base system, with the main functionality coming from 'App.js' and being passed into
+        In appendix D figure 14 a class diagram shows the base system, with the main functionality coming from 'App.js' and being passed into
         functional child components. This class diagram is a derivative of the previously mentioned 'myCircle' system with the relevant adjustments before the merging of the myUni404 platform,
-        as is the same for the Use Case Diagram which can be seen in Appendix E figure 13. The growth of the system after introducing the second platform can be observed by comparing Appendix D figure 9
-	 with Appendix D figure 12.
+        as is the same for the Use Case Diagram which can be seen in Appendix E figure 16. The growth of the system after introducing the second platform can be observed by comparing Appendix D figure 14
+	 with Appendix D figure 15.
 
         \subsection{Technological Stack}
         The stack used for the platform is a React.js front-end \cite{React} making use of Material UI for styling \cite{Mui}, alongside a Node powered back-end \cite{Node} with Express for server
@@ -374,7 +374,7 @@ Social Media, Social Networking, Higher Education.
 	top of its predecessor, so the vast majority of the front-end components were built to plug directly into back-end code base with the exception of some renaming of variables or endpoints. The
 	original myCircle server code was one file consisting of around 1200 lines which grew considerably with the introduction of the code from the second platform. Having learned better practices and
 	striving to meet and maintain industry standards, a large refactor was essential, endpoints were grouped by area of responsibility (ie relating to account settings, fetching or working with feed
-	data etc.) and split into separate modular files. This resulted in a massive increase in codebase maintainability and making the project much easier to work with. Further improvements to the
+	data etc.) and split into separate modular files. This resulted in a massive increase in codebase maintainability and making the project much easier to work with. This refactor can be seen by following the link in Appendix F item B. Further improvements to the
 	back end of the site refining how browser sessions were implemented. Browser sessions allow the web browser to store small pieces of data about the platform so that the website can remember
 	things like the users' username, profile picture and whether or not they have an active session, removing their need to log in after every page refresh and in turn improving the overall user
 	experience of the platform. The previous version of the chat system relied on the page making a request to the back end and updating regardless	of there being any new messages or updates
@@ -383,7 +383,7 @@ Social Media, Social Networking, Higher Education.
 
 	With the system being available to users throughout the experimental phase, system security was of the highest priority. As such the server and hosting solution was altered to use HTTPS protocol
 	 to add encryption to HTTP requests and responses, vastly increasing end-user security while using the platform. 
-	 A `Sign out \& delete data' button was also added for users to be able to wipe all of their data from the server on completion of their participation.`
+	 A `Sign out \& delete data' button was also added for users to be able to wipe all of their data from the server on completion of their participation.
        
        \subsection{Testing of artefact performance}
       Artefact front-end components were subject to unit tests which can be seen in Appendix B figure 8. The most frequently used and constant of components were tested and all testing suites produced
@@ -399,7 +399,7 @@ Social Media, Social Networking, Higher Education.
         To ensure the validation and verification of the proposed system, the application will be built in line with ISO/IEC 25010 \cite{ISO25000} standards.
         These standards ensure that elements such as functionality, performance, security, maintainability etc. are satisfactory to ensure the development of a high quality system.
 
-        The product quality model defined in ISO/IEC 25010 consists of the quality categories seen in figure 2, below.
+        The product quality model defined in ISO/IEC 25010 consists of the quality categories seen in figure 3, below.
 
         \begin{figure}[h!]
                 \includegraphics[width=\linewidth]{images/iso.png}
@@ -421,7 +421,7 @@ Social Media, Social Networking, Higher Education.
 		The prototype platform has a positive effect on the social and academic aspects of university life.
 \\
 		\subsubsection{Null Hypothesis}
-		The platform has no effect, or a negatice effect on the social and academic aspects of university life.
+		The platform has no effect, or a negative effect on the social and academic aspects of university life.
 
 
         \subsection{Philosophical Position}
@@ -434,7 +434,7 @@ Social Media, Social Networking, Higher Education.
         \subsection{Experimental Design}
         To gather information on the effectiveness of my platform, I conducted a between-groups study involving
 	two study groups. An ideal sample size of 52 participants (2 groups of 26) was recommended by G*Power to establish statistical significance with a confidence interval of 95\%
-	for this study. See figure 4 for a depiction of a central and noncentral distribution plot, see Appendix F figure 18 for full G*Power output.
+	for this study. See figure 4 for a depiction of a central and noncentral distribution plot, see Appendix F figure 21 for full G*Power output.
 	Both groups were given the same set of tasks to complete, group A were asked to fulfil
         these tasks on the existing online university portal ie. Learning Space or Moodle while group B were asked to 
         do so on the prototype platform. An online survey was used to collect information on the test users' experiences
@@ -539,7 +539,7 @@ Social Media, Social Networking, Higher Education.
 }
 	\subsection{Data Analyses}
 		With the Likert scale ranging from 1 (least favourable answer) to 7 (most favourable answer) users generally had a higher overall satisfaction rate on the prototype platform `myUniSocial'
-		with the exception of the final question, ``How likely are you to engage with course-related material on this platform", which came in at a very close second. Figure 4 displays the mean scores
+		with the exception of the final question, ``How likely are you to engage with course-related material on this platform", which came in at a very close second. Figure 5 displays the mean scores
 		of all quantitative questions with group A representing the existing student portal and B depicting the scores from the prototype platform.
 
 		\begin{figure}[h!]
